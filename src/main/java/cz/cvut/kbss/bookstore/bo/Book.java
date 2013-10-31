@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Book extends AbstractBusinessObject {
     @Column(nullable = false)
-    private String title;
+    private String title,asdf;
 
     @ManyToOne
     private User owner;
