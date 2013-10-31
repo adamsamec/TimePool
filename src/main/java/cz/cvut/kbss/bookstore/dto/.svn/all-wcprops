@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnkbss/!svn/ver/13008/teaching/wpa/cviceni/2012-zs/cviceni7/BookStore-JPA-Spring-jUnit/src/main/java/cz/cvut/kbss/bookstore/dto
+END
+BookDto.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svnkbss/!svn/ver/13008/teaching/wpa/cviceni/2012-zs/cviceni7/BookStore-JPA-Spring-jUnit/src/main/java/cz/cvut/kbss/bookstore/dto/BookDto.java
+END
+UserDto.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svnkbss/!svn/ver/13008/teaching/wpa/cviceni/2012-zs/cviceni7/BookStore-JPA-Spring-jUnit/src/main/java/cz/cvut/kbss/bookstore/dto/UserDto.java
+END
+AbstractDto.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svnkbss/!svn/ver/13008/teaching/wpa/cviceni/2012-zs/cviceni7/BookStore-JPA-Spring-jUnit/src/main/java/cz/cvut/kbss/bookstore/dto/AbstractDto.java
+END
