@@ -4,6 +4,7 @@ package cz.timepool.bo;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -29,4 +30,10 @@ public class User extends AbstractBusinessObject{
     
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date creationDate;
+    
+    @ManyToOne
+    private Event event;
+    
+    @ManyToOne
+    private Term term;
 }
