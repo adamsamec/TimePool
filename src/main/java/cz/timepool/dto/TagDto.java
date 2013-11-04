@@ -5,7 +5,7 @@ package cz.timepool.dto;
  *
  * @author Lukas Lowinger
  */
-class TagDto extends AbstractDto {
+public class TagDto extends AbstractDto {
     private String text;
 
     public TagDto(Long id, String text) {

@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Lukas Lowinger
  */
-class EventDto extends AbstractDto{
+public class EventDto extends AbstractDto{
     private String author;
     private String title;
     private String location;

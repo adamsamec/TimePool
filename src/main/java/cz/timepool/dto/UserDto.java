@@ -7,7 +7,7 @@ import java.util.Date;
  *
  * @author Lukas Lowinger
  */
-class UserDto extends AbstractDto {
+public class UserDto extends AbstractDto {
     private String email;
     private String name;
     private String surname;

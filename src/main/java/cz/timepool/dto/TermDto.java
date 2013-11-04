@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Lukas Lowinger
  */
-class TermDto extends AbstractDto{
+public class TermDto extends AbstractDto{
     private Date date;
     private String status;
     private String description;

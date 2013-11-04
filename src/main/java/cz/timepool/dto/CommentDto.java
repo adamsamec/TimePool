@@ -7,7 +7,7 @@ import java.util.Date;
  *
  * @author Lukas Lowinger
  */
-class CommentDto extends AbstractDto{
+public class CommentDto extends AbstractDto{
     private Long author;
     private Long term;
     private String text;
