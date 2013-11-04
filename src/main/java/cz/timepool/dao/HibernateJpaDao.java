@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Lukas Lowinger
  */
-@Component("genericDao")
+@Component("hibernateJpaDao")
 public class HibernateJpaDao implements GenericDao {
 
     @Autowired
