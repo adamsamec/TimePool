@@ -4,7 +4,7 @@
  */
 package cz.cvut.kbss.bookstore.service;
 
-import cz.cvut.kbss.bookstore.dto.UserDto;
+import cz.timepool.dto.UserDto;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

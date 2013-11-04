@@ -6,7 +6,7 @@ package cz.cvut.kbss.bookstore.service;
 
 import cz.cvut.kbss.bookstore.bo.Book;
 import cz.cvut.kbss.bookstore.bo.User;
-import cz.cvut.kbss.bookstore.dto.BookDto;
+import cz.timepool.dto.BookDto;
 import cz.cvut.kbss.bookstore.helper.HibernateTools;
 import java.util.ArrayList;
 import java.util.List;

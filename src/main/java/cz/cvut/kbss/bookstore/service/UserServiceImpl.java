@@ -5,7 +5,7 @@
 package cz.cvut.kbss.bookstore.service;
 
 import cz.cvut.kbss.bookstore.bo.User;
-import cz.cvut.kbss.bookstore.dto.UserDto;
+import cz.timepool.dto.UserDto;
 import cz.cvut.kbss.bookstore.helper.DtoTransformerHelper;
 import java.util.ArrayList;
 import java.util.List;

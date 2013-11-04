@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.cvut.kbss.bookstore.dto;
+package cz.timepool.dto;
 
 /**
  *
- * @author mickapa1
+ * @author Lukas L.
  */
 public class AbstractDto {
     protected Long id;
@@ -19,6 +19,7 @@ public class AbstractDto {
         this.id = id;
     }
 
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -33,7 +34,7 @@ public class AbstractDto {
         }
         return true;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 7;

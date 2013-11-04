@@ -4,7 +4,7 @@
  */
 package cz.cvut.kbss.bookstore.service;
 
-import cz.cvut.kbss.bookstore.dto.UserDto;
+import cz.timepool.dto.UserDto;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
