@@ -3,7 +3,7 @@
     <!-- Pro konfiguraci Spring beans budou pouzity take anotace -->
     <context:annotation-config />      
     <!-- Spring beans budou hledany v balicku cz.cvut.kbss (podpora anotaci @Component, @Repository, @Service) -->
-    <context:component-scan base-package="cz.cvut.kbss"/>
+    <context:component-scan base-package="cz.timepool"/>
     <!-- Podpora anotace @Configurable -->
     <context:spring-configured/> 
     <!-- Property files -->
@@ -34,7 +34,7 @@
                 <property name="showSql" value="true"/>            
             </bean>
         </property>
-        <property name="packagesToScan" value="cz.cvut.kbss" />
+        <property name="packagesToScan" value="cz.timepool" />
     </bean> 
     
     <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
