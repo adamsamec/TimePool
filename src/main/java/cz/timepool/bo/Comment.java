@@ -16,7 +16,6 @@ public class Comment extends AbstractBusinessObject{
     @Column(nullable = false)
     private User author;
     
-    @Column(nullable = false)
     @ManyToOne
     private Term term;
     

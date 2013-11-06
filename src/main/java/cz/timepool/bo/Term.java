@@ -17,7 +17,7 @@ public class Term extends AbstractBusinessObject{
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date date;
     
-    private String status;
+    private Enum status;
     
     private String description;
     
