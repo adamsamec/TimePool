@@ -34,7 +34,7 @@
                 <property name="showSql" value="true"/>            
             </bean>
         </property>
-        <property name="packagesToScan" value="cz.timepool" />
+        <property name="packagesToScan" value="cz.timepool.bo" />
     </bean> 
     
     <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
