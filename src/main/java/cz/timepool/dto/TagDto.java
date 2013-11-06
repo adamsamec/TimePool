@@ -7,6 +7,7 @@ package cz.timepool.dto;
  */
 public class TagDto extends AbstractDto {
     private String text;
+    private Long event;
 
     public TagDto(Long id, String text) {
         this.id = id;
