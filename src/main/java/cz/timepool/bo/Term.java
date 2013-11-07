@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
@@ -16,10 +15,11 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Term extends AbstractBusinessObject{
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date date;
     
-    private Enum status;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date suggestedDate;
+    
+    private String status;
     
     private String description;
     
@@ -58,19 +58,19 @@ public class Term extends AbstractBusinessObject{
         }
     }
 
-    public Date getDate() {
-        return date;
+    public Date getSuggestedDate() {
+        return suggestedDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setSuggestedDate(Date suggestedDate) {
+        this.suggestedDate = suggestedDate;
     }
 
-    public Enum getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Enum status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

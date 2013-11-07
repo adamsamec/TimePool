@@ -18,6 +18,8 @@ public interface GenericDao {
     
     public <ENTITY extends AbstractBusinessObject> ENTITY saveOrUpdate(ENTITY o);
     
+    public <ENTITY> ENTITY loadById(long id, Class<ENTITY> clazz);
+    
     public <ENTITY> ENTITY getById(Long id, Class<ENTITY> clazz);
     
     public <ENTITY> List<ENTITY> getByProperty(String property, Object value, Class<ENTITY> clazz);

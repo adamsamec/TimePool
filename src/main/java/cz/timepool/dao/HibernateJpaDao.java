@@ -5,6 +5,7 @@ import cz.timepool.bo.AbstractBusinessObject;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.stereotype.Component;
@@ -67,6 +68,11 @@ public class HibernateJpaDao implements GenericDao {
             e = clazz.cast(getEntityManager().createQuery("FROM " + clazz.getSimpleName() + " WHERE " + property + " = :value" ).setParameter("value", value).getSingleResult());
         }
         return e;
+    }
+
+    @Override
+    public <ENTITY> ENTITY loadById(long id, Class<ENTITY> clazz) {
+        return (ENTITY) ((Session) getEntityManager().getDelegate()).load(clazz, id);
     }
 }
 

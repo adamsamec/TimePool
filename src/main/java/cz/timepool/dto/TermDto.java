@@ -9,31 +9,31 @@ import java.util.List;
  * @author Lukas Lowinger
  */
 public class TermDto extends AbstractDto{
-    private Date date;
+    private Date suggestedDate;
     private String status;
     private String description;
-    private List<Long> comments;
     private Date creationDate;
     private Long author;
     private List<Long> participants;
+    private List<Long> comments;
 
-    public TermDto(Long id, Date date, String status, String description, List<Long> comments, Date creationDate, Long author, List<Long> participants) {
-        this.id = id;
-        this.date = date;
+    public TermDto(Date suggestedDate, String status, String description, Date creationDate, Long author, List<Long> participants, List<Long> comments) {
+        this.suggestedDate = suggestedDate;
         this.status = status;
         this.description = description;
-        this.comments = comments;
         this.creationDate = creationDate;
         this.author = author;
         this.participants = participants;
+        this.comments = comments;
     }
 
-    public Date getDate() {
-        return date;
+    
+    public Date getSuggestedDate() {
+        return suggestedDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setSuggestedDate(Date suggestedDate) {
+        this.suggestedDate = suggestedDate;
     }
 
     public String getStatus() {
