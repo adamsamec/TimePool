@@ -16,4 +16,23 @@ public class Tag extends AbstractBusinessObject{
     
     @ManyToOne
     private Event event;
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+        event.addTag(this);
+    }
+    
+    
 }

@@ -31,7 +31,7 @@ public class UserServiceImpl extends AbstractDataAccessService implements UserSe
     @Override
     public Long addUser(String name, String surname, String email, String pass, String description) {
         User newUser = new User();
-        newUser.setCreationDate(null);
+        newUser.setCreationDate(new Date());
         newUser.setName(name);
         newUser.setSurname(surname);
         newUser.setEmail(email);

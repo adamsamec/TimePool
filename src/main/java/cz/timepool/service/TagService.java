@@ -5,6 +5,7 @@ package cz.timepool.service;
  *
  * @author Lukas Lowinger
  */
-interface TagService {
-
+public interface TagService {
+    
+    public Long addTagToEvent(String text, Long event);
 }

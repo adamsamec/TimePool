@@ -1,6 +1,7 @@
 
 package cz.timepool.service;
 
+import cz.timepool.bo.Event;
 import cz.timepool.bo.Term;
 import cz.timepool.bo.User;
 import cz.timepool.dto.TermDto;
@@ -18,13 +19,14 @@ import org.springframework.stereotype.Component;
 class TermServiceImpl extends AbstractDataAccessService implements TermService{
 
     @Override
-    public Long addTermToEvent(Date suggestedDate, String status, String description, Date creationDate, Long author) {
+    public Long addTermToEvent(Date suggestedDate, String status, String description, Date creationDate, Long author, Long event) {
         Term term = new Term();
         term.setCreationDate(creationDate);
         term.setSuggestedDate(suggestedDate);
         term.setDescription(description);
         term.setStatus(status);
         term.setAuthor(genericDao.loadById(author, User.class));
+        term.setEvent(genericDao.loadById(event, Event.class));
         return genericDao.saveOrUpdate(term).getId();
     }
     
@@ -50,7 +52,7 @@ class TermServiceImpl extends AbstractDataAccessService implements TermService{
         List<TermDto> termsDto = new ArrayList<TermDto>();
         List<Term> terms = genericDao.getByProperty("event_id", idEvent, Term.class);
         for (Term term : terms) {
-            termsDto.add(new TermDto(term.getSuggestedDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), DtoTransformerHelper.getIdentifiers(term.getParticipants()), DtoTransformerHelper.getIdentifiers(term.getComments())));
+            termsDto.add(new TermDto(term.getSuggestedDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(),DtoTransformerHelper.getIdentifiers(term.getParticipants()), DtoTransformerHelper.getIdentifiers(term.getComments())));
         }
         return termsDto;
     }

@@ -2,14 +2,17 @@
 package cz.timepool.service;
 
 import cz.timepool.dto.EventDto;
+import java.util.Date;
 import java.util.List;
 
 /**
  *
  * @author Lukas Lowinger
  */
-interface EventService {
+public interface EventService {
     //TODO: dopsat metody
     public List<EventDto> getAllEvents();
+    public Long addEvent(Long author, String title, String location, String description, Date creationDate);
+    
 }
 

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
     "/WEB-INF/context/applicationContext.xml"})
-@TransactionConfiguration(defaultRollback=true, transactionManager="txManager")
+@TransactionConfiguration(defaultRollback=false, transactionManager="txManager")
 @Transactional //extend the transactions to whole tests in order to rollback the tests
 public abstract class AbstractServiceTest {
     

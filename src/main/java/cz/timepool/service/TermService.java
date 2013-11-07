@@ -9,9 +9,9 @@ import java.util.List;
  *
  * @author Lukas Lowinger
  */
-interface TermService {
+public interface TermService {
     //TODO: addTermToEvent, deleteTermById, editTermById, getTermByEventId, changeTermStatusById, addParticipantToTermById 
-    public Long addTermToEvent(Date date, String status, String description, Date creationDate, Long author);
+    public Long addTermToEvent(Date date, String status, String description, Date creationDate, Long author, Long event);
     public void deleteTermById (Long idTerm);
     public void editTermById (TermDto changedTerm, Long idTerm);
     public List<TermDto> getTermsByEventId(Long idEvent);

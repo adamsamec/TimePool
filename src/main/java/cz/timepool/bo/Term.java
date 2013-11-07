@@ -104,6 +104,7 @@ public class Term extends AbstractBusinessObject{
 
     public void setAuthor(User author) {
         this.author = author;
+        author.addAuthoredTerms(this);
     }
 
     public List<User> getParticipants() {
@@ -120,6 +121,7 @@ public class Term extends AbstractBusinessObject{
 
     public void setEvent(Event event) {
         this.event = event;
+        event.addTerm(this);
     }
     
     

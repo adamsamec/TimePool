@@ -59,6 +59,7 @@ public class Event extends AbstractBusinessObject{
 
     public void setAuthor(User author) {
         this.author = author;
+        author.addAuthoredEvent(this);
     }
 
     public String getTitle() {
