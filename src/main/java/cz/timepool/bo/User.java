@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
@@ -14,6 +14,7 @@ import javax.persistence.Temporal;
  * @author Lukas Lowinger
  */
 @Entity
+@Table(name="users")
 public class User extends AbstractBusinessObject{
     @Column (nullable=false)
     private String email;

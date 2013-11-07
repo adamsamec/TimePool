@@ -14,24 +14,33 @@ public class UserDto extends AbstractDto {
     private String surname;
     private String password;
     private String description;
-    private String settings;
     private Date creationDate;
     
     private List<Long> authoredEvents;
     private List<Long> authoredTerms; 
 
-    public UserDto(String email, String name, String surname, String password, String description, String settings, Date creationDate, List<Long> authoredEvents, List<Long> authoredTerms) {
+    public UserDto(String email, String name, String surname, String password, String description, Date creationDate, List<Long> authoredEvents, List<Long> authoredTerms) {
         this.email = email;
         this.name = name;
         this.surname = surname;
         this.password = password;
         this.description = description;
-        this.settings = settings;
         this.creationDate = creationDate;
         this.authoredEvents = authoredEvents;
         this.authoredTerms = authoredTerms;
     }
 
+        public UserDto(String email, String name, String surname, String password, String description, Date creationDate) {
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.authoredEvents = authoredEvents;
+        this.authoredTerms = authoredTerms;
+    }
+    
 
     public String getEmail() {
         return email;
@@ -71,14 +80,6 @@ public class UserDto extends AbstractDto {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getSettings() {
-        return settings;
-    }
-
-    public void setSettings(String settings) {
-        this.settings = settings;
     }
 
     public Date getCreationDate() {

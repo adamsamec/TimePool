@@ -6,12 +6,14 @@ import cz.timepool.dto.CommentDto;
 import cz.timepool.dto.TermDto;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Lukas Lowinger
  */
+@Component
 class CommentServiceImpl extends AbstractDataAccessService implements CommentService{
 
     @Transactional(readOnly=true)

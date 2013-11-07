@@ -22,4 +22,6 @@ public interface GenericDao {
     
     public <ENTITY> List<ENTITY> getByProperty(String property, Object value, Class<ENTITY> clazz);
     
+    public <ENTITY> ENTITY getByPropertyUnique(String property, Object value, Class<ENTITY> clazz);
+    
 }
