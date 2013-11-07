@@ -3,11 +3,13 @@ package cz.timepool.service;
 
 import cz.timepool.bo.Event;
 import cz.timepool.bo.Tag;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Lukas L.
  */
+@Component
 public class TagServiceImpl extends AbstractDataAccessService implements TagService{
 
     @Override

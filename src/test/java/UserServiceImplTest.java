@@ -1,5 +1,4 @@
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import cz.timepool.dto.UserDto;
 import cz.timepool.service.EventService;
 import cz.timepool.service.TagService;
