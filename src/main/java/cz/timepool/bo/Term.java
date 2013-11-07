@@ -1,6 +1,7 @@
 
 package cz.timepool.bo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -35,4 +36,14 @@ public class Term extends AbstractBusinessObject{
     
     @ManyToOne
     private Event event;
+    
+    public void addParticipant(User participant){
+        if(this.participants==null){
+            this.participants = new ArrayList<User>();
+        }
+        
+        if(!this.participants.contains(participant)){
+            participants.add(participant);
+        }
+    }
 }

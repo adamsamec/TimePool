@@ -1,6 +1,7 @@
 
 package cz.timepool.bo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -33,4 +34,22 @@ public class Event extends AbstractBusinessObject{
     
     @OneToMany
     private List<Term> terms;
+    
+    public void addTerm (Term term){
+        if(this.terms == null){
+            this.terms = new ArrayList<Term>();
+        }
+        if(!this.terms.contains(term)){
+            this.terms.add(term);
+        }
+    }
+    
+    public void add (Tag tag){
+        if(this.tags == null){
+            this.tags = new ArrayList<Tag>();
+        }
+        if(!this.tags.contains(tag)){
+            this.tags.add(tag);
+        }
+    }
 }

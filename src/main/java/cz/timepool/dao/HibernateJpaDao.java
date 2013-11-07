@@ -58,5 +58,15 @@ public class HibernateJpaDao implements GenericDao {
         }
         return o;
     }
+    
+    public <ENTITY> ENTITY getByPropertyUnique(String property, Object value, Class<ENTITY> clazz) {
+        ENTITY e;
+        if (value == null) {
+            e = clazz.cast(getEntityManager().createQuery("FROM " + clazz.getSimpleName() + " WHERE " + property + " IS NULL" ).getSingleResult());
+        } else {
+            e = clazz.cast(getEntityManager().createQuery("FROM " + clazz.getSimpleName() + " WHERE " + property + " = :value" ).setParameter("value", value).getSingleResult());
+        }
+        return e;
+    }
 }
 
