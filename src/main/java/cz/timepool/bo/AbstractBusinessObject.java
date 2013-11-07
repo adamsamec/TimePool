@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
- * @author mickapa1
+ * @author Lukas
  */
 @MappedSuperclass
 public class AbstractBusinessObject implements Serializable{
