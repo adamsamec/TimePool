@@ -40,6 +40,17 @@ public class User extends AbstractBusinessObject{
     @OneToMany
     private List<Term> authoredTerms;
     
+    @OneToMany
+    private List<Comment> authoredComments;
+    
+    public void addAuthoredComment(Comment comment){
+        if(this.authoredComments == null){
+            this.authoredComments = new ArrayList<Comment>();
+        }
+        if(!this.authoredComments.contains(comment)){
+            this.authoredComments.add(comment);
+        }
+    }
     
     public void addAuthoredEvent(Event event){
         if(authoredEvents ==null){

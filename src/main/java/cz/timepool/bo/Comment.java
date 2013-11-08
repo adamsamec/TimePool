@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Comment extends AbstractBusinessObject{
-    @Column(nullable = false)
+    @ManyToOne
     private User author;
     
     @ManyToOne
@@ -32,6 +32,7 @@ public class Comment extends AbstractBusinessObject{
 
     public void setAuthor(User author) {
         this.author = author;
+        author.addAuthoredComment(this);
     }
 
     public Term getTerm() {
@@ -40,6 +41,7 @@ public class Comment extends AbstractBusinessObject{
 
     public void setTerm(Term term) {
         this.term = term;
+        term.addComment(this);
     }
 
     public String getText() {
