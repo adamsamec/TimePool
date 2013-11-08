@@ -1,4 +1,3 @@
-
 package cz.timepool.bo;
 
 import java.util.ArrayList;
@@ -20,18 +19,19 @@ import org.hibernate.annotations.OrderBy;
  * @author Lukas Lowinger
  */
 @Entity
-@Table(name="users")
-public class User extends AbstractBusinessObject{
-    @Column (nullable=false)
+@Table(name = "users")
+public class User extends AbstractBusinessObject {
+
+    @Column(nullable = false)
     private String email;
     
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String name;
     
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String surname;
     
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String password;
     
     private String description;
@@ -39,57 +39,57 @@ public class User extends AbstractBusinessObject{
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date creationDate;
     
-    @OneToMany(cascade= CascadeType.REMOVE, mappedBy ="author")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
     private List<Event> authoredEvents;
     
-    @OneToMany(cascade= CascadeType.REMOVE,mappedBy="author")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
     private List<Term> authoredTerms;
     
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy="author")
-    @OrderBy(clause="surname")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
     private List<Comment> authoredComments;
     
     @ManyToMany
-    @JoinTable(name="users_participedTerm",
-        joinColumns=@JoinColumn(name="participed_users_id", referencedColumnName="ID"),
-        inverseJoinColumns=@JoinColumn(name="term_id", referencedColumnName="ID"))
+    @JoinTable(name = "users_participedTerm",
+    joinColumns = @JoinColumn(name = "participed_users_id", referencedColumnName = "ID"),
+    inverseJoinColumns = @JoinColumn(name = "term_id", referencedColumnName = "ID"))
     private List<Term> participedTerms;
-    
-    public void addParticipedTerm(Term term){
-        if(this.participedTerms == null){
+
+    public void addParticipedTerm(Term term) {
+        if (this.participedTerms == null) {
             this.participedTerms = new ArrayList<Term>();
         }
-        
-        if(!this.participedTerms.contains(term)){
+
+        if (!this.participedTerms.contains(term)) {
             this.participedTerms.add(term);
         }
     }
-    public void addAuthoredComment(Comment comment){
-        if(this.authoredComments == null){
+
+    public void addAuthoredComment(Comment comment) {
+        if (this.authoredComments == null) {
             this.authoredComments = new ArrayList<Comment>();
         }
-        if(!this.authoredComments.contains(comment)){
+        if (!this.authoredComments.contains(comment)) {
             this.authoredComments.add(comment);
         }
     }
-    
-    public void addAuthoredEvent(Event event){
-        if(authoredEvents ==null){
+
+    public void addAuthoredEvent(Event event) {
+        if (authoredEvents == null) {
             authoredEvents = new ArrayList<Event>();
         }
-        if(!authoredEvents.contains(event)){
+        if (!authoredEvents.contains(event)) {
             authoredEvents.add(event);
         }
     }
-    
-    public void addAuthoredTerms(Term term){
-        if(authoredTerms ==null){
+
+    public void addAuthoredTerms(Term term) {
+        if (authoredTerms == null) {
             authoredTerms = new ArrayList<Term>();
         }
-        if(!authoredTerms.contains(term)){
+        if (!authoredTerms.contains(term)) {
             authoredTerms.add(term);
         }
-    }    
+    }
 
     public List<Comment> getAuthoredComments() {
         return authoredComments;
@@ -170,7 +170,4 @@ public class User extends AbstractBusinessObject{
     public void setParticipedTerms(List<Term> participedTerms) {
         this.participedTerms = participedTerms;
     }
-    
-    
-    
 }

@@ -62,8 +62,9 @@ public class UserServiceImplTest extends AbstractServiceTest {
         
         Long id = userService.addUser(name,surname,email,pass,desctiption);
 //        assertEquals(1, userService.getAllUsers().size());
-//        userService.deleteUser(id);
-//        assertEquals(0, userService.getAllUsers().size());        
+        int expected = userService.getAllUsers().size() -1;
+        userService.deleteUser(id);
+        assertEquals(expected, userService.getAllUsers().size());        
     }      
 
     @Test 
