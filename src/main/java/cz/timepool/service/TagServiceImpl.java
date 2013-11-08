@@ -21,6 +21,7 @@ public class TagServiceImpl extends AbstractDataAccessService implements TagServ
         Tag t = new Tag();
         t.setText(text);
         Event e = genericDao.loadById(event, Event.class);
+        t.addEvent(e);
         e.addTag(t);
         return genericDao.saveOrUpdate(t).getId();
     }

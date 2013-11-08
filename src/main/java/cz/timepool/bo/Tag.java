@@ -1,6 +1,7 @@
 
 package cz.timepool.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,9 +19,17 @@ public class Tag extends AbstractBusinessObject{
     @Column (nullable=false)
     private String text;
     
-    @ManyToMany( mappedBy="tags")
+    @ManyToMany( cascade= CascadeType.REMOVE,mappedBy="tags")
     private List<Event> events;
 
+    public void addEvent(Event e){
+        if(events == null ){
+            events = new ArrayList<Event>();
+        }
+        if(!events.contains(e)){
+            events.add(e);
+        }
+    }
     public String getText() {
         return text;
     }
@@ -36,5 +45,5 @@ public class Tag extends AbstractBusinessObject{
     public void setEvents(List<Event> events) {
         this.events = events;
     }
-
+   
 }

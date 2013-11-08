@@ -48,7 +48,7 @@ public class User extends AbstractBusinessObject {
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
     private List<Comment> authoredComments;
     
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(name = "users_participedTerm",
     joinColumns = @JoinColumn(name = "participed_users_id", referencedColumnName = "ID"),
     inverseJoinColumns = @JoinColumn(name = "term_id", referencedColumnName = "ID"))

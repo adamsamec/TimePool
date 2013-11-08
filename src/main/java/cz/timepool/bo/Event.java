@@ -33,10 +33,10 @@ public class Event extends AbstractBusinessObject{
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date creationDate;
     
-    @ManyToMany
+    @ManyToMany(cascade= CascadeType.REMOVE)
     @JoinTable(name = "events_tags",
-    joinColumns = @JoinColumn(name = "event_id", referencedColumnName = "ID"),
-    inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "ID"))
+    joinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "ID"),
+    inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "ID"))
     private List<Tag> tags;
     
     @OneToMany(cascade= CascadeType.REMOVE, mappedBy="event")
