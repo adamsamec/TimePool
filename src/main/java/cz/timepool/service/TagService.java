@@ -13,5 +13,5 @@ public interface TagService {
     public Long addTagToEvent(String text, Long event);
     //public Long addTag(String text);
     public List<TagDto> getAllTags();
-    public void deleteTagFrom(Long tag);
+    public void deleteTag(Long tag);
 }

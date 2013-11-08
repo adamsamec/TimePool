@@ -4,6 +4,7 @@ package cz.timepool.service;
 import cz.timepool.bo.Event;
 import cz.timepool.bo.Tag;
 import cz.timepool.dto.TagDto;
+import cz.timepool.helper.DtoTransformerHelper;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ public class TagServiceImpl extends AbstractDataAccessService implements TagServ
         Tag t = new Tag();
         t.setText(text);
         Event e = genericDao.loadById(event, Event.class);
-        t.setEvent(e);
+        e.addTag(t);
         return genericDao.saveOrUpdate(t).getId();
     }
 
@@ -29,14 +30,14 @@ public class TagServiceImpl extends AbstractDataAccessService implements TagServ
         List<TagDto> tagDtos = new ArrayList<TagDto>();
         List<Tag> tags = genericDao.getAll(Tag.class);
         for (Tag tag : tags) {
-            tagDtos.add(new TagDto(tag.getId(), tag.getEvent().getId(), tag.getText()));
+            tagDtos.add(new TagDto(tag.getId(), DtoTransformerHelper.getIdentifiers(tag.getEvents()), tag.getText()));
         }
         return tagDtos;
     }
 
     @Override
-    public void deleteTagFromEvent(Long tag) {
-        genericDao.
+    public void deleteTag(Long tag) {
+        genericDao.removeById(tag, Tag.class);
     }
 
 }

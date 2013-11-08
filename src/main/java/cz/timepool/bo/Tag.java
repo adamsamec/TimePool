@@ -1,8 +1,12 @@
 
 package cz.timepool.bo;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 /**
@@ -14,8 +18,8 @@ public class Tag extends AbstractBusinessObject{
     @Column (nullable=false)
     private String text;
     
-    @ManyToOne
-    private Event event;
+    @ManyToMany( mappedBy="tags")
+    private List<Event> events;
 
     public String getText() {
         return text;
@@ -25,14 +29,12 @@ public class Tag extends AbstractBusinessObject{
         this.text = text;
     }
 
-    public Event getEvent() {
-        return event;
+    public List<Event> getEvents() {
+        return events;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
-        event.addTag(this);
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
-    
-    
+
 }
