@@ -39,7 +39,7 @@ public class User extends AbstractBusinessObject{
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date creationDate;
     
-    @OneToMany
+    @OneToMany(cascade= CascadeType.ALL, mappedBy ="author")
     private List<Event> authoredEvents;
     
     @OneToMany(cascade= CascadeType.ALL,mappedBy="author")
@@ -51,7 +51,7 @@ public class User extends AbstractBusinessObject{
     
     @ManyToMany
     @JoinTable(name="users_participedTerm",
-        joinColumns=@JoinColumn(name="users_id", referencedColumnName="ID"),
+        joinColumns=@JoinColumn(name="participed_users_id", referencedColumnName="ID"),
         inverseJoinColumns=@JoinColumn(name="term_id", referencedColumnName="ID"))
     private List<Term> participedTerms;
     

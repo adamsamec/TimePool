@@ -15,7 +15,6 @@ import javax.persistence.Temporal;
 @Entity
 public class Comment extends AbstractBusinessObject{
     @ManyToOne
-    @JoinColumn(name = "userId")
     private User author;
     
     @ManyToOne

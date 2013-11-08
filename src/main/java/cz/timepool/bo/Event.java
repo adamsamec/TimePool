@@ -4,6 +4,7 @@ package cz.timepool.bo;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -29,10 +30,10 @@ public class Event extends AbstractBusinessObject{
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date creationDate;
     
-    @OneToMany
+    @OneToMany(cascade= CascadeType.ALL, mappedBy="event")
     private List<Tag> tags;
     
-    @OneToMany
+    @OneToMany(cascade= CascadeType.ALL, mappedBy="event")
     private List<Term> terms;
     
     public void addTerm (Term term){
