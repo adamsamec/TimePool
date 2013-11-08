@@ -2,6 +2,7 @@
 package cz.timepool.dao;
 
 import cz.timepool.bo.AbstractBusinessObject;
+import cz.timepool.bo.Term;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -38,7 +39,7 @@ public class HibernateJpaDao implements GenericDao {
     public <ENTITY extends AbstractBusinessObject> void removeById(long id, Class<ENTITY> clazz) {
         ENTITY e = getEntityManager().find(clazz, id);
         if (e != null) {
-            System.out.println("nalezen");
+            System.out.println("nalezen tento "+e);
             getEntityManager().remove(e);
         }
         else{

@@ -30,10 +30,10 @@ public class Event extends AbstractBusinessObject{
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date creationDate;
     
-    @OneToMany(cascade= CascadeType.ALL, mappedBy="event")
+    @OneToMany(cascade= CascadeType.REMOVE, mappedBy="event")
     private List<Tag> tags;
     
-    @OneToMany(cascade= CascadeType.ALL, mappedBy="event")
+    @OneToMany(cascade= CascadeType.REMOVE, mappedBy="event")
     private List<Term> terms;
     
     public void addTerm (Term term){

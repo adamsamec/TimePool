@@ -39,13 +39,13 @@ public class User extends AbstractBusinessObject{
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date creationDate;
     
-    @OneToMany(cascade= CascadeType.ALL, mappedBy ="author")
+    @OneToMany(cascade= CascadeType.REMOVE, mappedBy ="author")
     private List<Event> authoredEvents;
     
-    @OneToMany(cascade= CascadeType.ALL,mappedBy="author")
+    @OneToMany(cascade= CascadeType.REMOVE,mappedBy="author")
     private List<Term> authoredTerms;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="author")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy="author")
     @OrderBy(clause="surname")
     private List<Comment> authoredComments;
     

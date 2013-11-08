@@ -25,7 +25,7 @@ public class Term extends AbstractBusinessObject{
     
     private String description;
     
-    @OneToMany(cascade= CascadeType.ALL , mappedBy="term")
+    @OneToMany(cascade= CascadeType.REMOVE , mappedBy="term")
     private List<Comment> comments;
     
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -34,7 +34,7 @@ public class Term extends AbstractBusinessObject{
     @ManyToOne
     private User author;
     
-     @ManyToMany(cascade= CascadeType.ALL , mappedBy="participedTerms")
+     @ManyToMany(cascade= CascadeType.REMOVE , mappedBy="participedTerms")
     private List<User> participants;
     
     @ManyToOne
@@ -126,5 +126,8 @@ public class Term extends AbstractBusinessObject{
         event.addTerm(this);
     }
     
-    
+        @Override
+    public String toString() {
+        return "Term ::: ID : "+id+"status : "+status+" description: "+description;
+    }
 }
