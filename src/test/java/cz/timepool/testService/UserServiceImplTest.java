@@ -1,4 +1,7 @@
+package cz.timepool.testService;
 
+
+import cz.timepool.testService.AbstractServiceTest;
 import cz.timepool.dto.UserDto;
 import cz.timepool.service.EventService;
 import cz.timepool.service.TagService;

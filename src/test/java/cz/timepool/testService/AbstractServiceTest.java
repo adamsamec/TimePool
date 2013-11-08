@@ -1,3 +1,5 @@
+package cz.timepool.testService;
+
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
