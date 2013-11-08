@@ -4,6 +4,7 @@ package cz.timepool.bo;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
@@ -14,6 +15,7 @@ import javax.persistence.Temporal;
 @Entity
 public class Comment extends AbstractBusinessObject{
     @ManyToOne
+    @JoinColumn(name = "userId")
     private User author;
     
     @ManyToOne

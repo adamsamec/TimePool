@@ -50,7 +50,7 @@ class TermServiceImpl extends AbstractDataAccessService implements TermService{
     @Override
     public List<TermDto> getTermsByEventId(Long idEvent) {
         List<TermDto> termsDto = new ArrayList<TermDto>();
-        List<Term> terms = genericDao.getByProperty("event_id", idEvent, Term.class);
+        List<Term> terms = genericDao.getByProperty("event", genericDao.loadById(idEvent, Event.class), Term.class);
         for (Term term : terms) {
             termsDto.add(new TermDto(term.getId(),term.getSuggestedDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(),DtoTransformerHelper.getIdentifiers(term.getParticipants()), DtoTransformerHelper.getIdentifiers(term.getComments())));
         }

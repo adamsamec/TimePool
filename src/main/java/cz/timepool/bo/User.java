@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import org.hibernate.annotations.OrderBy;
 
 /**
  *
@@ -41,6 +42,7 @@ public class User extends AbstractBusinessObject{
     private List<Term> authoredTerms;
     
     @OneToMany
+    @OrderBy(clause="surname")
     private List<Comment> authoredComments;
     
     public void addAuthoredComment(Comment comment){
