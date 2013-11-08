@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,6 +20,7 @@ import org.hibernate.annotations.OrderBy;
  *
  * @author Lukas Lowinger
  */
+@NamedQueries({ @NamedQuery(name = "findUsersById", query = "from User u where u.id= :idUser" )})//netusim kde to pouzit
 @Entity
 @Table(name = "users")
 public class User extends AbstractBusinessObject {
@@ -46,6 +49,7 @@ public class User extends AbstractBusinessObject {
     private List<Term> authoredTerms;
     
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
+    @OrderBy(clause="creationDate")
     private List<Comment> authoredComments;
     
     @ManyToMany(cascade = CascadeType.REMOVE)
