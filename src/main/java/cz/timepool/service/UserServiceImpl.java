@@ -22,7 +22,7 @@ public class UserServiceImpl extends AbstractDataAccessService implements UserSe
         List<UserDto> userDtos = new ArrayList<UserDto>();
 
         for (User u : users) {
-            userDtos.add(new UserDto(u.getEmail(),u.getName(),u.getSurname(),u.getPassword(),u.getDescription(),u.getCreationDate(),DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()),DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms())));
+            userDtos.add(new UserDto(u.getId(),u.getEmail(),u.getName(),u.getSurname(),u.getPassword(),u.getDescription(),u.getCreationDate(),DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()),DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()),DtoTransformerHelper.getIdentifiers(u.getAuthoredComments())));
             //userDtos.add(new UserDto(u.getEmail(),u.getName(),u.getSurname(),u.getPassword(),u.getDescription(),u.getCreationDate()));
         }
         return userDtos;
@@ -49,7 +49,7 @@ public class UserServiceImpl extends AbstractDataAccessService implements UserSe
     @Override
     public UserDto getUserById(Long id) {
         User u = genericDao.getByPropertyUnique("id", id, User.class);
-        return new UserDto(u.getEmail(),u.getName(),u.getSurname(),u.getPassword(),u.getDescription(),u.getCreationDate(),DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()),DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()));
+        return new UserDto(u.getId(),u.getEmail(),u.getName(),u.getSurname(),u.getPassword(),u.getDescription(),u.getCreationDate(),DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()),DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()),DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()));
 //        return new UserDto(u.getEmail(),u.getName(),u.getSurname(),u.getPassword(),u.getDescription(),u.getCreationDate());
     }
     

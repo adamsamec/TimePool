@@ -70,6 +70,14 @@ public class User extends AbstractBusinessObject{
         }
     }    
 
+    public List<Comment> getAuthoredComments() {
+        return authoredComments;
+    }
+
+    public void setAuthoredComments(List<Comment> authoredComments) {
+        this.authoredComments = authoredComments;
+    }
+
     public String getEmail() {
         return email;
     }
