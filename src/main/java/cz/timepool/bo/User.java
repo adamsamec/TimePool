@@ -45,7 +45,7 @@ public class User extends AbstractBusinessObject{
     @OneToMany(cascade= CascadeType.ALL,mappedBy="author")
     private List<Term> authoredTerms;
     
-    @OneToMany(mappedBy="author")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="author")
     @OrderBy(clause="surname")
     private List<Comment> authoredComments;
     

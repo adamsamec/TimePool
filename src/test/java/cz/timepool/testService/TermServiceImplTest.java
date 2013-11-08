@@ -48,8 +48,7 @@ public class TermServiceImplTest extends AbstractServiceTest{
         int expected = termService.getTermsByEventId(idEvent).size();
         //assertEquals(1, expected);
         termService.deleteTermById(idTerm);
-        //assertEquals(expected-1, termService.getTermsByEventId(idEvent).size());
-        
+        assertEquals(expected-1, termService.getTermsByEventId(idEvent).size());        
     }
     private Long addEvent(Long idAuthor){
         return eventService.addEvent(idAuthor, "NAZEV", "LOKACE", "POPIS", new Date());
