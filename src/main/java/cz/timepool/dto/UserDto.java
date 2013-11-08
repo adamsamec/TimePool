@@ -19,8 +19,9 @@ public class UserDto extends AbstractDto {
     private List<Long> authoredEvents;
     private List<Long> authoredTerms; 
     private List<Long> authoredComments;
+    private List<Long> participedTerms;
 
-    public UserDto(Long id, String email, String name, String surname, String password, String description, Date creationDate, List<Long> authoredEvents, List<Long> authoredTerms, List<Long> authoredComments) {
+    public UserDto(Long id, String email, String name, String surname, String password, String description, Date creationDate, List<Long> authoredEvents, List<Long> authoredTerms, List<Long> authoredComments, List<Long> participedTerms) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -31,7 +32,9 @@ public class UserDto extends AbstractDto {
         this.authoredEvents = authoredEvents;
         this.authoredTerms = authoredTerms;
         this.authoredComments = authoredComments;
+        this.participedTerms = participedTerms;
     }
+
 
     public String getEmail() {
         return email;
@@ -103,6 +106,14 @@ public class UserDto extends AbstractDto {
 
     public void setAuthoredComments(List<Long> authoredComments) {
         this.authoredComments = authoredComments;
+    }
+
+    public List<Long> getParticipedTerms() {
+        return participedTerms;
+    }
+
+    public void setParticipedTerms(List<Long> participedTerms) {
+        this.participedTerms = participedTerms;
     }
     
     

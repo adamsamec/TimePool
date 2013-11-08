@@ -4,8 +4,12 @@ package cz.timepool.bo;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -38,13 +42,28 @@ public class User extends AbstractBusinessObject{
     @OneToMany
     private List<Event> authoredEvents;
     
-    @OneToMany
+    @OneToMany(cascade= CascadeType.ALL,mappedBy="author")
     private List<Term> authoredTerms;
     
-    @OneToMany
+    @OneToMany(mappedBy="author")
     @OrderBy(clause="surname")
     private List<Comment> authoredComments;
     
+    @ManyToMany
+    @JoinTable(name="users_participedTerm",
+        joinColumns=@JoinColumn(name="users_id", referencedColumnName="ID"),
+        inverseJoinColumns=@JoinColumn(name="term_id", referencedColumnName="ID"))
+    private List<Term> participedTerms;
+    
+    public void addParticipedTerm(Term term){
+        if(this.participedTerms == null){
+            this.participedTerms = new ArrayList<Term>();
+        }
+        
+        if(!this.participedTerms.contains(term)){
+            this.participedTerms.add(term);
+        }
+    }
     public void addAuthoredComment(Comment comment){
         if(this.authoredComments == null){
             this.authoredComments = new ArrayList<Comment>();
@@ -142,6 +161,14 @@ public class User extends AbstractBusinessObject{
 
     public void setAuthoredTerms(List<Term> authoredTerms) {
         this.authoredTerms = authoredTerms;
+    }
+
+    public List<Term> getParticipedTerms() {
+        return participedTerms;
+    }
+
+    public void setParticipedTerms(List<Term> participedTerms) {
+        this.participedTerms = participedTerms;
     }
     
     

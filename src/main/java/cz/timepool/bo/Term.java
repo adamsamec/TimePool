@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -33,7 +34,7 @@ public class Term extends AbstractBusinessObject{
     @ManyToOne
     private User author;
     
-     @OneToMany(cascade= CascadeType.ALL , mappedBy="term")
+     @ManyToMany(cascade= CascadeType.ALL , mappedBy="participedTerms")
     private List<User> participants;
     
     @ManyToOne
