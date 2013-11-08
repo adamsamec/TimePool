@@ -2,9 +2,12 @@
 package cz.timepool.service;
 
 import cz.timepool.bo.Comment;
+import cz.timepool.bo.Term;
+import cz.timepool.bo.User;
 import cz.timepool.dto.CommentDto;
 import cz.timepool.dto.TermDto;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,27 +22,35 @@ class CommentServiceImpl extends AbstractDataAccessService implements CommentSer
     @Transactional(readOnly=true)
     @Override
     public List<CommentDto> getAllByTerm(Long idTerm) {
-        List<Comment> boList = genericDao.getByProperty("id", idTerm, Comment.class);
+        List<Comment> boList = genericDao.getByProperty("term", genericDao.loadById(idTerm, Term.class), Comment.class);
         List<CommentDto> dtoList = new ArrayList<CommentDto>();
         for (Comment comment : boList) {
-           // dtoList.add(new CommentDto(comment.getId(), comment.getAuthor().getId(),comment.getTerm().getId() , comment.getText(), comment.getCreationDate()));
+            dtoList.add(new CommentDto(comment.getId(), comment.getAuthor().getId(),comment.getTerm().getId() , comment.getText(), comment.getCreationDate()));
         }
         return dtoList;
     }
 
     @Override
     public void addCommentToTerm(String text, Long idAuthor, Long idTerm) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Term term = genericDao.loadById(idTerm, Term.class);
+        User a = genericDao.loadById(idAuthor, User.class);
+        Comment c = new Comment();
+        c.setAuthor(a);
+        c.setText(text);
+        c.setCreationDate(new Date());
+        term.addComment(c);
+        genericDao.saveOrUpdate(term);
     }
 
     @Override
     public void editCommentById(String text, Long id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Comment c = genericDao.loadById(id, Comment.class);
+        c.setText(text);
     }
 
     @Override
     public void deleteCommentById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        genericDao.removeById(id, Comment.class);
     }
 
 }

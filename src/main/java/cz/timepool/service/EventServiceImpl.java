@@ -6,6 +6,8 @@ import cz.timepool.bo.Tag;
 import cz.timepool.bo.Term;
 import cz.timepool.bo.User;
 import cz.timepool.dto.EventDto;
+import cz.timepool.helper.DtoTransformerHelper;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Component;
@@ -19,7 +21,12 @@ class EventServiceImpl extends AbstractDataAccessService implements EventService
 
     @Override
     public List<EventDto> getAllEvents() {
-        throw new UnsupportedOperationException("Not supported yet.");
+                List<EventDto> eventDtos = new ArrayList<EventDto>();
+                List<Event> events = genericDao.getAll(Event.class);
+                for (Event e : events) {
+                    eventDtos.add(new EventDto(e.getId(), e.getAuthor().getId(), e.getTitle(), e.getLocation(), e.getDescription(), e.getCreationDate(), DtoTransformerHelper.getIdentifiers(e.getTags()), DtoTransformerHelper.getIdentifiers(e.getTerms())));
+                }
+        return eventDtos;
     }
 
     @Override
@@ -31,6 +38,11 @@ class EventServiceImpl extends AbstractDataAccessService implements EventService
         event.setLocation(location);
         event.setTitle(title);
         return genericDao.saveOrUpdate(event).getId();
+    }
+
+    @Override
+    public void deleteEventById(Long idEvent) {
+        genericDao.removeById(idEvent, Event.class);
     }
 
 }

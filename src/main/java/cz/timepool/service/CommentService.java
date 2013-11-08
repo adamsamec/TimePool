@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Lukas Lowinger
  */
-interface CommentService{
+public interface CommentService{
     // TODO: 
     public List<CommentDto> getAllByTerm(Long idTerm);
     public void addCommentToTerm(String text, Long idAuthor, Long idTerm);
