@@ -84,5 +84,10 @@ public class EventDto extends AbstractDto{
         this.terms = terms;
     }
 
+    @Override
+    public String toString() {
+        return "EventDto ::: ID : "+id+" title : "+title+" description: "+description;
+    }
+
     
 }

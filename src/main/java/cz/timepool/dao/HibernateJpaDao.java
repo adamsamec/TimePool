@@ -38,7 +38,11 @@ public class HibernateJpaDao implements GenericDao {
     public <ENTITY extends AbstractBusinessObject> void removeById(long id, Class<ENTITY> clazz) {
         ENTITY e = getEntityManager().find(clazz, id);
         if (e != null) {
+            System.out.println("nalezen");
             getEntityManager().remove(e);
+        }
+        else{
+            System.out.println("nenalezen");
         }
     }
 

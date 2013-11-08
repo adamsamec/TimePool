@@ -93,6 +93,11 @@ public class TermDto extends AbstractDto{
     public void setParticipants(List<Long> participants) {
         this.participants = participants;
     }
+
+    @Override
+    public String toString() {
+        return "TermDto ::: ID : "+id+"status : "+status+" description: "+description;
+    }
     
     
 }
