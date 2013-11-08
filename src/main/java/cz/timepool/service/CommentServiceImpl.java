@@ -31,15 +31,15 @@ class CommentServiceImpl extends AbstractDataAccessService implements CommentSer
     }
 
     @Override
-    public void addCommentToTerm(String text, Long idAuthor, Long idTerm) {
+    public Long addCommentToTerm(String text, Long idAuthor, Long idTerm) {
         Term term = genericDao.loadById(idTerm, Term.class);
         User a = genericDao.loadById(idAuthor, User.class);
         Comment c = new Comment();
         c.setAuthor(a);
         c.setText(text);
         c.setCreationDate(new Date());
-        term.addComment(c);
-        genericDao.saveOrUpdate(term);
+        c.setTerm(term);
+        return genericDao.saveOrUpdate(c).getId();
     }
 
     @Override

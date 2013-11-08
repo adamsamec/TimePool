@@ -13,7 +13,7 @@ import java.util.List;
 public interface CommentService{
     // TODO: 
     public List<CommentDto> getAllByTerm(Long idTerm);
-    public void addCommentToTerm(String text, Long idAuthor, Long idTerm);
+    public Long addCommentToTerm(String text, Long idAuthor, Long idTerm);
     public void editCommentById(String text, Long id);
     public void deleteCommentById(Long id);
 }
