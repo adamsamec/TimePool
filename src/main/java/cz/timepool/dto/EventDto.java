@@ -17,7 +17,8 @@ public class EventDto extends AbstractDto{
     private List<Long> tags;
     private List<Long> terms;
 
-    public EventDto(Long author, String title, String location, String description, Date creationDate, List<Long> tags, List<Long> terms) {
+    public EventDto(Long id, Long author, String title, String location, String description, Date creationDate, List<Long> tags, List<Long> terms) {
+        this.id = id;
         this.author = author;
         this.title = title;
         this.location = location;

@@ -18,8 +18,10 @@ public class UserDto extends AbstractDto {
     
     private List<Long> authoredEvents;
     private List<Long> authoredTerms; 
+    private List<Long> authoredComments;
 
-    public UserDto(String email, String name, String surname, String password, String description, Date creationDate, List<Long> authoredEvents, List<Long> authoredTerms) {
+    public UserDto(Long id, String email, String name, String surname, String password, String description, Date creationDate, List<Long> authoredEvents, List<Long> authoredTerms, List<Long> authoredComments) {
+        this.id = id;
         this.email = email;
         this.name = name;
         this.surname = surname;
@@ -28,19 +30,8 @@ public class UserDto extends AbstractDto {
         this.creationDate = creationDate;
         this.authoredEvents = authoredEvents;
         this.authoredTerms = authoredTerms;
+        this.authoredComments = authoredComments;
     }
-
-        public UserDto(String email, String name, String surname, String password, String description, Date creationDate) {
-        this.email = email;
-        this.name = name;
-        this.surname = surname;
-        this.password = password;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.authoredEvents = authoredEvents;
-        this.authoredTerms = authoredTerms;
-    }
-    
 
     public String getEmail() {
         return email;
@@ -88,6 +79,30 @@ public class UserDto extends AbstractDto {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public List<Long> getAuthoredEvents() {
+        return authoredEvents;
+    }
+
+    public void setAuthoredEvents(List<Long> authoredEvents) {
+        this.authoredEvents = authoredEvents;
+    }
+
+    public List<Long> getAuthoredTerms() {
+        return authoredTerms;
+    }
+
+    public void setAuthoredTerms(List<Long> authoredTerms) {
+        this.authoredTerms = authoredTerms;
+    }
+
+    public List<Long> getAuthoredComments() {
+        return authoredComments;
+    }
+
+    public void setAuthoredComments(List<Long> authoredComments) {
+        this.authoredComments = authoredComments;
     }
     
     

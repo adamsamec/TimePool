@@ -18,7 +18,8 @@ public class TermDto extends AbstractDto{
     private List<Long> participants;
     private List<Long> comments;
 
-    public TermDto(Date suggestedDate, String status, String description, Date creationDate, Long author, Long event, List<Long> participants, List<Long> comments) {
+    public TermDto(Long id, Date suggestedDate, String status, String description, Date creationDate, Long author, Long event, List<Long> participants, List<Long> comments) {
+        this.id = id;
         this.suggestedDate = suggestedDate;
         this.status = status;
         this.description = description;
