@@ -35,16 +35,16 @@ public class CommentServiceImplTest  extends AbstractServiceTest{
         Long idEvent = eventService.addEvent(idUser,"dsfsdf","dsfsf","dsfsdf",new Date());
         
         Long idTerm = termService.addTermToEvent(new Date(),"statusss","dsfsdfs",new Date(),idUser,idEvent);
-//        List<CommentDto> comments = commentService.getAllByTerm(idTerm);
-//        int before = comments.size();
-//        
-//        Long idComment = commentService.addCommentToTerm("TEEEEEEXT KOMENTARE",idUser,idTerm);
-//        comments = commentService.getAllByTerm(idTerm);
-//        assertEquals(before + 1, comments.size());
-//        
-//        commentService.deleteCommentById(idComment);
-//        comments = commentService.getAllByTerm(idTerm);
-//        assertEquals(before , comments.size());
+        List<CommentDto> comments = commentService.getAllByTerm(idTerm);
+        int before = comments.size();
+        
+        Long idComment = commentService.addCommentToTerm("TEEEEEEXT KOMENTARE",idUser,idTerm);
+        comments = commentService.getAllByTerm(idTerm);
+        assertEquals(before + 1, comments.size());
+        
+        commentService.deleteCommentById(idComment);
+        comments = commentService.getAllByTerm(idTerm);
+        assertEquals(before , comments.size());
         
         //test orderu
         commentService.addCommentToTerm("fTEEEEEEXT KOMENTARE",idUser,idTerm);
