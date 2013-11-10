@@ -31,25 +31,44 @@ public class CommentServiceImplTest  extends AbstractServiceTest{
     
     @Test
     public void testAddCommentToTermDeleteAndRetrieve(){
-        Long idUser = userService.addUser("dfsf"+System.currentTimeMillis(), "dsfsd", "fdsfsd", "dfsfsd", "dgjgdflgjdfkgjld");
+        Long idUser = createUser();
         Long idEvent = eventService.addEvent(idUser,"dsfsdf","dsfsf","dsfsdf",new Date());
         
         Long idTerm = termService.addTermToEvent(new Date(),"statusss","dsfsdfs",new Date(),idUser,idEvent);
-        List<CommentDto> comments = commentService.getAllByTerm(idTerm);
-        int before = comments.size();
+//        List<CommentDto> comments = commentService.getAllByTerm(idTerm);
+//        int before = comments.size();
+//        
+//        Long idComment = commentService.addCommentToTerm("TEEEEEEXT KOMENTARE",idUser,idTerm);
+//        comments = commentService.getAllByTerm(idTerm);
+//        assertEquals(before + 1, comments.size());
+//        
+//        commentService.deleteCommentById(idComment);
+//        comments = commentService.getAllByTerm(idTerm);
+//        assertEquals(before , comments.size());
         
-        Long idComment = commentService.addCommentToTerm("TEEEEEEXT KOMENTARE",idUser,idTerm);
-        comments = commentService.getAllByTerm(idTerm);
-        assertEquals(before + 1, comments.size());
+        //test orderu
+        commentService.addCommentToTerm("fTEEEEEEXT KOMENTARE",idUser,idTerm);
+        commentService.addCommentToTerm("TEEbla",idUser,idTerm);
+        commentService.addCommentToTerm("aTEEEEEqak",idUser,idTerm);
+        commentService.addCommentToTerm("TEflekXT KOMENTARE",idUser,idTerm);
+        commentService.addCommentToTerm("TEEEEEEXT KOMENTARE",idUser,idTerm);
         
-        commentService.deleteCommentById(idComment);
-        comments = commentService.getAllByTerm(idTerm);
-        assertEquals(before , comments.size());
+        List<CommentDto> authoredCommentsByOrderBy = commentService.getCommentsByUser(idUser);
+        for (CommentDto commentDto : authoredCommentsByOrderBy) {
+            System.out.println(commentDto);
+        }
         
     }
     
-    
+    @Test
+    public void testOrderBy(){
+        Long idUser = createUser();
+        
+    }
 
+    private Long createUser(){
+        return userService.addUser("user: "+System.currentTimeMillis(), "dsfsd", "fdsfsd", "dfsfsd", "dgjgdflgjdfkgjld");
+    }
     
     
 }

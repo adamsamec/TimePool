@@ -53,4 +53,15 @@ class CommentServiceImpl extends AbstractDataAccessService implements CommentSer
         genericDao.removeById(id, Comment.class);
     }
 
+    @Override
+    public List<CommentDto> getCommentsByUser(Long idUser) {
+        List<Comment> boList = genericDao.loadById(idUser, User.class).getAuthoredComments();
+        List<CommentDto> dtoList = new ArrayList<CommentDto>();
+        for (Comment comment : boList) {
+            System.out.println("pridavam : "+comment);
+            dtoList.add(new CommentDto(comment.getId(), comment.getAuthor().getId(),comment.getTerm().getId() , comment.getText(), comment.getCreationDate()));
+        }
+        return dtoList;
+    }
+
 }

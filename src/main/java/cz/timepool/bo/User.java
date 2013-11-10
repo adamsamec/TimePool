@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -14,7 +15,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import org.hibernate.annotations.OrderBy;
+import javax.persistence.OrderBy;
+//import org.hibernate.annotations.OrderBy;
 
 /**
  *
@@ -49,7 +51,7 @@ public class User extends AbstractBusinessObject {
     private List<Term> authoredTerms;
     
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
-    @OrderBy(clause="creationDate")
+    @OrderBy("text asc")
     private List<Comment> authoredComments;
     
     @ManyToMany(cascade = CascadeType.REMOVE)
