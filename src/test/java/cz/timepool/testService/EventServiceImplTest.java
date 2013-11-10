@@ -35,5 +35,9 @@ public class EventServiceImplTest extends AbstractServiceTest{
         
         events = eventService.getAllEvents();
         assertEquals(before, events.size());
+        
+        eventService.addEvent(idAuthor, "dsfsdfsd", "dfsfsd", "dsfsdf", new Date(2013-1900, 11-1, 10));
+        List<EventDto> eventsDate = eventService.getAllEventsBetweenDates(new Date(2013-1900, 11-1, 2), new Date());
+        assertEquals(1, eventsDate.size());
     }
 }

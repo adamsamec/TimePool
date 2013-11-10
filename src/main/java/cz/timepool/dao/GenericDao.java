@@ -2,6 +2,7 @@
 package cz.timepool.dao;
 
 import cz.timepool.bo.AbstractBusinessObject;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 
@@ -28,4 +29,7 @@ public interface GenericDao {
     public <ENTITY> ENTITY getByPropertyUnique(String property, Object value, Class<ENTITY> clazz);
     
     public Session getSession();
+    
+    public <ENTITY>List<ENTITY>  getBetweenDates(String columnName, Date startDate, Date endDate, Class<ENTITY> clazz);
+        
 }

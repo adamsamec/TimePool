@@ -3,10 +3,13 @@ package cz.timepool.dao;
 
 import cz.timepool.bo.AbstractBusinessObject;
 import cz.timepool.bo.Term;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.stereotype.Component;
@@ -84,5 +87,15 @@ public class HibernateJpaDao implements GenericDao {
     public Session getSession() {
         return (Session)getEntityManager().getDelegate();
     }
+
+    @Override
+    public <ENTITY> List<ENTITY> getBetweenDates(String columnName, Date startDate, Date endDate, Class<ENTITY> clazz) {
+        Criteria c = getSession().createCriteria(clazz);
+        c.add(Expression.ge(columnName, startDate)).add(Expression.le(columnName, endDate));
+        return c.list();
+    }
+
+    
+    
 }
 

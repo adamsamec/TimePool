@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class AbstractDataAccessService {
     @Autowired
     protected GenericDao genericDao;
+    
     public void setGenericDao(GenericDao genericDao) {
         this.genericDao = genericDao;
     }
