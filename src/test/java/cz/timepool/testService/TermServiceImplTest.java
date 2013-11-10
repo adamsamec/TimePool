@@ -54,4 +54,9 @@ public class TermServiceImplTest extends AbstractServiceTest{
     private Long addEvent(Long idAuthor){
         return eventService.addEvent(idAuthor, "NAZEV", "LOKACE", "POPIS", new Date());
     }
+    
+    @Test
+    public void testCriteria(){
+        
+    }
 }

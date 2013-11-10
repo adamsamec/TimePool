@@ -3,6 +3,7 @@ package cz.timepool.dao;
 
 import cz.timepool.bo.AbstractBusinessObject;
 import java.util.List;
+import org.hibernate.Session;
 
 /**
  *
@@ -26,4 +27,5 @@ public interface GenericDao {
     
     public <ENTITY> ENTITY getByPropertyUnique(String property, Object value, Class<ENTITY> clazz);
     
+    public Session getSession();
 }

@@ -79,5 +79,10 @@ public class HibernateJpaDao implements GenericDao {
     public <ENTITY> ENTITY loadById(long id, Class<ENTITY> clazz) {
         return (ENTITY) ((Session) getEntityManager().getDelegate()).load(clazz, id);
     }
+
+    @Override
+    public Session getSession() {
+        return (Session)getEntityManager().getDelegate();
+    }
 }
 
