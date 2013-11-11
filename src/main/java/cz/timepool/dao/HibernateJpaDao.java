@@ -1,4 +1,3 @@
-
 package cz.timepool.dao;
 
 import cz.timepool.bo.AbstractBusinessObject;
@@ -18,71 +17,74 @@ import org.springframework.stereotype.Component;
 @Component("hibernateJpaDao")
 public class HibernateJpaDao implements GenericDao {
 
-    @Autowired
-    protected EntityManagerFactory entityManagerfactory;
+	@Autowired
+	protected EntityManagerFactory entityManagerfactory;
 
-    protected EntityManager getEntityManager() {
-        return EntityManagerFactoryUtils.getTransactionalEntityManager(entityManagerfactory); //entity manager with @Transactional support
-    }
+	protected EntityManager getEntityManager() {
+		return EntityManagerFactoryUtils.getTransactionalEntityManager(entityManagerfactory); //entity manager with @Transactional support
+	}
 
-    @SuppressWarnings("unchecked")
-    public <ENTITY> List<ENTITY> getAll(Class<ENTITY> clazz) {
-        return getEntityManager().createQuery("SELECT e FROM " + clazz.getSimpleName() + " e").getResultList();
-    }
+	@SuppressWarnings("unchecked")
+	public <ENTITY> List<ENTITY> getAll(Class<ENTITY> clazz) {
+		return getEntityManager().createQuery("SELECT e FROM " + clazz.getSimpleName() + " e").getResultList();
+	}
 
-    @SuppressWarnings("unchecked")
-    public <ENTITY> List<ENTITY> getByProperty(String property, Object value, Class<ENTITY> clazz) {
-        String queryString = "SELECT e FROM " + clazz.getSimpleName() + " e WHERE e." + property + " = :value";
-        return getEntityManager().createQuery(queryString).setParameter("value", value).getResultList();
-    }
+	@SuppressWarnings("unchecked")
+	public <ENTITY> List<ENTITY> getAllOrderBy(Class<ENTITY> clazz, String orderByClause) {
+		return getEntityManager().createQuery("SELECT e FROM " + clazz.getSimpleName() + " e ORDER BY " + orderByClause).getResultList();
+	}
 
-    public <ENTITY extends AbstractBusinessObject> void removeById(long id, Class<ENTITY> clazz) {
-        ENTITY e = getEntityManager().find(clazz, id);
-        if (e != null) {
-            System.out.println("nalezen tento "+e);
-            getEntityManager().remove(e);
-        }
-        else{
-            System.out.println("nenalezen");
-        }
-    }
+	@SuppressWarnings("unchecked")
+	public <ENTITY> List<ENTITY> getByProperty(String property, Object value, Class<ENTITY> clazz) {
+		String queryString = "SELECT e FROM " + clazz.getSimpleName() + " e WHERE e." + property + " = :value";
+		return getEntityManager().createQuery(queryString).setParameter("value", value).getResultList();
+	}
 
-    public <ENTITY extends AbstractBusinessObject> void remove(ENTITY o) {
-        getEntityManager().remove(o);
-    }
+	public <ENTITY extends AbstractBusinessObject> void removeById(long id, Class<ENTITY> clazz) {
+		ENTITY e = getEntityManager().find(clazz, id);
+		if (e != null) {
+			System.out.println("nalezen tento " + e);
+			getEntityManager().remove(e);
+		} else {
+			System.out.println("nenalezen");
+		}
+	}
 
-    @SuppressWarnings("unchecked")
-    public <ENTITY> ENTITY getById(Long id, Class<ENTITY> clazz) {
-        return getEntityManager().find(clazz, id);
-    }
+	public <ENTITY extends AbstractBusinessObject> void remove(ENTITY o) {
+		getEntityManager().remove(o);
+	}
 
-    public <ENTITY extends AbstractBusinessObject> ENTITY saveOrUpdate(ENTITY o) {
-        if (o.getId() == null) {
-            getEntityManager().persist(o);
-        } else {
-            getEntityManager().merge(o);
-        }
-        return o;
-    }
-    
-    public <ENTITY> ENTITY getByPropertyUnique(String property, Object value, Class<ENTITY> clazz) {
-        ENTITY e;
-        if (value == null) {
-            e = clazz.cast(getEntityManager().createQuery("FROM " + clazz.getSimpleName() + " WHERE " + property + " IS NULL" ).getSingleResult());
-        } else {
-            e = clazz.cast(getEntityManager().createQuery("FROM " + clazz.getSimpleName() + " WHERE " + property + " = :value" ).setParameter("value", value).getSingleResult());
-        }
-        return e;
-    }
+	@SuppressWarnings("unchecked")
+	public <ENTITY> ENTITY getById(Long id, Class<ENTITY> clazz) {
+		return getEntityManager().find(clazz, id);
+	}
 
-    @Override
-    public <ENTITY> ENTITY loadById(long id, Class<ENTITY> clazz) {
-        return (ENTITY) ((Session) getEntityManager().getDelegate()).load(clazz, id);
-    }
+	public <ENTITY extends AbstractBusinessObject> ENTITY saveOrUpdate(ENTITY o) {
+		if (o.getId() == null) {
+			getEntityManager().persist(o);
+		} else {
+			getEntityManager().merge(o);
+		}
+		return o;
+	}
 
-    @Override
-    public Session getSession() {
-        return (Session)getEntityManager().getDelegate();
-    }
+	public <ENTITY> ENTITY getByPropertyUnique(String property, Object value, Class<ENTITY> clazz) {
+		ENTITY e;
+		if (value == null) {
+			e = clazz.cast(getEntityManager().createQuery("FROM " + clazz.getSimpleName() + " WHERE " + property + " IS NULL").getSingleResult());
+		} else {
+			e = clazz.cast(getEntityManager().createQuery("FROM " + clazz.getSimpleName() + " WHERE " + property + " = :value").setParameter("value", value).getSingleResult());
+		}
+		return e;
+	}
+
+	@Override
+	public <ENTITY> ENTITY loadById(long id, Class<ENTITY> clazz) {
+		return (ENTITY) ((Session) getEntityManager().getDelegate()).load(clazz, id);
+	}
+
+	@Override
+	public Session getSession() {
+		return (Session) getEntityManager().getDelegate();
+	}
 }
-

@@ -96,7 +96,7 @@ public class TermDto extends AbstractDto{
 
     @Override
     public String toString() {
-        return "TermDto ::: ID : "+id+"status : "+status+" description: "+description;
+        return "TermDto ::: ID : "+id+"date: "+suggestedDate+" status : "+status+" description: "+description;
     }
     
     

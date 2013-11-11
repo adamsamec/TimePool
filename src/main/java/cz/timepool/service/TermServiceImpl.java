@@ -32,7 +32,10 @@ class TermServiceImpl extends AbstractDataAccessService implements TermService{
     
     @Override
     public void deleteTermById(Long idTerm) {
-        genericDao.removeById(idTerm, Term.class);
+//        genericDao.removeById(idTerm, Term.class);
+		Term term = genericDao.loadById(idTerm, Term.class);
+		Event event = term.getEvent();
+		event.removeTerm(term);
     }
 
     @Override
@@ -49,11 +52,17 @@ class TermServiceImpl extends AbstractDataAccessService implements TermService{
 
     @Override
     public List<TermDto> getTermsByEventId(Long idEvent) {
-        List<TermDto> termsDto = new ArrayList<TermDto>();
-        List<Term> terms = genericDao.getByProperty("event", genericDao.loadById(idEvent, Event.class), Term.class);
-        for (Term term : terms) {
+//        List<TermDto> termsDto = new ArrayList<TermDto>();
+//        List<Term> terms = genericDao.getByProperty("event", genericDao.loadById(idEvent, Event.class), Term.class);
+//        for (Term term : terms) {
+//            termsDto.add(new TermDto(term.getId(),term.getSuggestedDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(),DtoTransformerHelper.getIdentifiers(term.getParticipants()), DtoTransformerHelper.getIdentifiers(term.getComments())));
+//        }
+		Event event = genericDao.loadById(idEvent, Event.class);
+		List<Term> terms = event.getTerms();
+		List<TermDto> termsDto = new ArrayList<TermDto>();
+		for (Term term : terms) {
             termsDto.add(new TermDto(term.getId(),term.getSuggestedDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(),DtoTransformerHelper.getIdentifiers(term.getParticipants()), DtoTransformerHelper.getIdentifiers(term.getComments())));
-        }
+		}
         return termsDto;
     }
 

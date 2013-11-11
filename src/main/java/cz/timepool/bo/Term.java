@@ -1,4 +1,3 @@
-
 package cz.timepool.bo;
 
 import java.util.ArrayList;
@@ -16,118 +15,122 @@ import javax.persistence.Temporal;
  * @author Lukas Lowinger
  */
 @Entity
-public class Term extends AbstractBusinessObject{
-    
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date suggestedDate;
-    
-    private String status;
-    
-    private String description;
-    
-    @OneToMany(cascade= CascadeType.REMOVE , mappedBy="term")
-    private List<Comment> comments;
-    
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date creationDate;
-    
-    @ManyToOne
-    private User author;
-    
-     @ManyToMany(cascade= CascadeType.REMOVE , mappedBy="participedTerms")
-    private List<User> participants;
-    
-    @ManyToOne
-    private Event event;
-    
-    public void addParticipant(User participant){
-        if(this.participants==null){
-            this.participants = new ArrayList<User>();
-        }
-        
-        if(!this.participants.contains(participant)){
-            participants.add(participant);
-        }
-    }
-    
-    public void addComment(Comment comment){
-        if(this.comments==null){
-            this.comments = new ArrayList<Comment>();
-        }
-        
-        if(!this.comments.contains(comment)){
-            comments.add(comment);
-        }
-    }
+public class Term extends AbstractBusinessObject {
 
-    public Date getSuggestedDate() {
-        return suggestedDate;
-    }
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	private Date suggestedDate;
 
-    public void setSuggestedDate(Date suggestedDate) {
-        this.suggestedDate = suggestedDate;
-    }
+	private String status;
 
-    public String getStatus() {
-        return status;
-    }
+	private String description;
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "term")
+	private List<Comment> comments = new ArrayList<Comment>();
 
-    public String getDescription() {
-        return description;
-    }
+	@Temporal(javax.persistence.TemporalType.DATE)
+	private Date creationDate;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	@ManyToOne
+	private User author;
 
-    public List<Comment> getComments() {
-        return comments;
-    }
+	@ManyToMany(cascade = CascadeType.REMOVE, mappedBy = "participedTerms")
+	private List<User> participants;
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
+	@ManyToOne
+	private Event event;
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
+	public void addParticipant(User participant) {
+		if (this.participants == null) {
+			this.participants = new ArrayList<User>();
+		}
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
+		if (!this.participants.contains(participant)) {
+			participants.add(participant);
+		}
+	}
 
-    public User getAuthor() {
-        return author;
-    }
+	public void addComment(Comment comment) {
+		if (this.comments == null) {
+			this.comments = new ArrayList<Comment>();
+		}
 
-    public void setAuthor(User author) {
-        this.author = author;
-        author.addAuthoredTerms(this);
-    }
+		if (!this.comments.contains(comment)) {
+			this.comments.add(comment);
+		}
+	}
 
-    public List<User> getParticipants() {
-        return participants;
-    }
+	public void removeComment(Comment comment) {
+		this.comments.remove(comment);
+	}
 
-    public void setParticipants(List<User> participants) {
-        this.participants = participants;
-    }
+	public Date getSuggestedDate() {
+		return suggestedDate;
+	}
 
-    public Event getEvent() {
-        return event;
-    }
+	public void setSuggestedDate(Date suggestedDate) {
+		this.suggestedDate = suggestedDate;
+	}
 
-    public void setEvent(Event event) {
-        this.event = event;
-        event.addTerm(this);
-    }
-    
-        @Override
-    public String toString() {
-        return "Term ::: ID : "+id+"status : "+status+" description: "+description;
-    }
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+		author.addAuthoredTerms(this);
+	}
+
+	public List<User> getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(List<User> participants) {
+		this.participants = participants;
+	}
+
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
+		event.addTerm(this);
+	}
+
+	@Override
+	public String toString() {
+		return "Term ::: ID : " + id + "status : " + status + " description: " + description;
+	}
 }

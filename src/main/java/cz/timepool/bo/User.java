@@ -20,158 +20,159 @@ import org.hibernate.annotations.OrderBy;
  *
  * @author Lukas Lowinger
  */
-@NamedQueries({ @NamedQuery(name = "findUsersById", query = "from User u where u.id= :idUser" )})//netusim kde to pouzit
+@NamedQueries({
+	@NamedQuery(name = "findUsersById", query = "from User u where u.id= :idUser")})//netusim kde to pouzit
 @Entity
 @Table(name = "users")
 public class User extends AbstractBusinessObject {
 
-    @Column(nullable = false)
-    private String email;
-    
-    @Column(nullable = false)
-    private String name;
-    
-    @Column(nullable = false)
-    private String surname;
-    
-    @Column(nullable = false)
-    private String password;
-    
-    private String description;
-    
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date creationDate;
-    
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
-    private List<Event> authoredEvents;
-    
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
-    private List<Term> authoredTerms;
-    
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
-    @OrderBy(clause="creationDate")
-    private List<Comment> authoredComments;
-    
-    @ManyToMany(cascade = CascadeType.REMOVE)
-    @JoinTable(name = "users_participedTerm",
-    joinColumns = @JoinColumn(name = "participed_users_id", referencedColumnName = "ID"),
-    inverseJoinColumns = @JoinColumn(name = "term_id", referencedColumnName = "ID"))
-    private List<Term> participedTerms;
+	@Column(nullable = false)
+	private String email;
 
-    public void addParticipedTerm(Term term) {
-        if (this.participedTerms == null) {
-            this.participedTerms = new ArrayList<Term>();
-        }
+	@Column(nullable = false)
+	private String name;
 
-        if (!this.participedTerms.contains(term)) {
-            this.participedTerms.add(term);
-        }
-    }
+	@Column(nullable = false)
+	private String surname;
 
-    public void addAuthoredComment(Comment comment) {
-        if (this.authoredComments == null) {
-            this.authoredComments = new ArrayList<Comment>();
-        }
-        if (!this.authoredComments.contains(comment)) {
-            this.authoredComments.add(comment);
-        }
-    }
+	@Column(nullable = false)
+	private String password;
 
-    public void addAuthoredEvent(Event event) {
-        if (authoredEvents == null) {
-            authoredEvents = new ArrayList<Event>();
-        }
-        if (!authoredEvents.contains(event)) {
-            authoredEvents.add(event);
-        }
-    }
+	private String description;
 
-    public void addAuthoredTerms(Term term) {
-        if (authoredTerms == null) {
-            authoredTerms = new ArrayList<Term>();
-        }
-        if (!authoredTerms.contains(term)) {
-            authoredTerms.add(term);
-        }
-    }
+	@Temporal(javax.persistence.TemporalType.DATE)
+	private Date creationDate;
 
-    public List<Comment> getAuthoredComments() {
-        return authoredComments;
-    }
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
+	private List<Event> authoredEvents;
 
-    public void setAuthoredComments(List<Comment> authoredComments) {
-        this.authoredComments = authoredComments;
-    }
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
+	private List<Term> authoredTerms;
 
-    public String getEmail() {
-        return email;
-    }
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
+	@OrderBy(clause = "creationDate")
+	private List<Comment> authoredComments;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	@ManyToMany(cascade = CascadeType.REMOVE)
+	@JoinTable(name = "users_participedTerm",
+			joinColumns = @JoinColumn(name = "participed_users_id", referencedColumnName = "ID"),
+			inverseJoinColumns = @JoinColumn(name = "term_id", referencedColumnName = "ID"))
+	private List<Term> participedTerms;
 
-    public String getName() {
-        return name;
-    }
+	public void addParticipedTerm(Term term) {
+		if (this.participedTerms == null) {
+			this.participedTerms = new ArrayList<Term>();
+		}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+		if (!this.participedTerms.contains(term)) {
+			this.participedTerms.add(term);
+		}
+	}
 
-    public String getSurname() {
-        return surname;
-    }
+	public void addAuthoredComment(Comment comment) {
+		if (this.authoredComments == null) {
+			this.authoredComments = new ArrayList<Comment>();
+		}
+		if (!this.authoredComments.contains(comment)) {
+			this.authoredComments.add(comment);
+		}
+	}
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
+	public void addAuthoredEvent(Event event) {
+		if (authoredEvents == null) {
+			authoredEvents = new ArrayList<Event>();
+		}
+		if (!authoredEvents.contains(event)) {
+			authoredEvents.add(event);
+		}
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void addAuthoredTerms(Term term) {
+		if (authoredTerms == null) {
+			authoredTerms = new ArrayList<Term>();
+		}
+		if (!authoredTerms.contains(term)) {
+			authoredTerms.add(term);
+		}
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public List<Comment> getAuthoredComments() {
+		return authoredComments;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setAuthoredComments(List<Comment> authoredComments) {
+		this.authoredComments = authoredComments;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public List<Event> getAuthoredEvents() {
-        return authoredEvents;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setAuthoredEvents(List<Event> authoredEvents) {
-        this.authoredEvents = authoredEvents;
-    }
+	public String getSurname() {
+		return surname;
+	}
 
-    public List<Term> getAuthoredTerms() {
-        return authoredTerms;
-    }
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
 
-    public void setAuthoredTerms(List<Term> authoredTerms) {
-        this.authoredTerms = authoredTerms;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public List<Term> getParticipedTerms() {
-        return participedTerms;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setParticipedTerms(List<Term> participedTerms) {
-        this.participedTerms = participedTerms;
-    }
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public List<Event> getAuthoredEvents() {
+		return authoredEvents;
+	}
+
+	public void setAuthoredEvents(List<Event> authoredEvents) {
+		this.authoredEvents = authoredEvents;
+	}
+
+	public List<Term> getAuthoredTerms() {
+		return authoredTerms;
+	}
+
+	public void setAuthoredTerms(List<Term> authoredTerms) {
+		this.authoredTerms = authoredTerms;
+	}
+
+	public List<Term> getParticipedTerms() {
+		return participedTerms;
+	}
+
+	public void setParticipedTerms(List<Term> participedTerms) {
+		this.participedTerms = participedTerms;
+	}
 }
