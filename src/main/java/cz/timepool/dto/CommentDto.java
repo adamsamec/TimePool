@@ -52,6 +52,12 @@ public class CommentDto extends AbstractDto{
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
+
+    @Override
+    public String toString() {
+        return "CommentDto::: id:"+id+" text: "+text+" date "+creationDate.toString();
+    }
+    
     
     
 }

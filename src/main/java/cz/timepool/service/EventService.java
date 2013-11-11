@@ -14,5 +14,6 @@ public interface EventService {
     public List<EventDto> getAllEvents();
     public Long addEvent(Long author, String title, String location, String description, Date creationDate);
     public void deleteEventById(Long idEvent);
+    public List<EventDto> getAllEventsBetweenDates(Date startDate, Date endDate);
 }
 

@@ -45,4 +45,14 @@ class EventServiceImpl extends AbstractDataAccessService implements EventService
         genericDao.removeById(idEvent, Event.class);
     }
 
+    @Override
+    public List<EventDto> getAllEventsBetweenDates(Date startDate, Date endDate) {
+                List<EventDto> eventDtos = new ArrayList<EventDto>();
+                List<Event> events = genericDao.getBetweenDates("creationDate",startDate, endDate, Event.class);
+                for (Event e : events) {
+                    eventDtos.add(new EventDto(e.getId(), e.getAuthor().getId(), e.getTitle(), e.getLocation(), e.getDescription(), e.getCreationDate(), DtoTransformerHelper.getIdentifiers(e.getTags()), DtoTransformerHelper.getIdentifiers(e.getTerms())));
+                }
+        return eventDtos;
+    }
+
 }

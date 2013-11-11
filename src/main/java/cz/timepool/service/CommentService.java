@@ -16,4 +16,5 @@ public interface CommentService{
     public Long addCommentToTerm(String text, Long idAuthor, Long idTerm);
     public void editCommentById(String text, Long id);
     public void deleteCommentById(Long id);
+    public List<CommentDto> getCommentsByUser(Long idUser);
 }
