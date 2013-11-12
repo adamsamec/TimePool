@@ -37,7 +37,7 @@
         <property name="packagesToScan" value="cz.timepool" />
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto"></prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
             </props>
         </property>
     </bean> 

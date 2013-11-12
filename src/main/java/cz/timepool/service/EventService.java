@@ -11,9 +11,10 @@ import java.util.List;
  */
 public interface EventService {
     //TODO: dopsat metody
+	public EventDto getEventById(Long eventId);
     public List<EventDto> getAllEvents();
     public Long addEvent(Long author, String title, String location, String description, Date creationDate);
-    public void deleteEventById(Long idEvent);
-    public List<EventDto> getAllEventsBetweenDates(Date startDate, Date endDate);
+    public void deleteEventById(Long eventId);
+    public List<EventDto> getAllEventsCreatedBetween(Date startDate, Date endDate);
 }
 

@@ -1,4 +1,3 @@
-
 package cz.timepool.dto;
 
 import java.util.Date;
@@ -9,112 +8,116 @@ import java.util.List;
  * @author Lukas Lowinger
  */
 public class UserDto extends AbstractDto {
-    private String email;
-    private String name;
-    private String surname;
-    private String password;
-    private String description;
-    private Date creationDate;
-    
-    private List<Long> authoredEvents;
-    private List<Long> authoredTerms; 
-    private List<Long> authoredComments;
-    private List<Long> participedTerms;
 
-    public UserDto(Long id, String email, String name, String surname, String password, String description, Date creationDate, List<Long> authoredEvents, List<Long> authoredTerms, List<Long> authoredComments, List<Long> participedTerms) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-        this.surname = surname;
-        this.password = password;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.authoredEvents = authoredEvents;
-        this.authoredTerms = authoredTerms;
-        this.authoredComments = authoredComments;
-        this.participedTerms = participedTerms;
-    }
+	private String email;
+	private String name;
+	private String surname;
+	private String password;
+	private String description;
+	private Date creationDate;
 
+	private List<Long> authoredEvents;
+	private List<Long> authoredTerms;
+	private List<Long> authoredComments;
+	private List<Long> acceptedTerms;
 
-    public String getEmail() {
-        return email;
-    }
+	public UserDto(Long id, String email, String name, String surname, String password, String description, Date creationDate, List<Long> authoredEvents, List<Long> authoredTerms, List<Long> authoredComments, List<Long> acceptedTerms) {
+		this.id = id;
+		this.email = email;
+		this.name = name;
+		this.surname = surname;
+		this.password = password;
+		this.description = description;
+		this.creationDate = creationDate;
+		this.authoredEvents = authoredEvents;
+		this.authoredTerms = authoredTerms;
+		this.authoredComments = authoredComments;
+		this.acceptedTerms = acceptedTerms;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getSurname() {
-        return surname;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
+	public String getSurname() {
+		return surname;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public Date getCreationDate() {
+		return creationDate;
+	}
 
-    public List<Long> getAuthoredEvents() {
-        return authoredEvents;
-    }
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
 
-    public void setAuthoredEvents(List<Long> authoredEvents) {
-        this.authoredEvents = authoredEvents;
-    }
+	public List<Long> getAuthoredEvents() {
+		return authoredEvents;
+	}
 
-    public List<Long> getAuthoredTerms() {
-        return authoredTerms;
-    }
+	public void setAuthoredEvents(List<Long> authoredEvents) {
+		this.authoredEvents = authoredEvents;
+	}
 
-    public void setAuthoredTerms(List<Long> authoredTerms) {
-        this.authoredTerms = authoredTerms;
-    }
+	public List<Long> getAuthoredTerms() {
+		return authoredTerms;
+	}
 
-    public List<Long> getAuthoredComments() {
-        return authoredComments;
-    }
+	public void setAuthoredTerms(List<Long> authoredTerms) {
+		this.authoredTerms = authoredTerms;
+	}
 
-    public void setAuthoredComments(List<Long> authoredComments) {
-        this.authoredComments = authoredComments;
-    }
+	public List<Long> getAuthoredComments() {
+		return authoredComments;
+	}
 
-    public List<Long> getParticipedTerms() {
-        return participedTerms;
-    }
+	public void setAuthoredComments(List<Long> authoredComments) {
+		this.authoredComments = authoredComments;
+	}
 
-    public void setParticipedTerms(List<Long> participedTerms) {
-        this.participedTerms = participedTerms;
-    }
-    
-    
+	public List<Long> getAcceptedTerms() {
+		return acceptedTerms;
+	}
+
+	public void setAcceptedTerms(List<Long> acceptedTerms) {
+		this.acceptedTerms = acceptedTerms;
+	}
+
+	@Override
+	public String toString() {
+		return "UserDto ::: ID: " + id + ", creationDate: " + creationDate + ", name: " + name + ", surname: " + surname + ", email: " + email;
+	}
+
 }

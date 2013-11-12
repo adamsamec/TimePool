@@ -30,24 +30,24 @@ public class CommentServiceImplTest extends AbstractServiceTest {
 	private EventService eventService;
 
 	@Test
-	public void testAddCommentToTermDeleteAndRetrieve() {
-		Long idUser = userService.addUser("Jack" + System.currentTimeMillis(), "Tennessee", "fdsfsd", "dfsfsd", "dgjgdflgjdfkgjld");
-		Long idEvent = eventService.addEvent(idUser, "dsfsdf", "dsfsf", "dsfsdf", new Date());
-		Long idTerm = termService.addTermToEvent(new Date(), "statusss", "dsfsdfs", new Date(), idUser, idEvent);
-		List<CommentDto> comments = commentService.getAllByTerm(idTerm);
-		int before = comments.size();
-		
-		Long idComment = commentService.addCommentToTerm("HOCIJAKY TEXT KOMENTARE", idUser, idTerm);
-		Long idComment2 = commentService.addCommentToTerm("Jeste nejakej offtopic sem pridam.", idUser, idTerm);
-		Long idComment3 = commentService.addCommentToTerm("A posledni, aby jsme se podivali, jak to rovna podle textu.", idUser, idTerm);
-		comments = commentService.getAllByTerm(idTerm);
-		assertEquals(before + 3, comments.size());
-		
-		commentService.deleteCommentById(idComment);
-		commentService.deleteCommentById(idComment2);
-		commentService.deleteCommentById(idComment3);
-		comments = commentService.getAllByTerm(idTerm);
-		assertEquals(before, comments.size());
+	public void testAddRetrieveDeleteComments() {
+		Long userId = userService.addUser("Jack" + System.currentTimeMillis(), "Tennessee", "muj@mejl.mm", "mojeheslo", "Neco o me");
+		Long eventId = eventService.addEvent(userId, "Nazev udalosti", "Misto udalosti", "Popis udalosti", new Date());
+		Long termId = termService.addTermToEvent(new Date(), "statusss", "dsfsdfs", new Date(), userId, eventId);
+		List<CommentDto> comments = commentService.getAllByTerm(termId);
+		int beforeCommentsCount = comments.size();
+
+		Long comment1Id = commentService.addCommentToTerm("HOCIJAKY TEXT KOMENTARE", userId, termId);
+		Long comment2Id = commentService.addCommentToTerm("Jeste nejakej flejm sem pridam.", userId, termId);
+		Long comment3Id = commentService.addCommentToTerm("A posledni, aby jsme se pokochali, jak to slovnikove rovna podle textu.", userId, termId);
+		comments = commentService.getAllByTerm(termId);
+		assertEquals(beforeCommentsCount + 3, comments.size());
+
+		commentService.deleteCommentById(comment1Id);
+		commentService.deleteCommentById(comment2Id);
+		commentService.deleteCommentById(comment3Id);
+		comments = commentService.getAllByTerm(termId);
+		assertEquals(beforeCommentsCount, comments.size());
 
 	}
 

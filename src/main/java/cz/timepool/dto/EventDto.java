@@ -1,4 +1,3 @@
-
 package cz.timepool.dto;
 
 import java.util.Date;
@@ -8,86 +7,86 @@ import java.util.List;
  *
  * @author Lukas Lowinger
  */
-public class EventDto extends AbstractDto{
-    private Long author;
-    private String title;
-    private String location;
-    private String description;
-    private Date creationDate;
-    private List<Long> tags;
-    private List<Long> terms;
+public class EventDto extends AbstractDto {
 
-    public EventDto(Long id, Long author, String title, String location, String description, Date creationDate, List<Long> tags, List<Long> terms) {
-        this.id = id;
-        this.author = author;
-        this.title = title;
-        this.location = location;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.tags = tags;
-        this.terms = terms;
-    }
+	private Long author;
+	private String title;
+	private String location;
+	private String description;
+	private Date creationDate;
+	private List<Long> tags;
+	private List<Long> terms;
 
-    public Long getAuthor() {
-        return author;
-    }
+	public EventDto(Long id, Long author, String title, String location, String description, Date creationDate, List<Long> tags, List<Long> terms) {
+		this.id = id;
+		this.author = author;
+		this.title = title;
+		this.location = location;
+		this.description = description;
+		this.creationDate = creationDate;
+		this.tags = tags;
+		this.terms = terms;
+	}
 
-    public void setAuthor(Long author) {
-        this.author = author;
-    }
+	public Long getAuthor() {
+		return author;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public void setAuthor(Long author) {
+		this.author = author;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public String getLocation() {
-        return location;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+	public String getLocation() {
+		return location;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public Date getCreationDate() {
+		return creationDate;
+	}
 
-    public List<Long> getTags() {
-        return tags;
-    }
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
 
-    public void setTags(List<Long> tags) {
-        this.tags = tags;
-    }
+	public List<Long> getTags() {
+		return tags;
+	}
 
-    public List<Long> getTerms() {
-        return terms;
-    }
+	public void setTags(List<Long> tags) {
+		this.tags = tags;
+	}
 
-    public void setTerms(List<Long> terms) {
-        this.terms = terms;
-    }
+	public List<Long> getTerms() {
+		return terms;
+	}
 
-    @Override
-    public String toString() {
-        return "EventDto ::: ID : "+id+" title : "+title+" description: "+description;
-    }
+	public void setTerms(List<Long> terms) {
+		this.terms = terms;
+	}
 
-    
+	@Override
+	public String toString() {
+		return "EventDto ::: ID: " + id + ", creationDate: " + creationDate + ", title: " + title + ", description: " + description;
+	}
+
 }

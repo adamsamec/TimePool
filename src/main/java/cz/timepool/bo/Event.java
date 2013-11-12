@@ -1,6 +1,8 @@
 package cz.timepool.bo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -12,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.OrderBy;
 
 /**
@@ -19,6 +23,7 @@ import org.hibernate.annotations.OrderBy;
  * @author Lukas Lowinger
  */
 @Entity
+@NamedQuery(name = "Event.createdBetween", query = "SELECT e FROM Event e WHERE e.creationDate >= :fromDate AND e.creationDate <= :toDate")
 public class Event extends AbstractBusinessObject {
 
 	@ManyToOne
@@ -31,7 +36,7 @@ public class Event extends AbstractBusinessObject {
 	private String location;
 	private String description;
 
-	@Temporal(javax.persistence.TemporalType.DATE)
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date creationDate;
 
 	@ManyToMany(cascade = CascadeType.REMOVE)
@@ -41,8 +46,11 @@ public class Event extends AbstractBusinessObject {
 	private List<Tag> tags;
 
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "event")
-	@OrderBy(clause = "suggestedDate")
+	@OrderBy(clause = "suggestedDate ASC")
 	private List<Term> terms;
+
+	@Transient
+	private String currentTermsOrder = "suggestedDate ASC";
 
 	public void addTerm(Term term) {
 		if (this.terms == null) {
@@ -50,9 +58,10 @@ public class Event extends AbstractBusinessObject {
 		}
 		if (!this.terms.contains(term)) {
 			this.terms.add(term);
+			this.currentTermsOrder = "UNORDERED";
 		}
 	}
-	
+
 	public void removeTerm(Term term) {
 		this.terms.remove(term);
 	}
@@ -67,7 +76,7 @@ public class Event extends AbstractBusinessObject {
 	}
 
 	public User getAuthor() {
-		return author;
+		return this.author;
 	}
 
 	public void setAuthor(User author) {
@@ -76,7 +85,7 @@ public class Event extends AbstractBusinessObject {
 	}
 
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
 	public void setTitle(String title) {
@@ -84,7 +93,7 @@ public class Event extends AbstractBusinessObject {
 	}
 
 	public String getLocation() {
-		return location;
+		return this.location;
 	}
 
 	public void setLocation(String location) {
@@ -92,7 +101,7 @@ public class Event extends AbstractBusinessObject {
 	}
 
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	public void setDescription(String description) {
@@ -100,7 +109,7 @@ public class Event extends AbstractBusinessObject {
 	}
 
 	public Date getCreationDate() {
-		return creationDate;
+		return this.creationDate;
 	}
 
 	public void setCreationDate(Date creationDate) {
@@ -108,7 +117,7 @@ public class Event extends AbstractBusinessObject {
 	}
 
 	public List<Tag> getTags() {
-		return tags;
+		return this.tags;
 	}
 
 	public void setTags(List<Tag> tags) {
@@ -116,7 +125,20 @@ public class Event extends AbstractBusinessObject {
 	}
 
 	public List<Term> getTerms() {
-		return terms;
+		if (this.terms == null) {
+			this.terms = new ArrayList<Term>();
+		} else {
+			String termsOrder = "suggestedDate ASC";
+			if (!this.currentTermsOrder.equals(termsOrder)) {
+				Collections.sort(this.terms, new Comparator<Term>() {
+					public int compare(Term t1, Term t2) {
+						return t1.getSuggestedDate().compareTo(t2.getSuggestedDate());
+					}
+				});
+				this.currentTermsOrder = termsOrder;
+			}
+		}
+		return this.terms;
 	}
 
 	public void setTerms(List<Term> terms) {

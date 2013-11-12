@@ -27,37 +27,33 @@ public class TermServiceImplTest extends AbstractServiceTest {
 	private UserService userService;
 
 	@Test
-	public void testAddTermAndChangeStatusInEventAndRetrieve() {
-		Long idAuthor = userService.addUser("Lukas", "Lowinger", "mejl", "pass", "popis");
-		Long idEvent = addEvent(idAuthor);
-		Long idTerm = termService.addTermToEvent(new Date(), "Status pridavani", "pridavani ", new Date(), idAuthor, idEvent);
-		String status = "ZMENA STATUSU";
-		termService.changeTermStatusById(status, idTerm);
+	public void testAddChangeStatusRetrieveTerm() {
+		Long authorId = userService.addUser("Lukas", "Lowinger", "mejl", "pass", "popis");
+		Long eventId = this.addEvent(authorId);
+		Long termId = termService.addTermToEvent(new Date(), "status terminu", "popis terminu ", new Date(), authorId, eventId);
+		String expectedStatus = "ZMENA STATUSU";
 
-		List<TermDto> list = termService.getTermsByEventId(idEvent);
-		for (TermDto termDto : list) {
-			assertEquals(status, termDto.getStatus());
+		termService.changeTermStatusById(expectedStatus, termId);
+		List<TermDto> terms = termService.getTermsByEventId(eventId);
+		for (TermDto term : terms) {
+			assertEquals(expectedStatus, term.getStatus());
 		}
 	}
 
 	@Test
-	public void testAddTermAndDelete() {
-		Long idAuthor = userService.addUser("Lukas", "Druhej", "mejl", "pass", "popis");
-		Long idEvent = addEvent(idAuthor);
-		Long idTerm = termService.addTermToEvent(new Date(), "statusek", "popisek", new Date(), idAuthor, idEvent);
-		List<TermDto> terms = termService.getTermsByEventId(idEvent);
-		int expected = terms.size();
-		//assertEquals(1, expected);
-		termService.deleteTermById(idTerm);
-		assertEquals(expected - 1, termService.getTermsByEventId(idEvent).size());
+	public void testAddDeleteTerm() {
+		Long authorId = userService.addUser("Lukas", "Druhej", "mejl", "pass", "popis");
+		Long eventId = this.addEvent(authorId);
+		Long termId = termService.addTermToEvent(new Date(), "statusek", "popisek", new Date(), authorId, eventId);
+
+		List<TermDto> terms = termService.getTermsByEventId(eventId);
+		int beforeTermsCount = terms.size();
+		termService.deleteTermById(termId);
+		assertEquals(beforeTermsCount - 1, termService.getTermsByEventId(eventId).size());
 	}
 
 	private Long addEvent(Long idAuthor) {
 		return eventService.addEvent(idAuthor, "NAZEV", "LOKACE", "POPIS", new Date());
 	}
 
-	@Test
-	public void testCriteria() {
-
-	}
 }

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface UserService {
 
-	public Long addUser(String name, String surname, String email, String pass, String description);
+	public Long addUser(String name, String surname, String email, String password, String description);
 
 	public void deleteUser(Long userId);
 
@@ -21,5 +21,5 @@ public interface UserService {
 	public List<UserDto> getAllUsers();
 
 	@Transactional(readOnly = true)
-	public List<UserDto> getAllUsersOrderByName();
+	public List<UserDto> getAllUsersOrderedByName();
 }

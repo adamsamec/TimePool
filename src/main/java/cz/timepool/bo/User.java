@@ -40,7 +40,7 @@ public class User extends AbstractBusinessObject {
 
 	private String description;
 
-	@Temporal(javax.persistence.TemporalType.DATE)
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date creationDate;
 
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
@@ -54,18 +54,17 @@ public class User extends AbstractBusinessObject {
 	private List<Comment> authoredComments;
 
 	@ManyToMany(cascade = CascadeType.REMOVE)
-	@JoinTable(name = "users_participedTerm",
-			joinColumns = @JoinColumn(name = "participed_users_id", referencedColumnName = "ID"),
-			inverseJoinColumns = @JoinColumn(name = "term_id", referencedColumnName = "ID"))
-	private List<Term> participedTerms;
+	@JoinTable(name = "acceptors_terms",
+			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "term_id", referencedColumnName = "id"))
+	private List<Term> acceptedTerms;
 
-	public void addParticipedTerm(Term term) {
-		if (this.participedTerms == null) {
-			this.participedTerms = new ArrayList<Term>();
+	public void addAcceptedTerm(Term term) {
+		if (this.acceptedTerms == null) {
+			this.acceptedTerms = new ArrayList<Term>();
 		}
-
-		if (!this.participedTerms.contains(term)) {
-			this.participedTerms.add(term);
+		if (!this.acceptedTerms.contains(term)) {
+			this.acceptedTerms.add(term);
 		}
 	}
 
@@ -79,25 +78,25 @@ public class User extends AbstractBusinessObject {
 	}
 
 	public void addAuthoredEvent(Event event) {
-		if (authoredEvents == null) {
-			authoredEvents = new ArrayList<Event>();
+		if (this.authoredEvents == null) {
+			this.authoredEvents = new ArrayList<Event>();
 		}
-		if (!authoredEvents.contains(event)) {
-			authoredEvents.add(event);
+		if (!this.authoredEvents.contains(event)) {
+			this.authoredEvents.add(event);
 		}
 	}
 
 	public void addAuthoredTerms(Term term) {
-		if (authoredTerms == null) {
-			authoredTerms = new ArrayList<Term>();
+		if (this.authoredTerms == null) {
+			this.authoredTerms = new ArrayList<Term>();
 		}
-		if (!authoredTerms.contains(term)) {
-			authoredTerms.add(term);
+		if (!this.authoredTerms.contains(term)) {
+			this.authoredTerms.add(term);
 		}
 	}
 
 	public List<Comment> getAuthoredComments() {
-		return authoredComments;
+		return this.authoredComments;
 	}
 
 	public void setAuthoredComments(List<Comment> authoredComments) {
@@ -105,7 +104,7 @@ public class User extends AbstractBusinessObject {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -113,7 +112,7 @@ public class User extends AbstractBusinessObject {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
@@ -121,7 +120,7 @@ public class User extends AbstractBusinessObject {
 	}
 
 	public String getSurname() {
-		return surname;
+		return this.surname;
 	}
 
 	public void setSurname(String surname) {
@@ -129,7 +128,7 @@ public class User extends AbstractBusinessObject {
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
@@ -137,7 +136,7 @@ public class User extends AbstractBusinessObject {
 	}
 
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	public void setDescription(String description) {
@@ -145,7 +144,7 @@ public class User extends AbstractBusinessObject {
 	}
 
 	public Date getCreationDate() {
-		return creationDate;
+		return this.creationDate;
 	}
 
 	public void setCreationDate(Date creationDate) {
@@ -153,7 +152,10 @@ public class User extends AbstractBusinessObject {
 	}
 
 	public List<Event> getAuthoredEvents() {
-		return authoredEvents;
+		if (this.authoredEvents == null) {
+			this.authoredEvents = new ArrayList<Event>();
+		}
+		return this.authoredEvents;
 	}
 
 	public void setAuthoredEvents(List<Event> authoredEvents) {
@@ -161,18 +163,25 @@ public class User extends AbstractBusinessObject {
 	}
 
 	public List<Term> getAuthoredTerms() {
-		return authoredTerms;
+		if (this.authoredTerms == null) {
+			this.authoredTerms = new ArrayList<Term>();
+		}
+		return this.authoredTerms;
 	}
 
 	public void setAuthoredTerms(List<Term> authoredTerms) {
 		this.authoredTerms = authoredTerms;
 	}
 
-	public List<Term> getParticipedTerms() {
-		return participedTerms;
+	public List<Term> getAcceptedTerms() {
+		if (this.acceptedTerms == null) {
+			this.acceptedTerms = new ArrayList<Term>();
+		}
+		return this.acceptedTerms;
 	}
 
-	public void setParticipedTerms(List<Term> participedTerms) {
-		this.participedTerms = participedTerms;
+	public void setAcceptedTerms(List<Term> participedTerms) {
+		this.acceptedTerms = participedTerms;
 	}
+
 }

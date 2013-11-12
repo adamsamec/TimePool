@@ -1,10 +1,8 @@
-
 package cz.timepool.bo;
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
@@ -13,53 +11,53 @@ import javax.persistence.Temporal;
  * @author Lukas Lowinger
  */
 @Entity
-public class Comment extends AbstractBusinessObject{
-    @ManyToOne
-    private User author;
-    
-    @ManyToOne
-    private Term term;
-    
-    @Column(nullable = false)
-    private String text;
-    
-    @Column(nullable = false)
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date creationDate;
+public class Comment extends AbstractBusinessObject {
 
-    public User getAuthor() {
-        return author;
-    }
+	@ManyToOne
+	private User author;
 
-    public void setAuthor(User author) {
-        this.author = author;
-        author.addAuthoredComment(this);
-    }
+	@ManyToOne
+	private Term term;
 
-    public Term getTerm() {
-        return term;
-    }
+	@Column(nullable = false)
+	private String text;
 
-    public void setTerm(Term term) {
-        this.term = term;
-        term.addComment(this);
-    }
+	@Column(nullable = false)
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	private Date creationDate;
 
-    public String getText() {
-        return text;
-    }
+	public User getAuthor() {
+		return this.author;
+	}
 
-    public void setText(String text) {
-        this.text = text;
-    }
+	public void setAuthor(User author) {
+		this.author = author;
+		author.addAuthoredComment(this);
+	}
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
+	public Term getTerm() {
+		return this.term;
+	}
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public void setTerm(Term term) {
+		this.term = term;
+		term.addComment(this);
+	}
 
-    
+	public String getText() {
+		return this.text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public Date getCreationDate() {
+		return this.creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
 }

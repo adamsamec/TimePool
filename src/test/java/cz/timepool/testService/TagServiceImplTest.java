@@ -27,16 +27,18 @@ public class TagServiceImplTest extends AbstractServiceTest {
 	private UserService userService;
 
 	@Test
-	public void testAddAndRetrieveAndDelete() {
-		Long idEvent = eventService.addEvent(userService.addUser("lojza", "polojza", "mejl", "passik", "pppppopis"), "Koupani ve studene vode ", "Rybnik v Rusku  ", "Bude to narez, prijdte vsichni.", new Date());
+	public void testAddRetrieveDeleteTags() {
+		Long eventId = eventService.addEvent(userService.addUser("Lojza", "Polojza", "mejl", "passik", "pppppopis"), "Koupani ve studene vode ", "Rybnik v Rusku  ", "Bude to narez, prijdte vsichni.", new Date());
 		List<TagDto> tags = tagService.getAllTags();
-		int before = tags.size();
-		Long idTag = tagService.addTagToEvent("ZIMA", idEvent);
+		int beforeTagsCount = tags.size();
+		
+		Long tagId = tagService.addTagToEvent("ZIMA", eventId);
 		tags = tagService.getAllTags();
-		assertEquals(before + 1, tags.size());
+		assertEquals(beforeTagsCount + 1, tags.size());
 
-		tagService.deleteTag(idTag);
+		tagService.deleteTag(tagId);
 		tags = tagService.getAllTags();
-		assertEquals(before, tags.size());
+		assertEquals(beforeTagsCount, tags.size());
 	}
+
 }

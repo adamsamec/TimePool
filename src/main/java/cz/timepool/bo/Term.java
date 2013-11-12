@@ -27,25 +27,25 @@ public class Term extends AbstractBusinessObject {
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "term")
 	private List<Comment> comments = new ArrayList<Comment>();
 
-	@Temporal(javax.persistence.TemporalType.DATE)
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date creationDate;
 
 	@ManyToOne
 	private User author;
 
-	@ManyToMany(cascade = CascadeType.REMOVE, mappedBy = "participedTerms")
-	private List<User> participants;
+	@ManyToMany(cascade = CascadeType.REMOVE, mappedBy = "acceptedTerms")
+	private List<User> acceptors;
 
 	@ManyToOne
 	private Event event;
 
-	public void addParticipant(User participant) {
-		if (this.participants == null) {
-			this.participants = new ArrayList<User>();
+	public void addAcceptor(User acceptor) {
+		if (this.acceptors == null) {
+			this.acceptors = new ArrayList<User>();
 		}
 
-		if (!this.participants.contains(participant)) {
-			participants.add(participant);
+		if (!this.acceptors.contains(acceptor)) {
+			this.acceptors.add(acceptor);
 		}
 	}
 
@@ -64,7 +64,7 @@ public class Term extends AbstractBusinessObject {
 	}
 
 	public Date getSuggestedDate() {
-		return suggestedDate;
+		return this.suggestedDate;
 	}
 
 	public void setSuggestedDate(Date suggestedDate) {
@@ -72,7 +72,7 @@ public class Term extends AbstractBusinessObject {
 	}
 
 	public String getStatus() {
-		return status;
+		return this.status;
 	}
 
 	public void setStatus(String status) {
@@ -80,7 +80,7 @@ public class Term extends AbstractBusinessObject {
 	}
 
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	public void setDescription(String description) {
@@ -88,7 +88,7 @@ public class Term extends AbstractBusinessObject {
 	}
 
 	public List<Comment> getComments() {
-		return comments;
+		return this.comments;
 	}
 
 	public void setComments(List<Comment> comments) {
@@ -96,7 +96,7 @@ public class Term extends AbstractBusinessObject {
 	}
 
 	public Date getCreationDate() {
-		return creationDate;
+		return this.creationDate;
 	}
 
 	public void setCreationDate(Date creationDate) {
@@ -104,7 +104,7 @@ public class Term extends AbstractBusinessObject {
 	}
 
 	public User getAuthor() {
-		return author;
+		return this.author;
 	}
 
 	public void setAuthor(User author) {
@@ -112,16 +112,19 @@ public class Term extends AbstractBusinessObject {
 		author.addAuthoredTerms(this);
 	}
 
-	public List<User> getParticipants() {
-		return participants;
+	public List<User> getAcceptors() {
+		if (this.acceptors == null) {
+			this.acceptors = new ArrayList<User>();
+		}
+		return this.acceptors;
 	}
 
-	public void setParticipants(List<User> participants) {
-		this.participants = participants;
+	public void setAcceptors(List<User> acceptors) {
+		this.acceptors = acceptors;
 	}
 
 	public Event getEvent() {
-		return event;
+		return this.event;
 	}
 
 	public void setEvent(Event event) {
@@ -129,8 +132,4 @@ public class Term extends AbstractBusinessObject {
 		event.addTerm(this);
 	}
 
-	@Override
-	public String toString() {
-		return "Term ::: ID : " + id + "status : " + status + " description: " + description;
-	}
 }

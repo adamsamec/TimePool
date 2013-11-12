@@ -1,4 +1,3 @@
-
 package cz.timepool.dto;
 
 import java.util.Date;
@@ -7,57 +6,56 @@ import java.util.Date;
  *
  * @author Lukas Lowinger
  */
-public class CommentDto extends AbstractDto{
-    private Long author;
-    private Long term;
-    private String text;
-    private Date creationDate;
+public class CommentDto extends AbstractDto {
 
-    public CommentDto(Long id, Long author, Long term, String text, Date creationDate) {
-        this.id = id;
-        this.author = author;
-        this.term = term;
-        this.text = text;
-        this.creationDate = creationDate;
-    }
+	private Long author;
+	private Long term;
+	private String text;
+	private Date creationDate;
 
-    public Long getAuthor() {
-        return author;
-    }
+	public CommentDto(Long id, Long author, Long term, String text, Date creationDate) {
+		this.id = id;
+		this.author = author;
+		this.term = term;
+		this.text = text;
+		this.creationDate = creationDate;
+	}
 
-    public void setAuthor(Long author) {
-        this.author = author;
-    }
+	public Long getAuthor() {
+		return author;
+	}
 
-    public Long getTerm() {
-        return term;
-    }
+	public void setAuthor(Long author) {
+		this.author = author;
+	}
 
-    public void setTerm(Long term) {
-        this.term = term;
-    }
+	public Long getTerm() {
+		return term;
+	}
 
-    public String getText() {
-        return text;
-    }
+	public void setTerm(Long term) {
+		this.term = term;
+	}
 
-    public void setText(String text) {
-        this.text = text;
-    }
+	public String getText() {
+		return text;
+	}
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
+	public void setText(String text) {
+		this.text = text;
+	}
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public Date getCreationDate() {
+		return creationDate;
+	}
 
-    @Override
-    public String toString() {
-        return "CommentDto::: id:"+id+" text: "+text+" date "+creationDate.toString();
-    }
-    
-    
-    
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	@Override
+	public String toString() {
+		return "CommentDto ::: ID: " + id + ", creationDate: " + creationDate + ", text: " + text;
+	}
+
 }
