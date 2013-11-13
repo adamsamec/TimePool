@@ -18,7 +18,7 @@ import javax.persistence.Temporal;
 public class Term extends AbstractBusinessObject {
 
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
-	private Date suggestedDate;
+	private Date termDate;
 
 	private String status;
 
@@ -63,12 +63,12 @@ public class Term extends AbstractBusinessObject {
 		this.comments.remove(comment);
 	}
 
-	public Date getSuggestedDate() {
-		return this.suggestedDate;
+	public Date getTermDate() {
+		return this.termDate;
 	}
 
-	public void setSuggestedDate(Date suggestedDate) {
-		this.suggestedDate = suggestedDate;
+	public void setTermDate(Date termDate) {
+		this.termDate = termDate;
 	}
 
 	public String getStatus() {

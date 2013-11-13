@@ -46,11 +46,11 @@ public class Event extends AbstractBusinessObject {
 	private List<Tag> tags;
 
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "event")
-	@OrderBy(clause = "suggestedDate ASC")
+	@OrderBy(clause = "termDate ASC")
 	private List<Term> terms;
 
 	@Transient
-	private String currentTermsOrder = "suggestedDate ASC";
+	private String currentTermsOrder = "termDate ASC";
 
 	public void addTerm(Term term) {
 		if (this.terms == null) {
@@ -128,11 +128,11 @@ public class Event extends AbstractBusinessObject {
 		if (this.terms == null) {
 			this.terms = new ArrayList<Term>();
 		} else {
-			String termsOrder = "suggestedDate ASC";
+			String termsOrder = "termDate ASC";
 			if (!this.currentTermsOrder.equals(termsOrder)) {
 				Collections.sort(this.terms, new Comparator<Term>() {
 					public int compare(Term t1, Term t2) {
-						return t1.getSuggestedDate().compareTo(t2.getSuggestedDate());
+						return t1.getTermDate().compareTo(t2.getTermDate());
 					}
 				});
 				this.currentTermsOrder = termsOrder;

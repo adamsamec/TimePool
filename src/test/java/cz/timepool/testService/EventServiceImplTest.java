@@ -44,7 +44,7 @@ public class EventServiceImplTest extends AbstractServiceTest {
 		Long term4Id = termService.addTermToEvent(new Date(100000), "novy", "Stary termin", new Date(), authorId, eventId);
 		List<TermDto> terms = termService.getTermsByEventId(eventId);
 		TermDto newestTerm = terms.get(terms.size() - 1);
-		System.out.println(">>> TEST @OrderBy >>> Vypis terminu serazeny podle navrzeneho data (suggestedDate):");
+		System.out.println(">>> TEST @OrderBy >>> Vypis terminu serazeny podle navrzeneho data (termDate):");
 		for (TermDto term : terms) {
 			System.out.println(term);
 		}

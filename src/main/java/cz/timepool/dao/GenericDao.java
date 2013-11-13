@@ -23,6 +23,8 @@ public interface GenericDao {
 
 	public <ENTITY> ENTITY getSingleByProperty(String property, Object value, Class<ENTITY> clazz);
 
+	public <ENTITY> List<ENTITY> getAllBetween(String columnName, Object fromValue, Object toValue, Class<ENTITY> clazz);
+
 	public <ENTITY> List<ENTITY> getAllCreatedBetween(Date fromDate, Date toDate, Class<ENTITY> clazz);
 
 	public <ENTITY extends AbstractBusinessObject> void removeById(long id, Class<ENTITY> clazz);

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Lukas Lowinger
  */
+@Transactional
 public interface UserService {
 
 	public Long addUser(String name, String surname, String email, String password, String description);

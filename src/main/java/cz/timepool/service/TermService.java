@@ -15,7 +15,7 @@ public interface TermService {
 
 	public List<TermDto> getTermsByEventId(Long eventId);
 
-	public Long addTermToEvent(Date suggestedDate, String status, String description, Date creationDate, Long authorId, Long eventId);
+	public Long addTermToEvent(Date termDate, String status, String description, Date creationDate, Long authorId, Long eventId);
 
 	public void deleteTermById(Long termId);
 

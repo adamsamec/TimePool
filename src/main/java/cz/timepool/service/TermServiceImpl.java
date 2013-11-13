@@ -21,7 +21,7 @@ class TermServiceImpl extends AbstractDataAccessService implements TermService {
 	@Override
 	public TermDto getTermById(Long termId) {
 		Term term = genericDao.getById(termId, Term.class);
-		TermDto eventDto = new TermDto(term.getId(), term.getSuggestedDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(), DtoTransformerHelper.getIdentifiers(term.getAcceptors()), DtoTransformerHelper.getIdentifiers(term.getComments()));
+		TermDto eventDto = new TermDto(term.getId(), term.getTermDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(), DtoTransformerHelper.getIdentifiers(term.getAcceptors()), DtoTransformerHelper.getIdentifiers(term.getComments()));
 		return eventDto;
 	}
 
@@ -30,22 +30,22 @@ class TermServiceImpl extends AbstractDataAccessService implements TermService {
 //        List<TermDto> termsDto = new ArrayList<TermDto>();
 //        List<Term> terms = genericDao.getByProperty("event", genericDao.loadById(idEvent, Event.class), Term.class);
 //        for (Term term : terms) {
-//            termsDto.add(new TermDto(term.getId(),term.getSuggestedDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(),DtoTransformerHelper.getIdentifiers(term.getAcceptors()), DtoTransformerHelper.getIdentifiers(term.getComments())));
+//            termsDto.add(new TermDto(term.getId(),term.getTermDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(),DtoTransformerHelper.getIdentifiers(term.getAcceptors()), DtoTransformerHelper.getIdentifiers(term.getComments())));
 //        }
 		Event event = genericDao.loadById(idEvent, Event.class);
 		List<Term> terms = event.getTerms();
 		List<TermDto> termsDto = new ArrayList<TermDto>();
 		for (Term term : terms) {
-			termsDto.add(new TermDto(term.getId(), term.getSuggestedDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(), DtoTransformerHelper.getIdentifiers(term.getAcceptors()), DtoTransformerHelper.getIdentifiers(term.getComments())));
+			termsDto.add(new TermDto(term.getId(), term.getTermDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(), DtoTransformerHelper.getIdentifiers(term.getAcceptors()), DtoTransformerHelper.getIdentifiers(term.getComments())));
 		}
 		return termsDto;
 	}
 
 	@Override
-	public Long addTermToEvent(Date suggestedDate, String status, String description, Date creationDate, Long author, Long event) {
+	public Long addTermToEvent(Date termDate, String status, String description, Date creationDate, Long author, Long event) {
 		Term term = new Term();
 		term.setCreationDate(creationDate);
-		term.setSuggestedDate(suggestedDate);
+		term.setTermDate(termDate);
 		term.setDescription(description);
 		term.setStatus(status);
 		term.setAuthor(genericDao.loadById(author, User.class));
@@ -65,7 +65,7 @@ class TermServiceImpl extends AbstractDataAccessService implements TermService {
 	public void editTermById(TermDto changedTerm, Long idTerm) {
 		Term term = new Term();
 		term.setCreationDate(changedTerm.getCreationDate());
-		term.setSuggestedDate(changedTerm.getSuggestedDate());
+		term.setTermDate(changedTerm.getTermDate());
 		term.setDescription(changedTerm.getDescription());
 		term.setStatus(changedTerm.getStatus());
 		term.setAuthor(genericDao.loadById(changedTerm.getAuthor(), User.class));

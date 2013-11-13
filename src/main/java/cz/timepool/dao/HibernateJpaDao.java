@@ -1,11 +1,12 @@
 package cz.timepool.dao;
 
 import cz.timepool.bo.AbstractBusinessObject;
-import cz.timepool.bo.Event;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Expression;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
@@ -59,6 +60,13 @@ public class HibernateJpaDao implements GenericDao {
 			e = clazz.cast(getEntityManager().createQuery("FROM " + clazz.getSimpleName() + " WHERE " + property + " = :value").setParameter("value", value).getSingleResult());
 		}
 		return e;
+	}
+
+	// TODO: Odstranit neobecne metody netykajici se Hibernate a vytvorit pro ne nove TimepoolDao specificky pro tento projekt
+	public <ENTITY> List<ENTITY> getAllBetween(String columnName, Object fromValue, Object toValue, Class<ENTITY> clazz) {
+		Criteria c = getSession().createCriteria(clazz);
+		c.add(Expression.ge(columnName, fromValue)).add(Expression.le(columnName, toValue));
+		return c.list();
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Lukas Lowinger
  */
-public class EventDto extends AbstractDto {
+public class EventDto extends TemporalEntityDto {
 
 	private Long author;
 	private String title;

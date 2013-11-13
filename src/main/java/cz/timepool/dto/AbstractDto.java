@@ -8,7 +8,7 @@ package cz.timepool.dto;
  *
  * @author Lukas L.
  */
-public class AbstractDto {
+public abstract class AbstractDto {
 
 	protected Long id;
 

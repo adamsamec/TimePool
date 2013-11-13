@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Lukas Lowinger
  */
-public class UserDto extends AbstractDto {
+public class UserDto extends TemporalEntityDto {
 
 	private String email;
 	private String name;

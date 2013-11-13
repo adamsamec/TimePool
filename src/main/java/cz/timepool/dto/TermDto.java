@@ -7,9 +7,9 @@ import java.util.List;
  *
  * @author Lukas Lowinger
  */
-public class TermDto extends AbstractDto {
+public class TermDto extends TemporalEntityDto {
 
-	private Date suggestedDate;
+	private Date termDate;
 	private String status;
 	private String description;
 	private Date creationDate;
@@ -18,9 +18,9 @@ public class TermDto extends AbstractDto {
 	private List<Long> acceptors;
 	private List<Long> comments;
 
-	public TermDto(Long id, Date suggestedDate, String status, String description, Date creationDate, Long author, Long event, List<Long> acceptors, List<Long> comments) {
+	public TermDto(Long id, Date termDate, String status, String description, Date creationDate, Long author, Long event, List<Long> acceptors, List<Long> comments) {
 		this.id = id;
-		this.suggestedDate = suggestedDate;
+		this.termDate = termDate;
 		this.status = status;
 		this.description = description;
 		this.creationDate = creationDate;
@@ -38,12 +38,12 @@ public class TermDto extends AbstractDto {
 		this.event = event;
 	}
 
-	public Date getSuggestedDate() {
-		return suggestedDate;
+	public Date getTermDate() {
+		return termDate;
 	}
 
-	public void setSuggestedDate(Date suggestedDate) {
-		this.suggestedDate = suggestedDate;
+	public void setTermDate(Date termDate) {
+		this.termDate = termDate;
 	}
 
 	public String getStatus() {
@@ -96,7 +96,7 @@ public class TermDto extends AbstractDto {
 
 	@Override
 	public String toString() {
-		return "TermDto ::: ID: " + id + ", creationDate: " + creationDate + ", acceptor ids: " + acceptors + ", status: " + status + ", suggestedDate: " + suggestedDate + ", description: " + description;
+		return "TermDto ::: ID: " + id + ", creationDate: " + creationDate + ", acceptor ids: " + acceptors + ", status: " + status + ", termDate: " + termDate + ", description: " + description;
 	}
 
 }
