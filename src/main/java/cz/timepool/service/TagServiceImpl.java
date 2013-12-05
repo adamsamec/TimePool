@@ -20,16 +20,16 @@ public class TagServiceImpl extends AbstractDataAccessService implements TagServ
     public Long addTagToEvent(String text, Long event) {
         Tag t = new Tag();
         t.setText(text);
-        Event e = genericDao.loadById(event, Event.class);
+        Event e = this.timepoolDao.loadById(event, Event.class);
         t.addEvent(e);
         e.addTag(t);
-        return genericDao.saveOrUpdate(t).getId();
+        return this.timepoolDao.save(t).getId();
     }
 
     @Override
     public List<TagDto> getAllTags() {
         List<TagDto> tagDtos = new ArrayList<TagDto>();
-        List<Tag> tags = genericDao.getAll(Tag.class);
+        List<Tag> tags = this.timepoolDao.getAll(Tag.class);
         for (Tag tag : tags) {
             tagDtos.add(new TagDto(tag.getId(), DtoTransformerHelper.getIdentifiers(tag.getEvents()), tag.getText()));
         }
@@ -38,7 +38,7 @@ public class TagServiceImpl extends AbstractDataAccessService implements TagServ
 
     @Override
     public void deleteTag(Long tag) {
-        genericDao.removeById(tag, Tag.class);
+        timepoolDao.removeById(tag, Tag.class);
     }
 
 }

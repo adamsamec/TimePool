@@ -1,7 +1,7 @@
 
 package cz.timepool.service;
 
-import cz.timepool.dao.GenericDao;
+import cz.timepool.dao.TimepoolDaoIface;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public abstract class AbstractDataAccessService {
     @Autowired
-    protected GenericDao genericDao;
+    protected TimepoolDaoIface timepoolDao;
     
-    public void setGenericDao(GenericDao genericDao) {
-        this.genericDao = genericDao;
+    public void setTimepoolDao(TimepoolDaoIface genericDao) {
+        this.timepoolDao = genericDao;
     }
 
-    public GenericDao getGenericDao() {
-        return genericDao;
+    public TimepoolDaoIface getTimepoolDao() {
+        return this.timepoolDao;
     }    
 }

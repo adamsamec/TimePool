@@ -89,6 +89,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
 		String password = "Heslo" + System.currentTimeMillis();
 		String email = "emauj@nojo.no" + System.currentTimeMillis();
 		String description = "Popis" + System.currentTimeMillis();
+		// TODO: Vytvaret a predavat DTO misto property
 		Long authorId = userService.addUser(name, surname, email, password, description);
 		Long event1Id = eventService.addEvent(authorId, "Akce 1", "Misto", "Vsude akce!", new Date(100000));
 		Long event2Id = eventService.addEvent(authorId, "Akce 2", "Misto", "Jenom akce!", new Date(200000));

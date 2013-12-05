@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Lukas L.
+ * @author Lukas Lowinger
  */
 public class CommentServiceImplTest extends AbstractServiceTest {
 

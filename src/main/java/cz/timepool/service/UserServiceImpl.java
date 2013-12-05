@@ -17,27 +17,27 @@ public class UserServiceImpl extends AbstractDataAccessService implements UserSe
 
 	@Override
 	public List<UserDto> getAllUsers() {
-		List<User> users = genericDao.getAll(User.class);
+		List<User> users = this.timepoolDao.getAll(User.class);
 		List<UserDto> userDtos = new ArrayList<UserDto>();
 		for (User u : users) {
+			// TODO: Vytvorit konstruktor prijimaci Entitu a z ni inicializovat DTO-
 			userDtos.add(new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms())));
-			//userDtos.add(new UserDto(u.getEmail(),u.getName(),u.getSurname(),u.getPassword(),u.getDescription(),u.getCreationDate()));
 		}
 		return userDtos;
 	}
 
 	@Override
 	public List<UserDto> getAllUsersOrderedByName() {
-		List<User> users = genericDao.getAllOrdered(User.class, "name");
+		List<User> users = this.timepoolDao.getAllOrdered("name", User.class);
 		List<UserDto> userDtos = new ArrayList<UserDto>();
 		for (User u : users) {
 			userDtos.add(new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms())));
-			//userDtos.add(new UserDto(u.getEmail(),u.getName(),u.getSurname(),u.getPassword(),u.getDescription(),u.getCreationDate()));
 		}
 		return userDtos;
 	}
 
 	@Override
+    // TODO: predavat DTO
 	public Long addUser(String name, String surname, String email, String password, String description) {
 		User user = new User();
 		user.setCreationDate(new Date());
@@ -46,19 +46,18 @@ public class UserServiceImpl extends AbstractDataAccessService implements UserSe
 		user.setEmail(email);
 		user.setPassword(password);
 		user.setDescription(description);
-		return genericDao.saveOrUpdate(user).getId();
+		return this.timepoolDao.save(user).getId();
 	}
 
 	@Override
 	public void deleteUser(Long userId) {
-		genericDao.removeById(userId, User.class);
+		timepoolDao.removeById(userId, User.class);
 	}
 
 	@Override
 	public UserDto getUserById(Long id) {
-		User u = genericDao.getSingleByProperty("id", id, User.class);
+		User u = this.timepoolDao.getSingleByProperty("id", id, User.class);
 		return new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms()));
-//        return new UserDto(u.getEmail(),u.getName(),u.getSurname(),u.getPassword(),u.getDescription(),u.getCreationDate());
 	}
 
 }

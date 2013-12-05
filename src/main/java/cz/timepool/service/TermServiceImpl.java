@@ -3,7 +3,6 @@ package cz.timepool.service;
 import cz.timepool.bo.Event;
 import cz.timepool.bo.Term;
 import cz.timepool.bo.User;
-import cz.timepool.dto.EventDto;
 import cz.timepool.dto.TermDto;
 import cz.timepool.helper.DtoTransformerHelper;
 import java.util.ArrayList;
@@ -20,19 +19,14 @@ class TermServiceImpl extends AbstractDataAccessService implements TermService {
 
 	@Override
 	public TermDto getTermById(Long termId) {
-		Term term = genericDao.getById(termId, Term.class);
+		Term term = this.timepoolDao.getById(termId, Term.class);
 		TermDto eventDto = new TermDto(term.getId(), term.getTermDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(), DtoTransformerHelper.getIdentifiers(term.getAcceptors()), DtoTransformerHelper.getIdentifiers(term.getComments()));
 		return eventDto;
 	}
 
 	@Override
 	public List<TermDto> getTermsByEventId(Long idEvent) {
-//        List<TermDto> termsDto = new ArrayList<TermDto>();
-//        List<Term> terms = genericDao.getByProperty("event", genericDao.loadById(idEvent, Event.class), Term.class);
-//        for (Term term : terms) {
-//            termsDto.add(new TermDto(term.getId(),term.getTermDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(),DtoTransformerHelper.getIdentifiers(term.getAcceptors()), DtoTransformerHelper.getIdentifiers(term.getComments())));
-//        }
-		Event event = genericDao.loadById(idEvent, Event.class);
+		Event event = this.timepoolDao.loadById(idEvent, Event.class);
 		List<Term> terms = event.getTerms();
 		List<TermDto> termsDto = new ArrayList<TermDto>();
 		for (Term term : terms) {
@@ -48,15 +42,15 @@ class TermServiceImpl extends AbstractDataAccessService implements TermService {
 		term.setTermDate(termDate);
 		term.setDescription(description);
 		term.setStatus(status);
-		term.setAuthor(genericDao.loadById(author, User.class));
-		term.setEvent(genericDao.loadById(event, Event.class));
-		return genericDao.saveOrUpdate(term).getId();
+		term.setAuthor(this.timepoolDao.loadById(author, User.class));
+		term.setEvent(this.timepoolDao.loadById(event, Event.class));
+		return this.timepoolDao.save(term).getId();
 	}
 
 	@Override
 	public void deleteTermById(Long idTerm) {
 //        genericDao.removeById(idTerm, Term.class);
-		Term term = genericDao.loadById(idTerm, Term.class);
+		Term term = this.timepoolDao.loadById(idTerm, Term.class);
 		Event event = term.getEvent();
 		event.removeTerm(term);
 	}
@@ -68,24 +62,24 @@ class TermServiceImpl extends AbstractDataAccessService implements TermService {
 		term.setTermDate(changedTerm.getTermDate());
 		term.setDescription(changedTerm.getDescription());
 		term.setStatus(changedTerm.getStatus());
-		term.setAuthor(genericDao.loadById(changedTerm.getAuthor(), User.class));
+		term.setAuthor(this.timepoolDao.loadById(changedTerm.getAuthor(), User.class));
 //        term.setAcceptors(DtoTransformerHelper.getIdentifiers(changedTerm.get));
-		genericDao.saveOrUpdate(term);
+		timepoolDao.save(term);
 	}
 
 	@Override
 	public void changeTermStatusById(String status, Long termId) {
-		Term term = genericDao.loadById(termId, Term.class);
+		Term term = this.timepoolDao.loadById(termId, Term.class);
 		term.setStatus(status);
-		genericDao.saveOrUpdate(term);
+		timepoolDao.save(term);
 	}
 
 	@Override
 	public void addAcceptorToTermById(Long idAcceptor, Long idTerm) {
-		User acceptor = genericDao.loadById(idAcceptor, User.class);
-		Term term = genericDao.loadById(idTerm, Term.class);
+		User acceptor = this.timepoolDao.loadById(idAcceptor, User.class);
+		Term term = this.timepoolDao.loadById(idTerm, Term.class);
 		term.addAcceptor(acceptor);
-		genericDao.saveOrUpdate(term);
+		timepoolDao.save(term);
 	}
 
 }

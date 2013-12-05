@@ -21,7 +21,7 @@ class CommentServiceImpl extends AbstractDataAccessService implements CommentSer
 	@Transactional(readOnly = true)
 	@Override
 	public List<CommentDto> getAllByTerm(Long idTerm) {
-		Term term = genericDao.loadById(idTerm, Term.class);
+		Term term = this.timepoolDao.loadById(idTerm, Term.class);
 		List<Comment> boList = term.getComments();
 		List<CommentDto> dtoList = new ArrayList<CommentDto>();
 		for (Comment comment : boList) {
@@ -32,32 +32,32 @@ class CommentServiceImpl extends AbstractDataAccessService implements CommentSer
 
 	@Override
 	public Long addCommentToTerm(String text, Long idAuthor, Long idTerm) {
-		Term term = genericDao.loadById(idTerm, Term.class);
-		User a = genericDao.loadById(idAuthor, User.class);
+		Term term = this.timepoolDao.loadById(idTerm, Term.class);
+		User a = this.timepoolDao.loadById(idAuthor, User.class);
 		Comment c = new Comment();
 		c.setAuthor(a);
 		c.setText(text);
 		c.setCreationDate(new Date());
 		c.setTerm(term);
-		return genericDao.saveOrUpdate(c).getId();
+		return this.timepoolDao.save(c).getId();
 	}
 
 	@Override
 	public void editCommentById(String text, Long id) {
-		Comment c = genericDao.loadById(id, Comment.class);
+		Comment c = this.timepoolDao.loadById(id, Comment.class);
 		c.setText(text);
 	}
 
 	@Override
 	public void deleteCommentById(Long id) {
-		Comment c = genericDao.loadById(id, Comment.class);
+		Comment c = this.timepoolDao.loadById(id, Comment.class);
 		Term term = c.getTerm();
 		term.removeComment(c);
 	}
 
 	@Override
 	public List<CommentDto> getCommentsByUser(Long idUser) {
-		List<Comment> boList = genericDao.loadById(idUser, User.class).getAuthoredComments();
+		List<Comment> boList = this.timepoolDao.loadById(idUser, User.class).getAuthoredComments();
 		List<CommentDto> dtoList = new ArrayList<CommentDto>();
 		for (Comment comment : boList) {
 			System.out.println("pridavam : " + comment);

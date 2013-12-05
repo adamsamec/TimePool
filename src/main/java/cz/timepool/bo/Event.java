@@ -23,7 +23,7 @@ import org.hibernate.annotations.OrderBy;
  * @author Lukas Lowinger
  */
 @Entity
-@NamedQuery(name = "Event.createdBetween", query = "SELECT e FROM Event e WHERE e.creationDate >= :fromDate AND e.creationDate <= :toDate")
+@NamedQuery(name = "Event.getAllWithTags", query = "SELECT e FROM Event e WHERE e.tags in :tags")
 public class Event extends AbstractBusinessObject {
 
 	@ManyToOne

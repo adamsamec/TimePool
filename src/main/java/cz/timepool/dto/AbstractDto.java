@@ -1,12 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.timepool.dto;
 
 /**
  *
- * @author Lukas L.
+ * @author Lukas Lowinger
  */
 public abstract class AbstractDto {
 
