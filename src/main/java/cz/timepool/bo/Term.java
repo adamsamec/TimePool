@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,7 +22,8 @@ public class Term extends AbstractBusinessObject {
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date termDate;
 
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private StatusEnum status;
 
 	private String description;
 
@@ -71,11 +74,11 @@ public class Term extends AbstractBusinessObject {
 		this.termDate = termDate;
 	}
 
-	public String getStatus() {
+	public StatusEnum getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusEnum status) {
 		this.status = status;
 	}
 
