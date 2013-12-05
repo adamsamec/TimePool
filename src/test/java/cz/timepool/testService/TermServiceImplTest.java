@@ -1,5 +1,6 @@
 package cz.timepool.testService;
 
+import cz.timepool.bo.StatusEnum;
 import cz.timepool.dto.TermDto;
 import cz.timepool.service.EventService;
 import cz.timepool.service.TermService;
@@ -30,8 +31,8 @@ public class TermServiceImplTest extends AbstractServiceTest {
 	public void testAddChangeStatusRetrieveTerm() {
 		Long authorId = userService.addUser("Lukas", "Lowinger", "mejl", "pass", "popis");
 		Long eventId = this.addEvent(authorId);
-		Long termId = termService.addTermToEvent(new Date(), "status terminu", "popis terminu ", new Date(), authorId, eventId);
-		String expectedStatus = "ZMENA STATUSU";
+		Long termId = termService.addTermToEvent(new Date(), StatusEnum.PLNY, "popis terminu ", new Date(), authorId, eventId);
+		StatusEnum expectedStatus = StatusEnum.PLNY;
 
 		termService.changeTermStatusById(expectedStatus, termId);
 		List<TermDto> terms = termService.getTermsByEventId(eventId);
@@ -44,7 +45,7 @@ public class TermServiceImplTest extends AbstractServiceTest {
 	public void testAddDeleteTerm() {
 		Long authorId = userService.addUser("Lukas", "Druhej", "mejl", "pass", "popis");
 		Long eventId = this.addEvent(authorId);
-		Long termId = termService.addTermToEvent(new Date(), "statusek", "popisek", new Date(), authorId, eventId);
+		Long termId = termService.addTermToEvent(new Date(), StatusEnum.PLNY, "popisek", new Date(), authorId, eventId);
 
 		List<TermDto> terms = termService.getTermsByEventId(eventId);
 		int beforeTermsCount = terms.size();

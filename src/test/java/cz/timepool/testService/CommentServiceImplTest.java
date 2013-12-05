@@ -1,5 +1,6 @@
 package cz.timepool.testService;
 
+import cz.timepool.bo.StatusEnum;
 import cz.timepool.dto.CommentDto;
 import cz.timepool.service.CommentService;
 import cz.timepool.service.EventService;
@@ -33,7 +34,7 @@ public class CommentServiceImplTest extends AbstractServiceTest {
 	public void testAddRetrieveDeleteComments() {
 		Long userId = userService.addUser("Jack" + System.currentTimeMillis(), "Tennessee", "muj@mejl.mm", "mojeheslo", "Neco o me");
 		Long eventId = eventService.addEvent(userId, "Nazev udalosti", "Misto udalosti", "Popis udalosti", new Date());
-		Long termId = termService.addTermToEvent(new Date(), "statusss", "dsfsdfs", new Date(), userId, eventId);
+		Long termId = termService.addTermToEvent(new Date(), StatusEnum.PLNY, "dsfsdfs", new Date(), userId, eventId);
 		List<CommentDto> comments = commentService.getAllByTerm(termId);
 		int beforeCommentsCount = comments.size();
 

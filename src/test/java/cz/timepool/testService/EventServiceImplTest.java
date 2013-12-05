@@ -1,5 +1,6 @@
 package cz.timepool.testService;
 
+import cz.timepool.bo.StatusEnum;
 import cz.timepool.dto.EventDto;
 import cz.timepool.dto.TermDto;
 import cz.timepool.service.EventService;
@@ -38,10 +39,10 @@ public class EventServiceImplTest extends AbstractServiceTest {
 		assertEquals(beforeEventsCount + 1, events.size());
 
 		String expectedTermDescription = "Nejnovejsi termin";
-		Long term1Id = termService.addTermToEvent(new Date(7000000), "novy", "Novy termin", new Date(), authorId, eventId);
-		Long term2Id = termService.addTermToEvent(new Date(2000000000), "novy", expectedTermDescription, new Date(), authorId, eventId);
-		Long term3Id = termService.addTermToEvent(new Date(500), "novy", "Nejstarsi termin", new Date(), authorId, eventId);
-		Long term4Id = termService.addTermToEvent(new Date(100000), "novy", "Stary termin", new Date(), authorId, eventId);
+		Long term1Id = termService.addTermToEvent(new Date(7000000), StatusEnum.PLNY, "Novy termin", new Date(), authorId, eventId);
+		Long term2Id = termService.addTermToEvent(new Date(2000000000), StatusEnum.PLNY, expectedTermDescription, new Date(), authorId, eventId);
+		Long term3Id = termService.addTermToEvent(new Date(500), StatusEnum.PLNY, "Nejstarsi termin", new Date(), authorId, eventId);
+		Long term4Id = termService.addTermToEvent(new Date(100000), StatusEnum.VOLNY, "Stary termin", new Date(), authorId, eventId);
 		List<TermDto> terms = termService.getTermsByEventId(eventId);
 		TermDto newestTerm = terms.get(terms.size() - 1);
 		System.out.println(">>> TEST @OrderBy >>> Vypis terminu serazeny podle navrzeneho data (termDate):");
