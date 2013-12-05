@@ -4,7 +4,8 @@ package cz.timepool.bo;
  *
  * @author Lukas L.
  */
-enum StatusEnum {
 
-    VOLNY, PLNY;
+public enum StatusEnum {
+
+    VOLNY , PLNY;
 }

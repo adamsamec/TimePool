@@ -1,5 +1,6 @@
 package cz.timepool.service;
 
+import cz.timepool.bo.StatusEnum;
 import cz.timepool.dto.TermDto;
 import java.util.Date;
 import java.util.List;
@@ -19,13 +20,13 @@ public interface TermService {
     @Transactional(readOnly = true)
     public List<TermDto> getTermsByEventId(Long eventId);
 
-    public Long addTermToEvent(Date termDate, String status, String description, Date creationDate, Long authorId, Long eventId);
+    public Long addTermToEvent(Date termDate, StatusEnum status, String description, Date creationDate, Long authorId, Long eventId);
 
     public void deleteTermById(Long termId);
 
     public void editTermById(TermDto editedTerm, Long termId);
 
-    public void changeTermStatusById(String status, Long termId);
+    public void changeTermStatusById(StatusEnum status, Long termId);
 
     public void addAcceptorToTermById(Long acceptorId, Long idTerm);
 

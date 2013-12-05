@@ -1,5 +1,6 @@
 package cz.timepool.dto;
 
+import cz.timepool.bo.StatusEnum;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
 public class TermDto extends TemporalEntityDto {
 
 	private Date termDate;
-	private String status;
+	private StatusEnum status;
 	private String description;
 	private Date creationDate;
 	private Long author;
@@ -18,7 +19,7 @@ public class TermDto extends TemporalEntityDto {
 	private List<Long> acceptors;
 	private List<Long> comments;
 
-	public TermDto(Long id, Date termDate, String status, String description, Date creationDate, Long author, Long event, List<Long> acceptors, List<Long> comments) {
+	public TermDto(Long id, Date termDate, StatusEnum status, String description, Date creationDate, Long author, Long event, List<Long> acceptors, List<Long> comments) {
 		this.id = id;
 		this.termDate = termDate;
 		this.status = status;
@@ -46,11 +47,11 @@ public class TermDto extends TemporalEntityDto {
 		this.termDate = termDate;
 	}
 
-	public String getStatus() {
+	public StatusEnum getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusEnum status) {
 		this.status = status;
 	}
 

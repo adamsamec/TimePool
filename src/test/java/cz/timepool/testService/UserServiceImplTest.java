@@ -1,5 +1,6 @@
 package cz.timepool.testService;
 
+import cz.timepool.bo.StatusEnum;
 import cz.timepool.dto.EventDto;
 import cz.timepool.dto.TermDto;
 import cz.timepool.dto.UserDto;
@@ -120,13 +121,13 @@ public class UserServiceImplTest extends AbstractServiceTest {
 		// (1):
 		Long eventId = eventService.addEvent(authorId, "Nova suprova akce", "Kdesi", "Popis akce.", new Date());
 		// (2):
-		Long term2Id = termService.addTermToEvent(new Date(1388322514000L), "novy", "Druhy nejblizsi termin", new Date(), user1Id, eventId);
-		Long term1Id = termService.addTermToEvent(new Date(1398322514000L), "novy", "Treti nejblizsi termin", new Date(), user1Id, eventId);
-		Long term3Id = termService.addTermToEvent(new Date(1386522514000L), "novy", "Prvni nejblizsi termin", new Date(), user1Id, eventId);
+		Long term2Id = termService.addTermToEvent(new Date(1388322514000L), StatusEnum.PLNY, "Druhy nejblizsi termin", new Date(), user1Id, eventId);
+		Long term1Id = termService.addTermToEvent(new Date(1398322514000L), StatusEnum.PLNY, "Treti nejblizsi termin", new Date(), user1Id, eventId);
+		Long term3Id = termService.addTermToEvent(new Date(1386522514000L), StatusEnum.PLNY, "Prvni nejblizsi termin", new Date(), user1Id, eventId);
 		// (3):
 		termService.addAcceptorToTermById(user1Id, term2Id);
 		// (4):
-		termService.changeTermStatusById("zamitnut", term1Id);
+		termService.changeTermStatusById(StatusEnum.PLNY, term1Id);
 		// (5):
 		termService.addAcceptorToTermById(authorId, term3Id);
 		// (6):

@@ -1,6 +1,7 @@
 package cz.timepool.service;
 
 import cz.timepool.bo.Event;
+import cz.timepool.bo.StatusEnum;
 import cz.timepool.bo.Term;
 import cz.timepool.bo.User;
 import cz.timepool.dto.TermDto;
@@ -36,7 +37,7 @@ class TermServiceImpl extends AbstractDataAccessService implements TermService {
 	}
 
 	@Override
-	public Long addTermToEvent(Date termDate, String status, String description, Date creationDate, Long author, Long event) {
+	public Long addTermToEvent(Date termDate, StatusEnum status, String description, Date creationDate, Long author, Long event) {
 		Term term = new Term();
 		term.setCreationDate(creationDate);
 		term.setTermDate(termDate);
@@ -68,7 +69,7 @@ class TermServiceImpl extends AbstractDataAccessService implements TermService {
 	}
 
 	@Override
-	public void changeTermStatusById(String status, Long termId) {
+	public void changeTermStatusById(StatusEnum status, Long termId) {
 		Term term = this.timepoolDao.loadById(termId, Term.class);
 		term.setStatus(status);
 		timepoolDao.save(term);
