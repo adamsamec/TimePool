@@ -133,12 +133,29 @@
             <scope>test</scope>
         </dependency>
         
+	<dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>facelets-taglib-jsf20-spring-3</artifactId>
+            <version>0.5</version>
+        </dependency>      
+    
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>         
+        
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+    
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
             <version>${org.springframework.version}</version>
-        </dependency>        
-        
+        </dependency>       
         
         <!-- Spring - END -->
 
@@ -302,5 +319,10 @@
 	    <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
 	    <url>file:${project.basedir}/lib</url>
 	</repository>
+
+        <repository>
+            <id>org.springframework.security.taglibs.facelets</id>
+            <url>http://spring-security-facelets-taglib.googlecode.com/svn/repo/</url>
+        </repository>  
     </repositories>
 </project>
