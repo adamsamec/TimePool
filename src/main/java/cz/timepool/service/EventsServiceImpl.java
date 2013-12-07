@@ -149,17 +149,17 @@ public class EventsServiceImpl extends GenericService implements EventsService {
 		timepoolDao.removeById(eventId, Event.class);
 	}
 
-	@Override
-	public List<EventDto> getAllEventsCreatedBetween(Date fromDate, Date toDate) {
-		List<EventDto> dtos = this.getAllCreatedBetween(fromDate, toDate, Event.class, EventDto.class);
-		return dtos;
-//		List<Event> events = this.genericDao.getAllBetween("creationDate", fromDate, toDate, Event.class);
-//		List<EventDto> eventDtos = new ArrayList<EventDto>();
-//		for (Event e : events) {
-//			eventDtos.add(new EventDto(e.getId(), e.getAuthor().getId(), e.getTitle(), e.getLocation(), e.getDescription(), e.getCreationDate(), DtoTransformerHelper.getIdentifiers(e.getTags()), DtoTransformerHelper.getIdentifiers(e.getTerms())));
-//		}
-//		return eventDtos;
-	}
+//	@Override
+//	public List<EventDto> getAllEventsCreatedBetween(Date fromDate, Date toDate) {
+//		List<EventDto> dtos = this.getAllCreatedBetween(fromDate, toDate, Event.class, EventDto.class);
+//		return dtos;
+////		List<Event> events = this.genericDao.getAllBetween("creationDate", fromDate, toDate, Event.class);
+////		List<EventDto> eventDtos = new ArrayList<EventDto>();
+////		for (Event e : events) {
+////			eventDtos.add(new EventDto(e.getId(), e.getAuthor().getId(), e.getTitle(), e.getLocation(), e.getDescription(), e.getCreationDate(), DtoTransformerHelper.getIdentifiers(e.getTags()), DtoTransformerHelper.getIdentifiers(e.getTerms())));
+////		}
+////		return eventDtos;
+//	}
     
 //    public List<EventDto> getAllEventsWithTags(List<TagDto> tags) {
 //	
