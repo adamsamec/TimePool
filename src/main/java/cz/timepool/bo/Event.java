@@ -51,6 +51,9 @@ public class Event extends AbstractBusinessObject {
 
 	@Transient
 	private String currentTermsOrder = "termDate ASC";
+	
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "event")
+	private List<EventInvitation> invitations;
 
 	public void addTerm(Term term) {
 		if (this.terms == null) {
