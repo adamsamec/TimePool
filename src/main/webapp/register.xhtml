@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>TimePool</title>
+    </h:head>
+    <h:body>
+	<h:form>
+	<h:outputLabel for="email" value="#{registration.user.email}">Email : </h:outputLabel>
+	<h:inputText id="email"></h:inputText><br/>
+	<h:outputLabel for="name" value="#{registration.user.name}">Name : </h:outputLabel>
+	<h:inputText id="name"></h:inputText><br/>
+	<h:outputLabel for="surname" value="#{registration.user.surname}">Surname : </h:outputLabel>
+	<h:inputText id="surname"></h:inputText><br/>
+	<h:outputLabel for="pass" value="#{registration.user.password}">Password : </h:outputLabel>
+	<h:inputSecret id="pass"></h:inputSecret><br/>
+	<h:commandButton action="#{registration.register('login')}" value="register"></h:commandButton>
+	</h:form>
+    </h:body>
+</html>
+

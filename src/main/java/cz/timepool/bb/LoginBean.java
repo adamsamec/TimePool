@@ -1,6 +1,7 @@
 
 package cz.timepool.bb;
 
+import cz.timepool.helper.FacesUtil;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -16,9 +17,7 @@ public class LoginBean {
     private String passedParameter;
 
     public String getPassedParameter() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        this.passedParameter = (String) facesContext.getExternalContext().
-                getRequestParameterMap().get("login_error");
+        this.passedParameter = FacesUtil.getRequestParameter("login_error");
         return this.passedParameter;
     }
 
