@@ -18,10 +18,6 @@ public class RegistrationBB {
     UsersService usersService;
     UserDto user;
 
-//    public RegistrationBB() {
-//    user = new UserDto(Long.MIN_VALUE, null, null, null, null, null, UserRole.REGISTERED, null, null, null, null, null, null);
-//    }
-
     public UserDto getUser() {
 	if(user == null){
 	    user = new UserDto(null, null, null, null, null, null, null, null, null, null, null, null, null);
