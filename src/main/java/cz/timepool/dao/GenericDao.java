@@ -30,6 +30,8 @@ public interface GenericDao {
 	public <ENTITY extends AbstractBusinessObject> void remove(ENTITY o);
 
 	public <ENTITY extends AbstractBusinessObject> void removeById(long id, Class<ENTITY> clazz);
+	
+	public <ENTITY> ENTITY getByPropertyUnique(String property, Object value, Class<ENTITY> clazz);
 
 	public Session getSession();
 

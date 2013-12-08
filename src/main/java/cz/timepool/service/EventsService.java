@@ -44,7 +44,7 @@ public interface EventsService {
     public void addAcceptorToTermById(Long acceptorId, Long idTerm);
     
     
-        @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public EventDto getEventById(Long eventId);
  
     @Transactional(readOnly = true)
@@ -58,4 +58,7 @@ public interface EventsService {
 
     // TODO: predavat DTO
     public void deleteEventById(Long eventId);
+    
+    @Transactional(readOnly = true)
+    public List<EventDto> getAllEventsByUser(Long userId);
 }

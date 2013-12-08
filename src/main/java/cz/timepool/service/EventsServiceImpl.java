@@ -165,4 +165,16 @@ public class EventsServiceImpl extends GenericService implements EventsService {
 //	
 //		return this.eventDao.getAllEventsWithTags(tags);
 //	}
+
+    @Override
+    public List<EventDto> getAllEventsByUser(Long userId) {
+	List<Event> events = timepoolDao.loadById(userId, User.class).getAuthoredEvents();
+	List<EventDto> eventsDto = new ArrayList<EventDto>();
+	for (Event e : events) {
+	    eventsDto.add(new EventDto(e.getId(), e.getAuthor().getId(), e.getTitle(), e.getLocation(), e.getDescription(), e.getCreationDate(), DtoTransformerHelper.getIdentifiers(e.getTags()), DtoTransformerHelper.getIdentifiers(e.getTerms())));
+	}
+	return eventsDto;
+    }
+
+	
 }

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+	<h:link outcome="event-form" value="Create event"></h:link><br/>
+	<c:if test="${eventList.isEmpty == false}">List of your events : <br/> </c:if>
+	<ul>
+	    <ui:repeat var="event" value="#{eventList.allEventsByUser}">
+		<h:form>
+		    <li>
+			<h:commandLink action="#{selectedEvent.setEventById('event-form')}" value="#{event.title}">
+			    <f:param name="eventid" value="#{event.id}"/>
+			</h:commandLink>
+			
+		    </li>
+		</h:form>
+	    </ui:repeat>
+	</ul>
+    </h:body>
+</html>
+
