@@ -18,14 +18,14 @@ public class RegistrationBB {
     UsersService usersService;
     UserDto user;
 
-    public RegistrationBB() {
-    user = new UserDto(Long.MIN_VALUE, null, null, null, null, null, UserRole.REGISTERED, null, null, null, null, null, null);
-    }
+//    public RegistrationBB() {
+//    user = new UserDto(Long.MIN_VALUE, null, null, null, null, null, UserRole.REGISTERED, null, null, null, null, null, null);
+//    }
 
     public UserDto getUser() {
-//	if(user == null){
-//	    user = new UserDto(null, null, null, null, null, null, null, null, null, null, null, null, null);
-//	}
+	if(user == null){
+	    user = new UserDto(null, null, null, null, null, null, null, null, null, null, null, null, null);
+	}
 	return user;
     }
 
@@ -34,8 +34,7 @@ public class RegistrationBB {
     }
     
     public String register(String outcome){
-	System.out.println("MEJL "+user.getEmail());
-	usersService.addUser(outcome, outcome, outcome, outcome, outcome);
+	usersService.addUser(user.getName(), user.getSurname(), user.getEmail(), user.getPassword(), user.getDescription());
 	return outcome;
     }
 }
