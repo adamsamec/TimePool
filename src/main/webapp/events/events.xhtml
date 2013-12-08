@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:sec="http://www.springframework.org/security/facelets/tags"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
@@ -10,11 +11,19 @@
     </h:head>
     <h:body>
 	<h:link outcome="event-form" value="Create event"></h:link><br/>
-	List of your events : <br/>
-	
-	<ui:repeat var="events" value="#{eventList.allEventsByUser}">
-                    Event title name : <h:outputText value="#{events.title}"/><br/>
-                </ui:repeat>
+	<c:if test="${eventList.isEmpty == false}">List of your events : <br/> </c:if>
+	<ul>
+	    <ui:repeat var="event" value="#{eventList.allEventsByUser}">
+		<h:form>
+		    <li>
+			<h:commandLink action="#{selectedEvent.setEventById('event-form')}" value="#{event.title}">
+			    <f:param name="eventid" value="#{event.id}"/>
+			</h:commandLink>
+			
+		    </li>
+		</h:form>
+	    </ui:repeat>
+	</ul>
     </h:body>
 </html>
 

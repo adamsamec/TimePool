@@ -17,7 +17,23 @@ public class EventList {
     EventsService eventsService;
     @Autowired
     LoggedUserBean logged;
+    
+    public boolean isEmpty;
+
+    public void setIsEmpty(boolean isEmpty) {
+	this.isEmpty = isEmpty;
+    }
+    
     public List<EventDto> getAllEventsByUser(){
 	return eventsService.getAllEventsByUser(logged.getUser().getId());
+    }
+    
+    public boolean getIsEmpty(){
+	List<EventDto> list = getAllEventsByUser();
+	for (EventDto eventDto : list) {
+	    System.out.println(eventDto);
+	}
+	isEmpty = list.isEmpty();
+	return isEmpty;
     }
 }
