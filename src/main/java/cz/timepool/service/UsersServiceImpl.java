@@ -4,6 +4,7 @@ import cz.timepool.bo.Comment;
 import cz.timepool.bo.Term;
 import cz.timepool.bo.User;
 import cz.timepool.dto.CommentDto;
+import cz.timepool.dto.EventDto;
 import cz.timepool.dto.UserDto;
 import cz.timepool.helper.DtoTransformerHelper;
 import java.util.ArrayList;
@@ -110,4 +111,11 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
 	}
 	return dtoList;
     }
+
+    @Override
+    public UserDto getUserByEmail(String email) {
+	User u = this.timepoolDao.getSingleByProperty("email", email, User.class);
+	return new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms()));
+    }
+
 }
