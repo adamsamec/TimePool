@@ -31,13 +31,13 @@ public class User extends AbstractBusinessObject {
     @Column(nullable = false)
     private String email;
     
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String name;
     
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String surname;
     
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String password;
     
     @Enumerated(EnumType.STRING)

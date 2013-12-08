@@ -1,12 +1,25 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>TimePool</title>
     </h:head>
     <h:body>
-	
+
+	Selected event : <h:outputText value="#{selectedEvent.event.title}"></h:outputText><br/>
+	<h:form>
+	    Invite somebody via email : <h:inputText id="useremail" value="#{selectedEvent.userEmail}"></h:inputText><br/>
+	    <h:outputLabel for="message">Message : </h:outputLabel><h:inputText id="message" value="#{selectedEvent.message}"></h:inputText><br/>
+	    <h:outputLabel for="perm">Permissions : </h:outputLabel>
+	    <h:selectManyListbox id="perm" value="#{selectedEvent.permissions}">
+		<f:selectItems value="#{selectedEvent.permissionsValues}" />
+	    </h:selectManyListbox><br/>
+
+	    <h:commandButton action="#{selectedEvent.inviteToEvent()}" value="Invite">
+	    </h:commandButton>
+	</h:form>
     </h:body>
 </html>
 

@@ -68,6 +68,15 @@ public class Event extends AbstractBusinessObject {
 	public void removeTerm(Term term) {
 		this.terms.remove(term);
 	}
+	
+	public void addEventInvitation(EventInvitation ei){
+	    if(this.invitations == null){
+		this.invitations = new ArrayList<EventInvitation>();
+	    }
+	    if(!this.invitations.contains(ei)){
+		this.invitations.add(ei);
+	    }
+	}
 
 	public void addTag(Tag tag) {
 		if (this.tags == null) {

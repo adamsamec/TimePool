@@ -1,6 +1,7 @@
 
 package cz.timepool.bo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -35,6 +36,15 @@ public class EventInvitation extends AbstractBusinessObject{
     
     @ManyToOne
     private User invitedUser;
+    
+    public void addUserPermission(UserPermission up){
+	if(permissions == null){
+	    permissions = new ArrayList<UserPermission>();
+	}
+	if(!this.permissions.contains(up)){
+	    this.permissions.add(up);
+	}
+    }
 
     public List<UserPermission> getPermissions() {
 	return permissions;

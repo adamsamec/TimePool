@@ -7,7 +7,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>TimePool</title>
     </h:head>
     <h:body>
 	<h:link outcome="event-form" value="Create event"></h:link><br/>
@@ -16,10 +16,11 @@
 	    <ui:repeat var="event" value="#{eventList.allEventsByUser}">
 		<h:form>
 		    <li>
-			<h:commandLink action="#{selectedEvent.setEventById('event-form')}" value="#{event.title}">
+			<h:commandLink action="#{selectedEvent.setEventById('event')}" value="#{event.title}">
 			    <f:param name="eventid" value="#{event.id}"/>
 			</h:commandLink>
-			
+			<h:commandButton action="events" value="Edit"></h:commandButton>
+			<h:commandButton action="#{selectedEvent.deleteEvent()}" value="Delete"><f:param name="deleteeventid" value="#{event.id}"/></h:commandButton>
 		    </li>
 		</h:form>
 	    </ui:repeat>
