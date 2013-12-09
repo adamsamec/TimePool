@@ -1,6 +1,5 @@
 package cz.timepool.dto;
 
-import cz.timepool.bo.UserPermission;
 import cz.timepool.bo.UserRole;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +17,7 @@ public class UserDto extends TemporalEntityDto {
     private String description;
     private Date creationDate;
     private UserRole userRole;
+    private Integer authKey;
     
     private List<Long> eventInvitations;
     private List<Long> authoredEvents;
@@ -25,7 +25,7 @@ public class UserDto extends TemporalEntityDto {
     private List<Long> authoredComments;
     private List<Long> acceptedTerms;
 
-    public UserDto(Long id, String email, String name, String surname, String password, String description, UserRole userRole, Date creationDate, List<Long> authoredEvents, List<Long> authoredTerms, List<Long> authoredComments, List<Long> acceptedTerms, List<Long> eventInvitations) {
+    public UserDto(Long id, String email, String name, String surname, String password, String description, UserRole userRole, Integer authKey, Date creationDate, List<Long> authoredEvents, List<Long> authoredTerms, List<Long> authoredComments, List<Long> acceptedTerms, List<Long> eventInvitations) {
 	this.id = id;
 	this.email = email;
 	this.name = name;
@@ -39,6 +39,15 @@ public class UserDto extends TemporalEntityDto {
 	this.acceptedTerms = acceptedTerms;
 	this.userRole = userRole;
 	this.eventInvitations = eventInvitations;
+	this.authKey = authKey;
+    }
+
+    public Integer getAuthKey() {
+	return authKey;
+    }
+
+    public void setAuthKey(Integer authKey) {
+	this.authKey = authKey;
     }
 
     public UserRole getUserRole() {

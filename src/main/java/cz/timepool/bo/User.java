@@ -28,7 +28,7 @@ import org.hibernate.annotations.OrderBy;
 @Table(name = "users")
 public class User extends AbstractBusinessObject {
 
-    @Column(nullable = false)
+    @Column(unique=true)
     private String email;
     
     //@Column(nullable = false)

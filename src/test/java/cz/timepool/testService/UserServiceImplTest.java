@@ -1,6 +1,7 @@
 package cz.timepool.testService;
 
 import cz.timepool.bo.StatusEnum;
+import cz.timepool.bo.UserRole;
 import cz.timepool.dto.EventDto;
 import cz.timepool.dto.TermDto;
 import cz.timepool.dto.UserDto;
@@ -8,6 +9,7 @@ import cz.timepool.service.EventsService;
 import cz.timepool.service.UsersService;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,10 @@ public class UserServiceImplTest extends AbstractServiceTest {
 		UserDto user = usersService.getUserById(userId);
 		assertEquals(name, user.getName());
 		assertEquals(email, user.getEmail());
+		
+		UserDto ja = new UserDto(usersService.addUser("lukas", "lowinger", "lukasinko@gmail.com", "heslo", "desc"), "lukasinko@gmail.com", "lukas", "lowinger", "heslo", "desc", UserRole.ADMIN, new Random().nextInt(), null, null, null, null, null, null);
+		usersService.editUser(ja);
+		
 	}
 
 	@Test
@@ -57,6 +63,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
 			System.out.println(user.getName());
 		}
 		assertEquals(expectedUserName, alphabeticallyLastUser.getName());
+		
 	}
 
 	@Test

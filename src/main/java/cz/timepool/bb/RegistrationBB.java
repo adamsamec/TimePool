@@ -20,7 +20,7 @@ public class RegistrationBB {
 
     public UserDto getUser() {
 	if(user == null){
-	    user = new UserDto(null, null, null, null, null, null, null, null, null, null, null, null, null);
+	    user = new UserDto(null, null, null, null, null, null, null,null, null, null, null, null, null, null);
 	}
 	return user;
     }

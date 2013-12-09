@@ -32,7 +32,7 @@ public class UniqueValidator implements Validator{
 	dto= usersService.getUserByEmail(email);
 	}
 	catch(Exception ex){
-	    dto = new UserDto(Long.MIN_VALUE, email, email, email, email, email, UserRole.REGISTERED, null, null, null, null, null, null);
+	    dto = new UserDto(Long.MIN_VALUE, email, email, email, email, email, UserRole.REGISTERED,null, null, null, null, null, null, null);
 	}
 	if(dto!=null){
 	    	    FacesMessage msg =
