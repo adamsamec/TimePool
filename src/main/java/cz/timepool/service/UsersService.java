@@ -43,4 +43,6 @@ public interface UsersService {
     
     public void setAdmin(Long idUser, boolean isAdmin);
     
+    public void editUser(UserDto user);
+    
 }
