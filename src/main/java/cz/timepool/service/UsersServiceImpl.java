@@ -128,4 +128,14 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
 	return new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(),u.getUserRole(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms()), DtoTransformerHelper.getIdentifiers(u.getEventInvitations()));
     }
 
+    @Override
+    public void setAdmin(Long idUser, boolean isAdmin) {
+	User u = timepoolDao.loadById(idUser, User.class);
+	if(isAdmin)
+	u.setUserRole(UserRole.ADMIN);
+	else
+	u.setUserRole(UserRole.REGISTERED);
+	timepoolDao.save(u);
+    }
+
 }

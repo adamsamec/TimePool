@@ -40,6 +40,9 @@ public class UserServiceImplTest extends AbstractServiceTest {
 		UserDto user = usersService.getUserById(userId);
 		assertEquals(name, user.getName());
 		assertEquals(email, user.getEmail());
+		
+		
+		usersService.setAdmin(usersService.addUser("lukas", "lowinger", "lukasinko@gmail.com", "heslo", "desc"), true);
 	}
 
 	@Test
@@ -57,6 +60,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
 			System.out.println(user.getName());
 		}
 		assertEquals(expectedUserName, alphabeticallyLastUser.getName());
+		
 	}
 
 	@Test

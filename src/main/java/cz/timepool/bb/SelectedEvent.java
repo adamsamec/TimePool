@@ -85,8 +85,8 @@ public class SelectedEvent {
     }
 
     public String setEventById(String outcome) {
-	Long userId = Long.valueOf(FacesUtil.getRequestParameter("eventid"));
-	this.event = eventsService.getEventById(userId);
+	Long eventId = Long.valueOf(FacesUtil.getRequestParameter("eventid"));
+	this.event = eventsService.getEventById(eventId);
 	return outcome;
     }
 

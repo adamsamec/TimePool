@@ -41,4 +41,6 @@ public interface UsersService {
 
     public void deleteCommentById(Long id);
     
+    public void setAdmin(Long idUser, boolean isAdmin);
+    
 }

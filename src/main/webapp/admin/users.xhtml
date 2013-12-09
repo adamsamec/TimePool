@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>TimePool</title>
+    </h:head>
+    <h:body>
+		<ul>
+		    <ui:repeat var="user" value="#{usersServiceImpl.allUsers}">
+		<h:form>
+		    <li>
+			<h:commandLink action="#{selectedUserBB.setUserById('selecteduser')}" value="#{user.name}">
+			    <f:param name="userid" value="#{user.id}"/>
+			</h:commandLink>
+			<h:commandButton action="users" value="Edit"></h:commandButton>
+			<h:commandButton action="#{selectedUserBB.deleteUser()}" value="Delete"><f:param name="deleteuserid" value="#{user.id}"/></h:commandButton>
+		    </li>
+		</h:form>
+	    </ui:repeat>
+	</ul>
+    </h:body>
+</html>
+
