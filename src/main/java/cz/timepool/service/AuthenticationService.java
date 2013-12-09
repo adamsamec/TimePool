@@ -4,6 +4,7 @@
  */
 package cz.timepool.service;
 
+import cz.timepool.bo.UserRole;
 import cz.timepool.dao.GenericDao;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,9 +78,9 @@ public class AuthenticationService extends AbstractUserDetailsAuthenticationProv
                     } else {
                         List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
                         auths.add(new SimpleGrantedAuthority("ROLE_USER"));
-//                        if(u.isAdmin()){
-//                            auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-//                        }
+                        if(u.getUserRole().equals(UserRole.ADMIN)){
+                            auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                        }
                         ud = new User(u.getEmail(), u.getPassword(), auths);
                     }
                     return ud;
