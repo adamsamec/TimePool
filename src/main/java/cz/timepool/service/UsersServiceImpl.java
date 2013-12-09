@@ -11,6 +11,7 @@ import cz.timepool.helper.DtoTransformerHelper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.NoResultException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -116,7 +117,14 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
 
     @Override
     public UserDto getUserByEmail(String email) {
-	User u = this.timepoolDao.getSingleByProperty("email", email, User.class);
+	User u = null;
+	try{
+	u = this.timepoolDao.getSingleByProperty("email", email, User.class);
+	}
+	catch(NoResultException ex){
+	    System.out.println("neexistuje, v poraduku");
+	    return null;
+	}
 	return new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(),u.getUserRole(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms()), DtoTransformerHelper.getIdentifiers(u.getEventInvitations()));
     }
 
