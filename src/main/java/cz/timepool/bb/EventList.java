@@ -1,6 +1,7 @@
 
 package cz.timepool.bb;
 
+import cz.timepool.bo.UserRole;
 import cz.timepool.dto.EventDto;
 import cz.timepool.service.EventsService;
 import java.util.List;
@@ -25,6 +26,9 @@ public class EventList {
     }
     
     public List<EventDto> getAllEventsByUser(){
+	if(logged.getUser().getUserRole()==UserRole.ADMIN){
+	    return eventsService.getAllEvents();
+	}
 	return eventsService.getAllEventsByUser(logged.getUser().getId());
     }
     

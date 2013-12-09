@@ -129,16 +129,6 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
     }
 
     @Override
-    public void setAdmin(Long idUser, boolean isAdmin) {
-	User u = timepoolDao.loadById(idUser, User.class);
-	if(isAdmin)
-	u.setUserRole(UserRole.ADMIN);
-	else
-	u.setUserRole(UserRole.REGISTERED);
-	timepoolDao.save(u);
-    }
-
-    @Override
     public void editUser(UserDto user) {
 	User u = timepoolDao.loadById(user.getId(), User.class);
 	u.setEmail(user.getEmail());
