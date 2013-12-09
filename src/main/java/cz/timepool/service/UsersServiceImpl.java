@@ -121,8 +121,8 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
 	try{
 	u = this.timepoolDao.getSingleByProperty("email", email, User.class);
 	}
-	catch(Exception ex){
-	    ex.printStackTrace();
+	catch(NoResultException ex){
+	    System.out.println("neexistuje, v poraduku");
 	    return null;
 	}
 	return new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(),u.getUserRole(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms()), DtoTransformerHelper.getIdentifiers(u.getEventInvitations()));
