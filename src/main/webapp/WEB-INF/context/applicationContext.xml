@@ -53,4 +53,15 @@
     
     <!-- Podpora deklarativni demarkace transakci - anotace @Transactional-->
     <tx:annotation-driven transaction-manager="txManager" /> 
+    
+
+
+<bean id="validators" class="java.util.ArrayList">
+    <constructor-arg>
+        <list>
+            <ref bean="emailValidator" />
+            <ref bean="uniqueValidator" />                
+        </list>
+    </constructor-arg>
+</bean>
 </beans>

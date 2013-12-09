@@ -10,7 +10,7 @@
 
 	Selected event : <h:outputText value="#{selectedEvent.event.title}"></h:outputText><br/>
 	<h:form>
-	    Invite somebody via email : <h:inputText id="useremail" value="#{selectedEvent.userEmail}"></h:inputText><br/>
+	    Invite somebody via email : <h:inputText id="useremail" value="#{selectedEvent.userEmail}"><f:validator binding="#{uniqueValidator}"></f:validator></h:inputText><br/>
 	    <h:outputLabel for="message">Message : </h:outputLabel><h:inputText id="message" value="#{selectedEvent.message}"></h:inputText><br/>
 	    <h:outputLabel for="perm">Permissions : </h:outputLabel>
 	    <h:selectManyListbox id="perm" value="#{selectedEvent.permissions}">
