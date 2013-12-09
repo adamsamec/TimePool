@@ -1,6 +1,7 @@
 
 package cz.timepool.bb;
 
+import cz.timepool.bo.UserRole;
 import cz.timepool.dto.UserDto;
 import cz.timepool.service.UsersService;
 import java.io.Serializable;
@@ -21,6 +22,7 @@ public class LoggedUserBean implements Serializable{
     private UsersService usersService;
     
     private UserDto user;
+    boolean isAdmin;
     
     public String getCurrentEmail() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
@@ -37,6 +39,20 @@ public class LoggedUserBean implements Serializable{
 
     public void setUser(UserDto user) {
 	this.user = user;
+    }
+
+    public boolean isIsAdmin() {
+	if(getUser().getUserRole() == UserRole.ADMIN){
+	    isAdmin = true;
+	}
+	else{
+	    isAdmin = false;
+	}
+	return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+	this.isAdmin = isAdmin;
     }
 
     public UsersService getUserService() {

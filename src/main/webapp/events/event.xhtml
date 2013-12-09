@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <title>TimePool</title>
     </h:head>
@@ -19,6 +21,21 @@
 
 	    <h:commandButton action="#{selectedEvent.inviteToEvent()}" value="Invite">
 	    </h:commandButton>
+	</h:form>
+	<ui:repeat var="term" value="#{selectedEvent.allTerms}">
+		<h:form>
+		    <li>
+			<h:outputLabel for="termDate">Term date : </h:outputLabel><h:outputText id="termDate" value="#{term.termDate}"></h:outputText>
+			<h:outputLabel for="description"> Description : </h:outputLabel><h:outputText id="description" value="#{term.description}"></h:outputText>
+			<h:commandButton action="events" value="Delete" rendered="#{loggedUser.user.id eq term.author or loggedUser.isAdmin}"></h:commandButton>
+		    </li>
+		</h:form>
+	    </ui:repeat>
+	<h:form>
+	    Add term <br/>
+	    <h:outputLabel for="date">Date : </h:outputLabel><h:inputText id="date" value="#{selectedEvent.term.termDate}"><f:convertDateTime pattern="d.M.yyyy" /></h:inputText><h:message for="email" style="color:red" /><br/>
+	    <h:outputLabel for="desc">Description : </h:outputLabel><h:inputText id="desc" value="#{selectedEvent.term.description}"></h:inputText><br/>
+	    <h:commandButton action="#{selectedEvent.addTerm()}" value="Add term"></h:commandButton>
 	</h:form>
     </h:body>
 </html>

@@ -1,7 +1,9 @@
 package cz.timepool.bb;
 
+import cz.timepool.bo.StatusEnum;
 import cz.timepool.bo.UserPermission;
 import cz.timepool.dto.EventDto;
+import cz.timepool.dto.TermDto;
 import cz.timepool.dto.UserDto;
 import cz.timepool.helper.FacesUtil;
 import cz.timepool.service.EventsService;
@@ -9,6 +11,7 @@ import cz.timepool.service.UsersService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -23,8 +26,12 @@ import org.springframework.stereotype.Component;
 public class SelectedEvent {
 
     protected EventDto event;
+    TermDto term;
     @Autowired
     protected EventsService eventsService;
+    
+    @Autowired
+    LoggedUserBean logged;
     
     public String[] permissions;
     private static Map<String, Object> permissionsValues;
@@ -38,6 +45,11 @@ public class SelectedEvent {
 	permissionsValues.put("DOnt KNOW", UserPermission.ADD_COMMENT);
     }
 
+    public SelectedEvent() {
+	term = new TermDto(Long.MIN_VALUE, null, StatusEnum.VOLNY, userEmail, null, Long.MIN_VALUE, Long.MIN_VALUE, null, null);
+    }
+    
+    
     public Map<String, Object> getPermissionsValues() {
 	return permissionsValues;
     }
@@ -74,6 +86,14 @@ public class SelectedEvent {
 	this.event = event;
     }
 
+    public TermDto getTerm() {
+	return term;
+    }
+
+    public void setTerm(TermDto term) {
+	this.term = term;
+    }
+
     public void setEventById2(Long eventId) {
 	this.event = eventsService.getEventById(eventId);
     }
@@ -98,5 +118,12 @@ public class SelectedEvent {
 	}
 	eventsService.inviteUser(event.getId(), userEmail, perm, message, new Date());
 	return "";
+    }
+    
+    public List<TermDto> getAllTerms(){
+	return eventsService.getTermsByEventId(event.getId());
+    }
+    public void addTerm(){
+	eventsService.addTermToEvent(term.getTermDate(), term.getStatus(), term.getDescription(), new Date(),logged.getUser().getId(), event.getId());
     }
 }
