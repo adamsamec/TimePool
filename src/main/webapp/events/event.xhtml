@@ -27,13 +27,15 @@
 		    <li>
 			<h:outputLabel for="termDate">Term date : </h:outputLabel><h:outputText id="termDate" value="#{term.termDate}"></h:outputText>
 			<h:outputLabel for="description"> Description : </h:outputLabel><h:outputText id="description" value="#{term.description}"></h:outputText>
-			<h:commandButton action="events" value="Delete" rendered="#{loggedUser.user.id eq term.author or loggedUser.isAdmin}"></h:commandButton>
+			<h:commandButton action="#{selectedEvent.deleteTerm()}" value="Delete" rendered="#{loggedUser.user.id eq term.author or loggedUser.isAdmin}">
+			    <f:param name="deletetermid" value="#{term.id}"></f:param>
+			</h:commandButton>
 		    </li>
 		</h:form>
 	    </ui:repeat>
 	<h:form>
 	    Add term <br/>
-	    <h:outputLabel for="date">Date : </h:outputLabel><h:inputText id="date" value="#{selectedEvent.term.termDate}"><f:convertDateTime pattern="d.M.yyyy" /></h:inputText><h:message for="email" style="color:red" /><br/>
+	    <h:outputLabel for="date">Date : </h:outputLabel><h:inputText id="date" value="#{selectedEvent.term.termDate}"><f:convertDateTime pattern="d.M.yyyy" /></h:inputText><h:message for="date" style="color:red" /><br/>
 	    <h:outputLabel for="desc">Description : </h:outputLabel><h:inputText id="desc" value="#{selectedEvent.term.description}"></h:inputText><br/>
 	    <h:commandButton action="#{selectedEvent.addTerm()}" value="Add term"></h:commandButton>
 	</h:form>

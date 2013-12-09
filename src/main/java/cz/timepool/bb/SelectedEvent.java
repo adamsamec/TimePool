@@ -126,4 +126,10 @@ public class SelectedEvent {
     public void addTerm(){
 	eventsService.addTermToEvent(term.getTermDate(), term.getStatus(), term.getDescription(), new Date(),logged.getUser().getId(), event.getId());
     }
+    
+    public void deleteTerm(){
+	Long termId = Long.valueOf(FacesUtil.getRequestParameter("deletetermid"));
+	System.out.println("mazu term "+termId);
+	eventsService.deleteTermById(termId);
+    }
 }
