@@ -1,9 +1,9 @@
 package cz.timepool.testService;
 
+import cz.timepool.bo.StatusEnum;
 import cz.timepool.dto.TermDto;
-import cz.timepool.service.EventService;
-import cz.timepool.service.TermService;
-import cz.timepool.service.UserService;
+import cz.timepool.service.EventsService;
+import cz.timepool.service.UsersService;
 import java.util.Date;
 import java.util.List;
 import static org.junit.Assert.*;
@@ -18,23 +18,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class TermServiceImplTest extends AbstractServiceTest {
 
 	@Autowired
-	private TermService termService;
+	private EventsService eventsService;
 
 	@Autowired
-	private EventService eventService;
-
-	@Autowired
-	private UserService userService;
+	private UsersService usersService;
 
 	@Test
 	public void testAddChangeStatusRetrieveTerm() {
-		Long authorId = userService.addUser("Lukas", "Lowinger", "mejl", "pass", "popis");
+		Long authorId = usersService.addUser("Lukas", "Lowinger", "mejl", "pass", "popis");
 		Long eventId = this.addEvent(authorId);
-		Long termId = termService.addTermToEvent(new Date(), "status terminu", "popis terminu ", new Date(), authorId, eventId);
-		String expectedStatus = "ZMENA STATUSU";
+		Long termId = eventsService.addTermToEvent(new Date(), StatusEnum.PLNY, "popis terminu ", new Date(), authorId, eventId);
+		StatusEnum expectedStatus = StatusEnum.PLNY;
 
-		termService.changeTermStatusById(expectedStatus, termId);
-		List<TermDto> terms = termService.getTermsByEventId(eventId);
+		eventsService.changeTermStatusById(expectedStatus, termId);
+		List<TermDto> terms = eventsService.getTermsByEventId(eventId);
 		for (TermDto term : terms) {
 			assertEquals(expectedStatus, term.getStatus());
 		}
@@ -42,18 +39,18 @@ public class TermServiceImplTest extends AbstractServiceTest {
 
 	@Test
 	public void testAddDeleteTerm() {
-		Long authorId = userService.addUser("Lukas", "Druhej", "mejl", "pass", "popis");
+		Long authorId = usersService.addUser("Lukas", "Druhej", "mejl", "pass", "popis");
 		Long eventId = this.addEvent(authorId);
-		Long termId = termService.addTermToEvent(new Date(), "statusek", "popisek", new Date(), authorId, eventId);
+		Long termId = eventsService.addTermToEvent(new Date(), StatusEnum.PLNY, "popisek", new Date(), authorId, eventId);
 
-		List<TermDto> terms = termService.getTermsByEventId(eventId);
+		List<TermDto> terms = eventsService.getTermsByEventId(eventId);
 		int beforeTermsCount = terms.size();
-		termService.deleteTermById(termId);
-		assertEquals(beforeTermsCount - 1, termService.getTermsByEventId(eventId).size());
+		eventsService.deleteTermById(termId);
+		assertEquals(beforeTermsCount - 1, eventsService.getTermsByEventId(eventId).size());
 	}
 
 	private Long addEvent(Long idAuthor) {
-		return eventService.addEvent(idAuthor, "NAZEV", "LOKACE", "POPIS", new Date());
+		return eventsService.addEvent(idAuthor, "NAZEV", "LOKACE", "POPIS", new Date());
 	}
 
 }
