@@ -8,9 +8,6 @@
         <title>Timepool</title>
     </h:head>
     <h:body>
-	<ui:insert name="header" >
-	    <ui:include src="header.xhtml" />
-	</ui:insert>
 	<c:choose>
 	    <c:when test='${loginBean.passedParameter.equals("t")}'>
 		Please, try to login again.
@@ -27,9 +24,6 @@
 	    <h:commandButton value="Login"></h:commandButton>
 	</form>
 	<h:link outcome="register" value="Register"></h:link>
-	<ui:insert name="footer" >
-	    <ui:include src="footer.xhtml" />
-	</ui:insert>
     </h:body>
 </html>
 

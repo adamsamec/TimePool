@@ -1,18 +1,23 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>TimePool</title>
     </h:head>
     <h:body>
-	<h:form>
-	<h:outputLabel for="name">Name : </h:outputLabel><h:inputText id="name" value="#{selectedUserBB.user.name}"></h:inputText><br/>
-	<h:outputLabel for="surname">Surname : </h:outputLabel><h:inputText id="surname" value="#{selectedUserBB.user.surname}"></h:inputText><br/>
-	<h:outputLabel for="email">Email : </h:outputLabel><h:inputText id="email" value="#{selectedUserBB.user.email}"></h:inputText><br/>
-	<h:outputLabel for="isAdmin">Set as admin : </h:outputLabel><h:selectBooleanCheckbox id="isAdmin" value="#{selectedUserBB.isAdmin}" /><br/>
-	<h:commandButton action="#{selectedUserBB.saveUser('users')}" value="Save"/>
-	</h:form>
+	<ui:composition template="template.xhtml" >
+	    <ui:define name="content">
+		<h:form>
+		    <h:outputLabel for="name">Name : </h:outputLabel><h:inputText id="name" value="#{selectedUserBB.user.name}"></h:inputText><br/>
+		    <h:outputLabel for="surname">Surname : </h:outputLabel><h:inputText id="surname" value="#{selectedUserBB.user.surname}"></h:inputText><br/>
+		    <h:outputLabel for="email">Email : </h:outputLabel><h:inputText id="email" value="#{selectedUserBB.user.email}"></h:inputText><br/>
+		    <h:outputLabel for="isAdmin">Set as admin : </h:outputLabel><h:selectBooleanCheckbox id="isAdmin" value="#{selectedUserBB.isAdmin}" /><br/>
+		    <h:commandButton action="#{selectedUserBB.saveUser('users')}" value="Save"/>
+		</h:form>
+	    </ui:define>
+	</ui:composition>
     </h:body>
 </html>
 

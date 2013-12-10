@@ -44,11 +44,11 @@ public class SelectedEvent {
     String userEmail;
     String message;
 
-    static {
+    static {	
 	permissionsValues = new LinkedHashMap<String, Object>();
-	permissionsValues.put("ALL", UserPermission.ADD_TERM); //label, value
-	permissionsValues.put("SMTH", UserPermission.ACCEPT_TERM);
-	permissionsValues.put("DOnt KNOW", UserPermission.ADD_COMMENT);
+	permissionsValues.put("Can add term", UserPermission.ADD_TERM); //label, value
+	permissionsValues.put("Can accept term ?", UserPermission.ACCEPT_TERM);
+	permissionsValues.put("Can add comment", UserPermission.ADD_COMMENT);
     }
 
     public SelectedEvent() {
