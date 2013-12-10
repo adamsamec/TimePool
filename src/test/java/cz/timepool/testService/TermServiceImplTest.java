@@ -25,7 +25,7 @@ public class TermServiceImplTest extends AbstractServiceTest {
 
 	@Test
 	public void testAddChangeStatusRetrieveTerm() {
-		Long authorId = usersService.addUser("Lukas", "Lowinger", "mejl", "pass", "popis");
+		Long authorId = usersService.addUser("Lukas", "Lowinger", "mejl1", "pass", "popis");
 		Long eventId = this.addEvent(authorId);
 		Long termId = eventsService.addTermToEvent(new Date(), StatusEnum.PLNY, "popis terminu ", new Date(), authorId, eventId);
 		StatusEnum expectedStatus = StatusEnum.PLNY;
@@ -39,9 +39,9 @@ public class TermServiceImplTest extends AbstractServiceTest {
 
 	@Test
 	public void testAddDeleteTerm() {
-		Long authorId = usersService.addUser("Lukas", "Druhej", "mejl", "pass", "popis");
+		Long authorId = usersService.addUser("Lukas", "Druhej", "mejl2", "pass", "popis");
 		Long eventId = this.addEvent(authorId);
-		Long termId = eventsService.addTermToEvent(new Date(), StatusEnum.PLNY, "popisek", new Date(), authorId, eventId);
+		Long termId = eventsService.addTermToEvent(new Date(), StatusEnum.VOLNY, "Termin, ktery bude vzapeti smazan", new Date(), authorId, eventId);
 
 		List<TermDto> terms = eventsService.getTermsByEventId(eventId);
 		int beforeTermsCount = terms.size();

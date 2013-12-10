@@ -1,4 +1,3 @@
-
 package cz.timepool.validators;
 
 import cz.timepool.bo.UserRole;
@@ -18,29 +17,31 @@ import org.springframework.stereotype.Component;
  * @author Lukas L.
  */
 @Component("uniqueValidator")
-public class UniqueValidator implements Validator{
+public class UniqueValidator implements Validator {
+
     @Autowired
     UsersService usersService;
-    
+
     @Override
     public void validate(FacesContext fc, UIComponent uic, Object o) throws ValidatorException {
-	if(o == null || o.equals(""))return;
-	String email = (String)o;
-	System.out.println("jsem v unique validatoru");
-	UserDto dto = null;
-	try{
-	dto= usersService.getUserByEmail(email);
-	}
-	catch(Exception ex){
-	    dto = new UserDto(Long.MIN_VALUE, email, email, email, email, email, UserRole.REGISTERED,null, null, null, null, null, null, null);
-	}
-	if(dto!=null){
-	    	    FacesMessage msg =
-		    new FacesMessage("Unique validation failed",
-		    "This field has to be unique.");
-	    msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-	    throw new ValidatorException(msg);
-	}
+        if (o == null || o.equals("")) {
+            return;
+        }
+        String email = (String) o;
+        System.out.println("jsem v unique validatoru");
+        UserDto dto = null;
+        try {
+            dto = usersService.getUserByEmail(email);
+        } catch (Exception ex) {
+            //dto = new UserDto(Long.MIN_VALUE, email, email, email, email, email, UserRole.REGISTERED, null, null, null, null, null, null, null);
+        }
+        if (dto != null) {
+            FacesMessage msg
+                    = new FacesMessage("Unique validation failed",
+                            "This field has to be unique.");
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            throw new ValidatorException(msg);
+        }
     }
 
 }
