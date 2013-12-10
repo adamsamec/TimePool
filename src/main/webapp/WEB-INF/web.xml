@@ -51,6 +51,21 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     <!-- JavaServer Faces (JSF) // END -->
+    
+    <!-- Spring Security // BEGIN -->
+    <!-- - works on the concept of filters -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>
+            org.springframework.web.filter.DelegatingFilterProxy
+        </filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- Spring Security // END -->
              
     <session-config>
         <session-timeout>
@@ -61,5 +76,10 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error/403.xhtml</location>
+    </error-page>
     
 </web-app>

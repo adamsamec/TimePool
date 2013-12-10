@@ -1,8 +1,12 @@
 package cz.timepool.service;
 
+import cz.timepool.bo.AbstractBusinessObject;
 import cz.timepool.bo.StatusEnum;
+import cz.timepool.bo.UserPermission;
+import cz.timepool.dto.CommentDto;
 import cz.timepool.dto.EventDto;
 import cz.timepool.dto.TagDto;
+import cz.timepool.dto.TemporalEntityDto;
 import cz.timepool.dto.TermDto;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface EventsService {
-
+    
     public Long addTagToEvent(String text, Long event);
 
     //public Long addTag(String text);
@@ -42,18 +46,27 @@ public interface EventsService {
     public void addAcceptorToTermById(Long acceptorId, Long idTerm);
     
     
-        @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public EventDto getEventById(Long eventId);
  
     @Transactional(readOnly = true)
     public List<EventDto> getAllEvents();
 
-    @Transactional(readOnly = true)
-    public List<EventDto> getAllEventsCreatedBetween(Date startDate, Date endDate);
+    //@Transactional(readOnly = true)
+    //public List<EventDto> getAllEventsCreatedBetween(Date startDate, Date endDate);
 
     // TODO: predavat DTO
     public Long addEvent(Long author, String title, String location, String description, Date creationDate);
 
     // TODO: predavat DTO
     public void deleteEventById(Long eventId);
+    
+    @Transactional(readOnly = true)
+    public List<EventDto> getAllEventsByUser(Long userId);
+    
+    public String inviteUser(Long eventId, String email, List<UserPermission> perms, String message, Date exp);
+    //public String inviteAnonymousUser(Long eventId, String userEmail, List<UserPermission> perms, String message, Date exp);
+    
+    @Transactional(readOnly = true)
+    public List<CommentDto> getAllCommentsByEvent(Long idEvent);
 }

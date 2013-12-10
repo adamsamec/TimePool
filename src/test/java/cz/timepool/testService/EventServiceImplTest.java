@@ -48,23 +48,23 @@ public class EventServiceImplTest extends AbstractServiceTest {
 		assertEquals(expectedTermDescription, newestTerm.getDescription());
 	}
 	
-	@Test
-	public void testAddRetreiveEventsBetweenDates() {
-		String expectedEventTitle = "Akce 4";
-		Long authorId = usersService.addUser("Akcni", "Clovek", "i@me.jl", "s jednoduchym heslem", "co si rad dela akce.");
-		Long event1Id = eventsService.addEvent(authorId, "Akce 1", "Misto", "Vsude akce!", new Date(100000));
-		Long event2Id = eventsService.addEvent(authorId, "Akce 2", "Misto", "Jenom akce!", new Date(200000));
-		Long event3Id = eventsService.addEvent(authorId, "Akce 3", "Misto", "Chci akci!", new Date(300000));
-		Long event4Id = eventsService.addEvent(authorId, expectedEventTitle, "Misto", "Co takhle nejakou.. akci!", new Date(400000));
-		Long event5Id = eventsService.addEvent(authorId, "Akce 5", "Misto", "Pro tentokrat radsi akci.", new Date(500000));
-		
-		List<EventDto> events = eventsService.getAllEventsCreatedBetween(new Date(200000), new Date(400000));
-		EventDto expectedEvent = events.get(events.size() - 1);
-		System.out.println(">>> TEST @NamedQuery >>> Vypis udalosti vytvorenych mezi datem " + new Date(200000) + " a " + new Date(400000));
-		for (EventDto event : events) {
-			System.out.println(event);
-		}
-		assertEquals(expectedEventTitle, expectedEvent.getTitle());
-	}
+//	@Test
+//	public void testAddRetreiveEventsBetweenDates() {
+//		String expectedEventTitle = "Akce 4";
+//		Long authorId = usersService.addUser("Akcni", "Clovek", "i@me.jl", "s jednoduchym heslem", "co si rad dela akce.");
+//		Long event1Id = eventsService.addEvent(authorId, "Akce 1", "Misto", "Vsude akce!", new Date(100000));
+//		Long event2Id = eventsService.addEvent(authorId, "Akce 2", "Misto", "Jenom akce!", new Date(200000));
+//		Long event3Id = eventsService.addEvent(authorId, "Akce 3", "Misto", "Chci akci!", new Date(300000));
+//		Long event4Id = eventsService.addEvent(authorId, expectedEventTitle, "Misto", "Co takhle nejakou.. akci!", new Date(400000));
+//		Long event5Id = eventsService.addEvent(authorId, "Akce 5", "Misto", "Pro tentokrat radsi akci.", new Date(500000));
+//		
+//		List<EventDto> events = eventsService.getAllEventsCreatedBetween(new Date(200000), new Date(400000));
+//		EventDto expectedEvent = events.get(events.size() - 1);
+//		System.out.println(">>> TEST @NamedQuery >>> Vypis udalosti vytvorenych mezi datem " + new Date(200000) + " a " + new Date(400000));
+//		for (EventDto event : events) {
+//			System.out.println(event);
+//		}
+//		assertEquals(expectedEventTitle, expectedEvent.getTitle());
+//	}
 
 }

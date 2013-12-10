@@ -9,14 +9,14 @@ import java.util.Date;
 public class CommentDto extends TemporalEntityDto {
 
 	private Long author;
-	private Long term;
+	private Long event;
 	private String text;
 	private Date creationDate;
 
-	public CommentDto(Long id, Long author, Long term, String text, Date creationDate) {
+	public CommentDto(Long id, Long author, Long event, String text, Date creationDate) {
 		this.id = id;
 		this.author = author;
-		this.term = term;
+		this.event = event;
 		this.text = text;
 		this.creationDate = creationDate;
 	}
@@ -29,12 +29,12 @@ public class CommentDto extends TemporalEntityDto {
 		this.author = author;
 	}
 
-	public Long getTerm() {
-		return term;
+	public Long getEvent() {
+		return event;
 	}
 
-	public void setTerm(Long term) {
-		this.term = term;
+	public void setEvent(Long event) {
+		this.event = event;
 	}
 
 	public String getText() {

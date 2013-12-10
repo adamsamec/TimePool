@@ -1,14 +1,18 @@
 package cz.timepool.service;
 
 import cz.timepool.bo.Comment;
+import cz.timepool.bo.Event;
 import cz.timepool.bo.Term;
 import cz.timepool.bo.User;
+import cz.timepool.bo.UserRole;
 import cz.timepool.dto.CommentDto;
+import cz.timepool.dto.EventDto;
 import cz.timepool.dto.UserDto;
 import cz.timepool.helper.DtoTransformerHelper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.NoResultException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,9 +29,9 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
 	List<UserDto> userDtos = new ArrayList<UserDto>();
 	for (User u : users) {
 	    // TODO: Vytvorit konstruktor prijimaci Entitu a z ni inicializovat DTO-
-	    userDtos.add(new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms())));
+	    userDtos.add(new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(),u.getUserRole(), u.getAuthKey(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms()), DtoTransformerHelper.getIdentifiers(u.getEventInvitations())));
 	}
-	return userDtos;
+	    return userDtos;
     }
 
     @Override
@@ -35,7 +39,7 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
 	List<User> users = this.timepoolDao.getAllOrdered("name", User.class);
 	List<UserDto> userDtos = new ArrayList<UserDto>();
 	for (User u : users) {
-	    userDtos.add(new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms())));
+	    userDtos.add(new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(),u.getUserRole(), u.getAuthKey(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms()), DtoTransformerHelper.getIdentifiers(u.getEventInvitations())));
 	}
 	return userDtos;
     }
@@ -50,6 +54,7 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
 	user.setEmail(email);
 	user.setPassword(password);
 	user.setDescription(description);
+	user.setUserRole(UserRole.REGISTERED);
 	return this.timepoolDao.save(user).getId();
     }
 
@@ -61,29 +66,18 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
     @Override
     public UserDto getUserById(Long id) {
 	User u = this.timepoolDao.getSingleByProperty("id", id, User.class);
-	return new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms()));
+	return new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(),u.getUserRole(), u.getAuthKey(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms()), DtoTransformerHelper.getIdentifiers(u.getEventInvitations()));
     }
 
     @Override
-    public List<CommentDto> getAllByTerm(Long idTerm) {
-	Term term = this.timepoolDao.loadById(idTerm, Term.class);
-	List<Comment> boList = term.getComments();
-	List<CommentDto> dtoList = new ArrayList<CommentDto>();
-	for (Comment comment : boList) {
-	    dtoList.add(new CommentDto(comment.getId(), comment.getAuthor().getId(), comment.getTerm().getId(), comment.getText(), comment.getCreationDate()));
-	}
-	return dtoList;
-    }
-
-    @Override
-    public Long addCommentToTerm(String text, Long idAuthor, Long idTerm) {
-	Term term = this.timepoolDao.loadById(idTerm, Term.class);
+    public Long addCommentToEvent(String text, Long idAuthor, Long idEvent) {
+	Event event = this.timepoolDao.loadById(idEvent, Event.class);
 	User a = this.timepoolDao.loadById(idAuthor, User.class);
 	Comment c = new Comment();
 	c.setAuthor(a);
 	c.setText(text);
 	c.setCreationDate(new Date());
-	c.setTerm(term);
+	c.setEvent(event);
 	return this.timepoolDao.save(c).getId();
     }
 
@@ -96,8 +90,8 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
     @Override
     public void deleteCommentById(Long id) {
 	Comment c = this.timepoolDao.loadById(id, Comment.class);
-	Term term = c.getTerm();
-	term.removeComment(c);
+	Event e = c.getEvent();
+	e.removeComment(c);
     }
 
     @Override
@@ -106,8 +100,32 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
 	List<CommentDto> dtoList = new ArrayList<CommentDto>();
 	for (Comment comment : boList) {
 	    System.out.println("pridavam : " + comment);
-	    dtoList.add(new CommentDto(comment.getId(), comment.getAuthor().getId(), comment.getTerm().getId(), comment.getText(), comment.getCreationDate()));
+	    dtoList.add(new CommentDto(comment.getId(), comment.getAuthor().getId(), comment.getEvent().getId(), comment.getText(), comment.getCreationDate()));
 	}
 	return dtoList;
     }
+
+    @Override
+    public UserDto getUserByEmail(String email) {
+	User u = null;
+	try{
+	u = this.timepoolDao.getSingleByProperty("email", email, User.class);
+	}
+	catch(NoResultException ex){
+	    System.out.println("neexistuje, v poraduku");
+	    return null;
+	}
+	return new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(),u.getUserRole(), u.getAuthKey(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms()), DtoTransformerHelper.getIdentifiers(u.getEventInvitations()));
+    }
+
+    @Override
+    public void editUser(UserDto user) {
+	User u = timepoolDao.loadById(user.getId(), User.class);
+	u.setEmail(user.getEmail());
+	u.setName(user.getName());
+	u.setSurname(user.getSurname());
+	u.setUserRole(user.getUserRole());
+	timepoolDao.save(u);
+    }
+
 }

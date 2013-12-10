@@ -1,6 +1,7 @@
 package cz.timepool.testService;
 
 import cz.timepool.bo.StatusEnum;
+import cz.timepool.bo.UserRole;
 import cz.timepool.dto.EventDto;
 import cz.timepool.dto.TermDto;
 import cz.timepool.dto.UserDto;
@@ -8,6 +9,7 @@ import cz.timepool.service.EventsService;
 import cz.timepool.service.UsersService;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,10 @@ public class UserServiceImplTest extends AbstractServiceTest {
 		UserDto user = usersService.getUserById(userId);
 		assertEquals(name, user.getName());
 		assertEquals(email, user.getEmail());
+		
+		UserDto ja = new UserDto(usersService.addUser("lukas", "lowinger", "lukasinko@gmail.com", "heslo", "desc"), "lukasinko@gmail.com", "lukas", "lowinger", "heslo", "desc", UserRole.ADMIN, new Random().nextInt(), null, null, null, null, null, null);
+		usersService.editUser(ja);
+		
 	}
 
 	@Test
@@ -57,6 +63,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
 			System.out.println(user.getName());
 		}
 		assertEquals(expectedUserName, alphabeticallyLastUser.getName());
+		
 	}
 
 	@Test
@@ -136,6 +143,32 @@ public class UserServiceImplTest extends AbstractServiceTest {
 			System.out.println(term);
 		}
 		assertEquals(authorId, eventsService.getTermById(termIds.get(0)).getAcceptors().get(0));
+	}
+	
+	@Test
+	public void testManyToMany(){
+	    Long authorId = addUser("NEKDO");
+	    Long user2Id = addUser("DALSI");
+	    Long eventId = eventsService.addEvent(authorId, "Nova suprova akce", "Kdesi", "Popis akce.", new Date());
+	    Long term2Id = eventsService.addTermToEvent(new Date(1388322514000L), StatusEnum.PLNY, "Druhy nejblizsi termin", new Date(), authorId, eventId);
+	    eventsService.addAcceptorToTermById(authorId, term2Id);
+	    eventsService.addAcceptorToTermById(user2Id, term2Id);
+	    List<Long> users = eventsService.getTermById(term2Id).getAcceptors();
+	    int user = -1;
+	    for (Long u : users) {
+		if(user == 0){
+		if(u!=authorId){
+		    fail();
+		}
+		}
+		if(user == 1){
+		if(u!=user2Id){
+		    fail();
+		}    
+		}
+		
+	    }
+	    
 	}
 
 	private Long addUser(String name) {

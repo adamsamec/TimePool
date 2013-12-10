@@ -17,7 +17,7 @@ public class Comment extends AbstractBusinessObject {
 	private User author;
 
 	@ManyToOne
-	private Term term;
+	private Event event;
 
 	@Column(nullable = false)
 	private String text;
@@ -35,13 +35,13 @@ public class Comment extends AbstractBusinessObject {
 		author.addAuthoredComment(this);
 	}
 
-	public Term getTerm() {
-		return this.term;
+	public Event getEvent() {
+		return this.event;
 	}
 
-	public void setTerm(Term term) {
-		this.term = term;
-		term.addComment(this);
+	public void setEvent(Event event) {
+		this.event = event;
+		event.addComment(this);
 	}
 
 	public String getText() {
