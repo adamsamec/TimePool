@@ -58,7 +58,7 @@ public class EventsServiceImpl extends GenericService implements EventsService {
     @Override
     public TermDto getTermById(Long termId) {
 	Term term = this.timepoolDao.getById(termId, Term.class);
-	TermDto eventDto = new TermDto(term.getId(), term.getTermDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(), DtoTransformerHelper.getIdentifiers(term.getAcceptors()), DtoTransformerHelper.getIdentifiers(term.getComments()));
+	TermDto eventDto = new TermDto(term.getId(), term.getTermDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(), DtoTransformerHelper.getIdentifiers(term.getAcceptors()));
 	return eventDto;
     }
 
@@ -68,7 +68,7 @@ public class EventsServiceImpl extends GenericService implements EventsService {
 	List<Term> terms = event.getTerms();
 	List<TermDto> termsDto = new ArrayList<TermDto>();
 	for (Term term : terms) {
-	    termsDto.add(new TermDto(term.getId(), term.getTermDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(), DtoTransformerHelper.getIdentifiers(term.getAcceptors()), DtoTransformerHelper.getIdentifiers(term.getComments())));
+	    termsDto.add(new TermDto(term.getId(), term.getTermDate(), term.getStatus(), term.getDescription(), term.getCreationDate(), term.getAuthor().getId(), term.getEvent().getId(), DtoTransformerHelper.getIdentifiers(term.getAcceptors())));
 	}
 	return termsDto;
     }
@@ -126,7 +126,7 @@ public class EventsServiceImpl extends GenericService implements EventsService {
     @Override
     public EventDto getEventById(Long eventId) {
 	Event event = this.timepoolDao.getById(eventId, Event.class);
-	EventDto eventDto = new EventDto(event.getId(), event.getAuthor().getId(), event.getTitle(), event.getLocation(), event.getDescription(), event.getCreationDate(), DtoTransformerHelper.getIdentifiers(event.getTags()), DtoTransformerHelper.getIdentifiers(event.getTerms()));
+	EventDto eventDto = new EventDto(event.getId(), event.getAuthor().getId(), event.getTitle(), event.getLocation(), event.getDescription(), event.getCreationDate(), DtoTransformerHelper.getIdentifiers(event.getTags()), DtoTransformerHelper.getIdentifiers(event.getTerms()), DtoTransformerHelper.getIdentifiers(event.getComments()));
 	return eventDto;
     }
 
@@ -135,7 +135,7 @@ public class EventsServiceImpl extends GenericService implements EventsService {
 	List<EventDto> eventDtos = new ArrayList<EventDto>();
 	List<Event> events = this.timepoolDao.getAll(Event.class);
 	for (Event e : events) {
-	    eventDtos.add(new EventDto(e.getId(), e.getAuthor().getId(), e.getTitle(), e.getLocation(), e.getDescription(), e.getCreationDate(), DtoTransformerHelper.getIdentifiers(e.getTags()), DtoTransformerHelper.getIdentifiers(e.getTerms())));
+	    eventDtos.add(new EventDto(e.getId(), e.getAuthor().getId(), e.getTitle(), e.getLocation(), e.getDescription(), e.getCreationDate(), DtoTransformerHelper.getIdentifiers(e.getTags()), DtoTransformerHelper.getIdentifiers(e.getTerms()),DtoTransformerHelper.getIdentifiers(e.getComments())));
 	}
 	return eventDtos;
     }
@@ -176,7 +176,7 @@ public class EventsServiceImpl extends GenericService implements EventsService {
 	List<Event> events = timepoolDao.loadById(userId, User.class).getAuthoredEvents();
 	List<EventDto> eventsDto = new ArrayList<EventDto>();
 	for (Event e : events) {
-	    eventsDto.add(new EventDto(e.getId(), e.getAuthor().getId(), e.getTitle(), e.getLocation(), e.getDescription(), e.getCreationDate(), DtoTransformerHelper.getIdentifiers(e.getTags()), DtoTransformerHelper.getIdentifiers(e.getTerms())));
+	    eventsDto.add(new EventDto(e.getId(), e.getAuthor().getId(), e.getTitle(), e.getLocation(), e.getDescription(), e.getCreationDate(), DtoTransformerHelper.getIdentifiers(e.getTags()), DtoTransformerHelper.getIdentifiers(e.getTerms()), DtoTransformerHelper.getIdentifiers(e.getComments())));
 	}
 	return eventsDto;
     }
@@ -212,13 +212,10 @@ public class EventsServiceImpl extends GenericService implements EventsService {
     public List<CommentDto> getAllCommentsByEvent(Long idEvent) {
 	Event e = timepoolDao.loadById(idEvent, Event.class);
 	List<Term> terms = e.getTerms();
-	ArrayList<Comment> comments = new ArrayList<Comment>();
-	for (Term term : terms) {
-	    comments.addAll(term.getComments());
-	}
+	List<Comment> comments = e.getComments();
 	ArrayList<CommentDto> cd = new ArrayList<CommentDto>();
 	for (Comment c : comments) {
-	    cd.add(new CommentDto(c.getId(), c.getAuthor().getId(), c.getTerm().getId(),c.getText(),c.getCreationDate()));
+	    cd.add(new CommentDto(c.getId(), c.getAuthor().getId(), c.getEvent().getId(),c.getText(),c.getCreationDate()));
 	}
 	return cd;
     }

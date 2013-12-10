@@ -1,6 +1,7 @@
 package cz.timepool.service;
 
 import cz.timepool.bo.Comment;
+import cz.timepool.bo.Event;
 import cz.timepool.bo.Term;
 import cz.timepool.bo.User;
 import cz.timepool.bo.UserRole;
@@ -69,25 +70,14 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
     }
 
     @Override
-    public List<CommentDto> getAllByTerm(Long idTerm) {
-	Term term = this.timepoolDao.loadById(idTerm, Term.class);
-	List<Comment> boList = term.getComments();
-	List<CommentDto> dtoList = new ArrayList<CommentDto>();
-	for (Comment comment : boList) {
-	    dtoList.add(new CommentDto(comment.getId(), comment.getAuthor().getId(), comment.getTerm().getId(), comment.getText(), comment.getCreationDate()));
-	}
-	return dtoList;
-    }
-
-    @Override
-    public Long addCommentToTerm(String text, Long idAuthor, Long idTerm) {
-	Term term = this.timepoolDao.loadById(idTerm, Term.class);
+    public Long addCommentToEvent(String text, Long idAuthor, Long idEvent) {
+	Event event = this.timepoolDao.loadById(idEvent, Event.class);
 	User a = this.timepoolDao.loadById(idAuthor, User.class);
 	Comment c = new Comment();
 	c.setAuthor(a);
 	c.setText(text);
 	c.setCreationDate(new Date());
-	c.setTerm(term);
+	c.setEvent(event);
 	return this.timepoolDao.save(c).getId();
     }
 
@@ -100,8 +90,8 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
     @Override
     public void deleteCommentById(Long id) {
 	Comment c = this.timepoolDao.loadById(id, Comment.class);
-	Term term = c.getTerm();
-	term.removeComment(c);
+	Event e = c.getEvent();
+	e.removeComment(c);
     }
 
     @Override
@@ -110,7 +100,7 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
 	List<CommentDto> dtoList = new ArrayList<CommentDto>();
 	for (Comment comment : boList) {
 	    System.out.println("pridavam : " + comment);
-	    dtoList.add(new CommentDto(comment.getId(), comment.getAuthor().getId(), comment.getTerm().getId(), comment.getText(), comment.getCreationDate()));
+	    dtoList.add(new CommentDto(comment.getId(), comment.getAuthor().getId(), comment.getEvent().getId(), comment.getText(), comment.getCreationDate()));
 	}
 	return dtoList;
     }

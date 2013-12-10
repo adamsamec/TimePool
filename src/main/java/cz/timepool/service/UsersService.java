@@ -30,14 +30,11 @@ public interface UsersService {
 
     @Transactional(readOnly = true)
     public List<UserDto> getAllUsersOrderedByName();
-
-    @Transactional(readOnly = true)
-    public List<CommentDto> getAllByTerm(Long idTerm);
     
     @Transactional(readOnly = true)
     public List<CommentDto> getCommentsByUser(Long idUser);
    
-    public Long addCommentToTerm(String text, Long idAuthor, Long idTerm);
+    public Long addCommentToEvent(String text, Long idAuthor, Long idEvent);
 
     public void editCommentById(String text, Long id);
 

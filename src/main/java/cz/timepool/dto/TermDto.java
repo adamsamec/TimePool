@@ -10,94 +10,83 @@ import java.util.List;
  */
 public class TermDto extends TemporalEntityDto {
 
-	private Date termDate;
-	private StatusEnum status;
-	private String description;
-	private Date creationDate;
-	private Long author;
-	private Long event;
-	private List<Long> acceptors;
-	private List<Long> comments;
+    private Date termDate;
+    private StatusEnum status;
+    private String description;
+    private Date creationDate;
+    private Long author;
+    private Long event;
+    private List<Long> acceptors;
 
-	public TermDto(Long id, Date termDate, StatusEnum status, String description, Date creationDate, Long author, Long event, List<Long> acceptors, List<Long> comments) {
-		this.id = id;
-		this.termDate = termDate;
-		this.status = status;
-		this.description = description;
-		this.creationDate = creationDate;
-		this.author = author;
-		this.event = event;
-		this.acceptors = acceptors;
-		this.comments = comments;
-	}
+    public TermDto(Long id, Date termDate, StatusEnum status, String description, Date creationDate, Long author, Long event, List<Long> acceptors) {
+	this.id = id;
+	this.termDate = termDate;
+	this.status = status;
+	this.description = description;
+	this.creationDate = creationDate;
+	this.author = author;
+	this.event = event;
+	this.acceptors = acceptors;
+    }
 
-	public Long getEvent() {
-		return event;
-	}
+    public Long getEvent() {
+	return event;
+    }
 
-	public void setEvent(Long event) {
-		this.event = event;
-	}
+    public void setEvent(Long event) {
+	this.event = event;
+    }
 
-	public Date getTermDate() {
-		return termDate;
-	}
+    public Date getTermDate() {
+	return termDate;
+    }
 
-	public void setTermDate(Date termDate) {
-		this.termDate = termDate;
-	}
+    public void setTermDate(Date termDate) {
+	this.termDate = termDate;
+    }
 
-	public StatusEnum getStatus() {
-		return status;
-	}
+    public StatusEnum getStatus() {
+	return status;
+    }
 
-	public void setStatus(StatusEnum status) {
-		this.status = status;
-	}
+    public void setStatus(StatusEnum status) {
+	this.status = status;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+	return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+	this.description = description;
+    }
 
-	public List<Long> getComments() {
-		return comments;
-	}
+    public Date getCreationDate() {
+	return creationDate;
+    }
 
-	public void setComments(List<Long> comments) {
-		this.comments = comments;
-	}
+    public void setCreationDate(Date creationDate) {
+	this.creationDate = creationDate;
+    }
 
-	public Date getCreationDate() {
-		return creationDate;
-	}
+    public Long getAuthor() {
+	return author;
+    }
 
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
+    public void setAuthor(Long author) {
+	this.author = author;
+    }
 
-	public Long getAuthor() {
-		return author;
-	}
+    public List<Long> getAcceptors() {
+	return acceptors;
+    }
 
-	public void setAuthor(Long author) {
-		this.author = author;
-	}
+    public void setAcceptors(List<Long> acceptors) {
+	this.acceptors = acceptors;
+    }
 
-	public List<Long> getAcceptors() {
-		return acceptors;
-	}
-
-	public void setAcceptors(List<Long> acceptors) {
-		this.acceptors = acceptors;
-	}
-
-	@Override
-	public String toString() {
-		return "TermDto ::: ID: " + id + ", creationDate: " + creationDate + ", acceptor ids: " + acceptors + ", status: " + status + ", termDate: " + termDate + ", description: " + description;
-	}
-
+    @Override
+    public String toString() {
+	return "TermDto ::: ID: " + id + ", creationDate: " + creationDate + ", acceptor ids: " + acceptors + ", status: " + status + ", termDate: " + termDate + ", description: " + description;
+    }
 }

@@ -144,6 +144,32 @@ public class UserServiceImplTest extends AbstractServiceTest {
 		}
 		assertEquals(authorId, eventsService.getTermById(termIds.get(0)).getAcceptors().get(0));
 	}
+	
+	@Test
+	public void testManyToMany(){
+	    Long authorId = addUser("NEKDO");
+	    Long user2Id = addUser("DALSI");
+	    Long eventId = eventsService.addEvent(authorId, "Nova suprova akce", "Kdesi", "Popis akce.", new Date());
+	    Long term2Id = eventsService.addTermToEvent(new Date(1388322514000L), StatusEnum.PLNY, "Druhy nejblizsi termin", new Date(), authorId, eventId);
+	    eventsService.addAcceptorToTermById(authorId, term2Id);
+	    eventsService.addAcceptorToTermById(user2Id, term2Id);
+	    List<Long> users = eventsService.getTermById(term2Id).getAcceptors();
+	    int user = -1;
+	    for (Long u : users) {
+		if(user == 0){
+		if(u!=authorId){
+		    fail();
+		}
+		}
+		if(user == 1){
+		if(u!=user2Id){
+		    fail();
+		}    
+		}
+		
+	    }
+	    
+	}
 
 	private Long addUser(String name) {
 		String surname = "Prijmeni" + System.currentTimeMillis();
