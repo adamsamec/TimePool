@@ -3,6 +3,7 @@ package cz.timepool.service;
 import cz.timepool.bo.AbstractBusinessObject;
 import cz.timepool.bo.StatusEnum;
 import cz.timepool.bo.UserPermission;
+import cz.timepool.dto.CommentDto;
 import cz.timepool.dto.EventDto;
 import cz.timepool.dto.TagDto;
 import cz.timepool.dto.TemporalEntityDto;
@@ -65,4 +66,7 @@ public interface EventsService {
     
     public String inviteUser(Long eventId, String email, List<UserPermission> perms, String message, Date exp);
     //public String inviteAnonymousUser(Long eventId, String userEmail, List<UserPermission> perms, String message, Date exp);
+    
+    @Transactional(readOnly = true)
+    public List<CommentDto> getAllCommentsByEvent(Long idEvent);
 }

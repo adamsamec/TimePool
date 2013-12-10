@@ -1,5 +1,6 @@
 package cz.timepool.service;
 
+import cz.timepool.bo.Comment;
 import cz.timepool.bo.Event;
 import cz.timepool.bo.EventInvitation;
 import cz.timepool.bo.StatusEnum;
@@ -9,6 +10,7 @@ import cz.timepool.bo.User;
 import cz.timepool.bo.UserPermission;
 import cz.timepool.bo.UserRole;
 import cz.timepool.dao.EventDaoIface;
+import cz.timepool.dto.CommentDto;
 import cz.timepool.dto.EventDto;
 import cz.timepool.dto.TagDto;
 import cz.timepool.dto.TermDto;
@@ -204,5 +206,20 @@ public class EventsServiceImpl extends GenericService implements EventsService {
 	ei.setMessage(message);
 	timepoolDao.save(ei);
 	return "cislo";
+    }
+
+    @Override
+    public List<CommentDto> getAllCommentsByEvent(Long idEvent) {
+	Event e = timepoolDao.loadById(idEvent, Event.class);
+	List<Term> terms = e.getTerms();
+	ArrayList<Comment> comments = new ArrayList<Comment>();
+	for (Term term : terms) {
+	    comments.addAll(term.getComments());
+	}
+	ArrayList<CommentDto> cd = new ArrayList<CommentDto>();
+	for (Comment c : comments) {
+	    cd.add(new CommentDto(c.getId(), c.getAuthor().getId(), c.getTerm().getId(),c.getText(),c.getCreationDate()));
+	}
+	return cd;
     }
 }

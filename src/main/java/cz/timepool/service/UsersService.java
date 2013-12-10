@@ -36,7 +36,7 @@ public interface UsersService {
     
     @Transactional(readOnly = true)
     public List<CommentDto> getCommentsByUser(Long idUser);
-
+   
     public Long addCommentToTerm(String text, Long idAuthor, Long idTerm);
 
     public void editCommentById(String text, Long id);
