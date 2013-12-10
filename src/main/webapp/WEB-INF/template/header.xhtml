@@ -10,9 +10,9 @@
     <h:body>
 	<ui:composition>
 	    <h1>TimePool</h1>
-		<h:link outcome="events/events" value="Events"></h:link><br/>
+		<h:link outcome="/events/events.xhtml" value="Events"></h:link><br/>
 		<sec:ifAllGranted roles="ROLE_ADMIN">
-		    <h:link outcome="admin/users" value="Users"></h:link><br/>
+		    <h:link outcome="/admin/users" value="Users"></h:link><br/>
 		</sec:ifAllGranted>
 
 	</ui:composition>

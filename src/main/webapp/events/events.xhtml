@@ -10,9 +10,11 @@
         <title>TimePool</title>
     </h:head>
     <h:body>
-	<ui:composition template="template.xhtml" >
+	<ui:composition template="/WEB-INF/template/template.xhtml" >
 	    <ui:define name="content">
-		<h:link outcome="event-form" value="Create event"></h:link><br/>
+		<h:form>
+		<h:commandLink action="event-form" value="Create event"></h:commandLink><br/>
+		</h:form>
 		<c:if test="${eventList.isEmpty == false}">List of your events : <br/> </c:if>
 		<ul>
 		    <ui:repeat var="event" value="#{eventList.allEventsByUser}">
