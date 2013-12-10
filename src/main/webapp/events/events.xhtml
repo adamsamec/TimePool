@@ -10,21 +10,29 @@
         <title>TimePool</title>
     </h:head>
     <h:body>
-	<h:link outcome="event-form" value="Create event"></h:link><br/>
-	<c:if test="${eventList.isEmpty == false}">List of your events : <br/> </c:if>
-	<ul>
-	    <ui:repeat var="event" value="#{eventList.allEventsByUser}">
+	<ui:composition template="/WEB-INF/template/template.xhtml" >
+	    <ui:define name="content">
 		<h:form>
-		    <li>
-			<h:commandLink action="#{selectedEvent.setEventById('event')}" value="#{event.title}">
-			    <f:param name="eventid" value="#{event.id}"/>
-			</h:commandLink>
-			<h:commandButton action="events" value="Edit"></h:commandButton>
-			<h:commandButton action="#{selectedEvent.deleteEvent()}" value="Delete"><f:param name="deleteeventid" value="#{event.id}"/></h:commandButton>
-		    </li>
+		<h:commandLink action="event-form" value="Create event"></h:commandLink><br/>
 		</h:form>
-	    </ui:repeat>
-	</ul>
+		<c:if test="${eventList.isEmpty == false}">List of your events : <br/> </c:if>
+		<ul>
+		    <ui:repeat var="event" value="#{eventList.allEventsByUser}">
+			<h:form>
+			    <li>
+				<h:commandLink action="#{selectedEvent.setEventById('event')}" value="#{event.title}" >
+				    <f:param name="eventid" value="#{event.id}"/>
+				</h:commandLink>
+
+				<h:commandButton action="events" value="Edit"></h:commandButton>
+				<h:commandButton action="#{selectedEvent.deleteEvent()}" value="Delete"><f:param name="deleteeventid" value="#{event.id}"/></h:commandButton>
+
+			    </li>
+			</h:form>
+		    </ui:repeat>
+		</ul>
+	    </ui:define>
+	</ui:composition>
     </h:body>
 </html>
 
