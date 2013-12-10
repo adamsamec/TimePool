@@ -27,9 +27,6 @@ public class Term extends AbstractBusinessObject {
 
 	private String description;
 
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "term")
-	private List<Comment> comments = new ArrayList<Comment>();
-
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date creationDate;
 
@@ -50,20 +47,6 @@ public class Term extends AbstractBusinessObject {
 		if (!this.acceptors.contains(acceptor)) {
 			this.acceptors.add(acceptor);
 		}
-	}
-
-	public void addComment(Comment comment) {
-		if (this.comments == null) {
-			this.comments = new ArrayList<Comment>();
-		}
-
-		if (!this.comments.contains(comment)) {
-			this.comments.add(comment);
-		}
-	}
-
-	public void removeComment(Comment comment) {
-		this.comments.remove(comment);
 	}
 
 	public Date getTermDate() {
@@ -88,14 +71,6 @@ public class Term extends AbstractBusinessObject {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public List<Comment> getComments() {
-		return this.comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
 	}
 
 	public Date getCreationDate() {

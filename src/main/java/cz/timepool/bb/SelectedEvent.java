@@ -52,7 +52,7 @@ public class SelectedEvent {
     }
 
     public SelectedEvent() {
-	term = new TermDto(Long.MIN_VALUE, null, StatusEnum.VOLNY, userEmail, null, Long.MIN_VALUE, Long.MIN_VALUE, null, null);
+	term = new TermDto(Long.MIN_VALUE, null, StatusEnum.VOLNY, userEmail, null, Long.MIN_VALUE, Long.MIN_VALUE, null);
     }
     
     
@@ -143,7 +143,7 @@ public class SelectedEvent {
     
     public void addComment(){
 	//TODO: term id se musi vybrat rucne a nebo pridat pridavani k tomu termu
-	usersService.addCommentToTerm(commentText, logged.getUser().getId(), term.getId());
+	usersService.addCommentToEvent(commentText, logged.getUser().getId(), event.getId());
     }
     
     public List<CommentDto> getAllComments(){
