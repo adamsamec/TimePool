@@ -1,71 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-    <!-- ================= SPRING FRAMEWORK - START ================= -->
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+    
+    <!-- Spring Framework // BEGIN -->
     <context-param>
         <description>Springove konfiguracni soubory teto aplikace</description>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-                /WEB-INF/context/*.xml
+            /WEB-INF/context/*.xml
         </param-value>
     </context-param>
+    
     <listener>
         <description>Nahodi Spring context po startu serveru</description>
         <listener-class>
-               org.springframework.web.context.ContextLoaderListener
+            org.springframework.web.context.ContextLoaderListener
         </listener-class>
     </listener>
+    
     <listener>
         <description>Asociuje requesty s prislusnym vlaknem dotazu (slouzi predevsim jako podpora web frameworku)</description>
         <listener-class>
-               org.springframework.web.context.request.RequestContextListener
+            org.springframework.web.context.request.RequestContextListener
         </listener-class>
-    </listener>
-    <!-- ================= SPRING FRAMEWORK - END ================= -->
-    <!-- ================= JAVA FACES- START ================= -->
-    <!--JSF servlet mapping-->
-    <!--JSF servlet configuration and servlet mappings-->
+    </listener>  
+    <!-- Spring Framework // END -->
+    
+    <!-- JavaServer Faces (JSF) // BEGIN -->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param> 
+    
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+    <!-- JavaServer Faces (JSF) // END -->
     
-    <context-param>
-        <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
-    </context-param>    
+    <!-- Spring Security // BEGIN -->
+    <!-- - works on the concept of filters -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>
+            org.springframework.web.filter.DelegatingFilterProxy
+        </filter-class>
+    </filter>
     
-    <!-- ================= JAVA FACES- END ================= -->
-    <welcome-file-list>
-        <welcome-file>time-pool-welcome.xhtml</welcome-file>
-    </welcome-file-list>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- Spring Security // END -->
+             
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <!-- Enable Spring Filter, Spring Security works on the concept of Filters -->
-    <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>
-			org.springframework.web.filter.DelegatingFilterProxy
-        </filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
     
     <error-page>
-  <error-code>403</error-code>
-  <location>/error/403.xhtml</location>
-</error-page>
+        <error-code>403</error-code>
+        <location>/error/403.xhtml</location>
+    </error-page>
+    
 </web-app>
