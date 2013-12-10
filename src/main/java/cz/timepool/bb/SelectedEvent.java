@@ -2,6 +2,7 @@ package cz.timepool.bb;
 
 import cz.timepool.bo.StatusEnum;
 import cz.timepool.bo.UserPermission;
+import cz.timepool.dto.CommentDto;
 import cz.timepool.dto.EventDto;
 import cz.timepool.dto.TermDto;
 import cz.timepool.dto.UserDto;
@@ -31,7 +32,12 @@ public class SelectedEvent {
     protected EventsService eventsService;
     
     @Autowired
+    UsersService usersService;
+    
+    @Autowired
     LoggedUserBean logged;
+    
+    String commentText;
     
     public String[] permissions;
     private static Map<String, Object> permissionsValues;
@@ -52,6 +58,14 @@ public class SelectedEvent {
     
     public Map<String, Object> getPermissionsValues() {
 	return permissionsValues;
+    }
+
+    public String getCommentText() {
+	return commentText;
+    }
+
+    public void setCommentText(String comment) {
+	this.commentText = comment;
     }
 
     public String getUserEmail() {
@@ -124,7 +138,16 @@ public class SelectedEvent {
 	return eventsService.getTermsByEventId(event.getId());
     }
     public void addTerm(){
-	eventsService.addTermToEvent(term.getTermDate(), term.getStatus(), term.getDescription(), new Date(),logged.getUser().getId(), event.getId());
+	term.setId(eventsService.addTermToEvent(term.getTermDate(), term.getStatus(), term.getDescription(), new Date(),logged.getUser().getId(), event.getId()));
+    }
+    
+    public void addComment(){
+	//TODO: term id se musi vybrat rucne a nebo pridat pridavani k tomu termu
+	usersService.addCommentToTerm(commentText, logged.getUser().getId(), term.getId());
+    }
+    
+    public List<CommentDto> getAllComments(){
+	return eventsService.getAllCommentsByEvent(event.getId());
     }
     
     public void deleteTerm(){
