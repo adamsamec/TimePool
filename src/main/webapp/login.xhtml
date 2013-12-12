@@ -9,7 +9,7 @@
     </h:head>
     <h:body>
 	<c:choose>
-	    <c:when test='${loginBean.passedParameter.equals("t")}'>
+	    <c:when test='${login.passedParameter.equals("t")}'>
 		Please, try to login again.
 	    </c:when>
 
@@ -23,7 +23,7 @@
 	    <h:inputSecret id="j_password"></h:inputSecret><br/>
 	    <h:commandButton value="Login"></h:commandButton>
 	</form>
-	<h:link outcome="register" value="Register"></h:link>
+	<h:link outcome="registration" value="Register"></h:link>
     </h:body>
 </html>
 

@@ -9,6 +9,11 @@
         </h:head>
         <h:body>
             <h1><h:outputText value="#{msg['welcome.title']}"/></h1>
+            
+            <h:link outcome="login" value="Přihlásit se"></h:link><br />
+            <h:link outcome="registration" value="Registrovat nového uživatele"></h:link><br />
+            <h:link outcome="admin/user-list" value="Seznam uživatelů"></h:link><br />
+            <h:link outcome="events/event-list" value="Seznam událostí"></h:link><br />
         </h:body>
     </f:view>
 </html>
