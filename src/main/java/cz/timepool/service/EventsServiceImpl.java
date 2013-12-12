@@ -190,7 +190,7 @@ public class EventsServiceImpl extends GenericService implements EventsService {
             ex.printStackTrace();
             u = new User();
             u.setEmail(userEmail);
-            u.setAuthKey(new Random().nextInt());
+            u.setAuthKey(new Random().nextInt()); // TODO: jiny algoritmus
             u.setCreationDate(new Date());
             u.setUserRole(UserRole.UNREGISTERED);
             timepoolDao.save(u);

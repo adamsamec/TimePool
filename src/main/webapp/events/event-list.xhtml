@@ -13,23 +13,27 @@
 	<ui:composition template="/WEB-INF/template/template.xhtml" >
 	    <ui:define name="content">
 		<h:form>
-		<h:commandLink action="event-form" value="Create event"></h:commandLink><br/>
+		<h:commandLink action="event-create" value="Create event"></h:commandLink><br/>
 		</h:form>
-		<c:if test="${eventList.isEmpty == false}">List of your events : <br/> </c:if>
+		<c:if test="${eventList.isEmpty == false}">List of events you created: <br/></c:if>
 		<ul>
 		    <ui:repeat var="event" value="#{eventList.allEventsByUser}">
 			<h:form>
 			    <li>
-				<h:commandLink action="#{selectedEvent.setEventById('event')}" value="#{event.title}" >
+				<h:commandLink action="#{eventDetail.setEventById('event-detail')}" value="#{event.title}" >
 				    <f:param name="eventid" value="#{event.id}"/>
 				</h:commandLink>
 
-				<h:commandButton action="events" value="Edit"></h:commandButton>
-				<h:commandButton action="#{selectedEvent.deleteEvent()}" value="Delete"><f:param name="deleteeventid" value="#{event.id}"/></h:commandButton>
+				<h:commandButton action="event-list" value="Edit"></h:commandButton>
+				<h:commandButton action="#{eventDetail.deleteEvent('event-list')}" value="Delete"><f:param name="deleteeventid" value="#{event.id}"/></h:commandButton>
 
 			    </li>
 			</h:form>
 		    </ui:repeat>
+		</ul>
+        
+        <c:if test="${eventList.isEmpty == false}">List of events you were invited to: <br/></c:if>
+		<ul>
 		</ul>
 	    </ui:define>
 	</ui:composition>

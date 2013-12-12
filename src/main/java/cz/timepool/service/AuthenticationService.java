@@ -31,10 +31,12 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * Authentication provider
+ *
  * @author Pavel Micka
  */
 //Configuration in applicationContext-security.xml
 public class AuthenticationService extends AbstractUserDetailsAuthenticationProvider {
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractUserDetailsAuthenticationProvider.class);
     private GenericDao genericDAO;
     private TransactionTemplate transactionTemplate;
@@ -62,32 +64,31 @@ public class AuthenticationService extends AbstractUserDetailsAuthenticationProv
             @Override
             public Object doInTransaction(TransactionStatus status) {
                 try {
-                    UserDetails ud = null;
-
-                    cz.timepool.bo.User u;
+                    UserDetails userDetails;
+                    cz.timepool.bo.User user;
                     try {
-			System.out.println("username "+username +"pass "+upat.getCredentials());
-                        u = genericDAO.getByPropertyUnique("email", username, cz.timepool.bo.User.class);
+                        System.out.println("username " + username + "pass " + upat.getCredentials());
+                        user = genericDAO.getByPropertyUnique("email", username, cz.timepool.bo.User.class);
                     } catch (EmptyResultDataAccessException erdaex) {
                         throw new BadCredentialsException("Uzivatel neexistuje");
                     }
                     String password = (String) upat.getCredentials();
-                    if (u == null || !u.getPassword().equals(password)) {
+                    if (user == null || !user.getPassword().equals(password)) {
                         AuthenticationException e = new BadCredentialsException("Neplatne uzivatelske udaje");
                         throw e;
                     } else {
                         List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
                         auths.add(new SimpleGrantedAuthority("ROLE_USER"));
-                        if(u.getUserRole().equals(UserRole.ADMIN)){
+                        if (user.getUserRole().equals(UserRole.ADMIN)) {
                             auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                         }
-                        ud = new User(u.getEmail(), u.getPassword(), auths);
+                        userDetails = new User(user.getEmail(), user.getPassword(), auths);
                     }
-                    return ud;
-                } catch(AuthenticationException e){
+                    return userDetails;
+                } catch (AuthenticationException e) {
                     status.setRollbackOnly();
                     throw e;
-                }catch (Exception e) {
+                } catch (Exception e) {
                     LOG.error("Error occured during retrieveUser call", e);
                     status.setRollbackOnly();
                     throw new RuntimeException(e);
@@ -103,6 +104,5 @@ public class AuthenticationService extends AbstractUserDetailsAuthenticationProv
     public void setTransactionTemplate(TransactionTemplate transactionTemplate) {
         this.transactionTemplate = transactionTemplate;
     }
-    
-    
+
 }

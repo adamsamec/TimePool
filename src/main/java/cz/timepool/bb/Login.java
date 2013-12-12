@@ -12,7 +12,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @RequestScoped
-public class LoginBean {
+public class Login {
 
     private String passedParameter;
 
@@ -21,6 +21,7 @@ public class LoginBean {
         return this.passedParameter;
     }
 
+    // TODO: Tnto nesmyslny setter tu musi byt, aby se dodrzela specifikace Bean?
     public void setPassedParameter(String passedParameter) {
         this.passedParameter = passedParameter;
     }
