@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>TimePool</title>
+    </h:head>
+    <h:body>
+	<ui:composition template="/WEB-INF/template/template.xhtml" >
+	    <ui:define name="content">
+		Selected event : <h:outputText value="#{eventDetail.event.title}"></h:outputText><br/>
+		<h:form>
+		    Invite somebody via email : <h:inputText id="useremail" value="#{eventDetail.userEmail}"><f:validator binding="#{uniqueValidator}"></f:validator></h:inputText><br/>
+		    <h:outputLabel for="message">Message : </h:outputLabel><h:inputText id="message" value="#{eventDetail.message}"></h:inputText><br/>
+		    <h:outputLabel for="perm">Permissions : </h:outputLabel>
+		    <h:selectManyListbox id="perm" value="#{eventDetail.permissions}">
+			<f:selectItems value="#{eventDetail.permissionsValues}" />
+		    </h:selectManyListbox><br/>
+
+		    <h:commandButton action="#{eventDetail.inviteToEvent()}" value="Invite">
+		    </h:commandButton>
+		</h:form>
+		<ui:repeat var="term" value="#{eventDetail.allTerms}">
+		    <h:form>
+			<li>
+			    <h:outputLabel for="termDate">Term date : </h:outputLabel><h:outputText id="termDate" value="#{term.termDate}"></h:outputText>
+			    <h:outputLabel for="description"> Description : </h:outputLabel><h:outputText id="description" value="#{term.description}"></h:outputText>
+			    <h:commandButton action="#{eventDetail.deleteTerm()}" value="Delete" rendered="#{session.user.id eq term.author or loggedUser.isAdmin}">
+				<f:param name="deletetermid" value="#{term.id}"></f:param>
+			    </h:commandButton>
+			</li>
+		    </h:form>
+		</ui:repeat>
+		<h:form>
+		    Add term <br/>
+		    <h:outputLabel for="date">Date : </h:outputLabel><h:inputText id="date" value="#{eventDetail.term.termDate}"><f:convertDateTime pattern="d.M.yyyy" /></h:inputText><h:message for="date" style="color:red" /><br/>
+		    <h:outputLabel for="desc">Description : </h:outputLabel><h:inputText id="desc" value="#{eventDetail.term.description}"></h:inputText><br/>
+		    <h:commandButton action="#{eventDetail.addTerm()}" value="Add term"></h:commandButton>
+		</h:form>
+		<ui:repeat var="cmnt" value="#{eventDetail.allComments}">
+		    <h:form>
+			<li>
+			    <h:outputText value="#{cmnt.text}"></h:outputText>
+			</li>
+		    </h:form>
+		</ui:repeat>
+
+		<h:form>
+		    Add comment <br/>
+		    <h:outputLabel for="cmnt">Text : </h:outputLabel><h:inputTextarea id="cmnt" value="#{eventDetail.commentText}" required="true"></h:inputTextarea><h:message for="cmnt" style="color:red" /><br/>
+		    <h:commandButton action="#{eventDetail.addComment()}" value="Add Comment"></h:commandButton>
+		</h:form>
+	    </ui:define>
+	</ui:composition>
+    </h:body>
+</html>
+

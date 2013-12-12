@@ -19,83 +19,84 @@ public class EventDto extends TemporalEntityDto {
     private List<Long> comments;
 
     public EventDto(Long id, Long author, String title, String location, String description, Date creationDate, List<Long> tags, List<Long> terms, List<Long> comments) {
-	this.id = id;
-	this.author = author;
-	this.title = title;
-	this.location = location;
-	this.description = description;
-	this.creationDate = creationDate;
-	this.tags = tags;
-	this.terms = terms;
-	this.comments = comments;
+        this.id = id;
+        this.author = author;
+        this.title = title;
+        this.location = location;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.tags = tags;
+        this.terms = terms;
+        this.comments = comments;
     }
 
     public Long getAuthor() {
-	return author;
+        return author;
     }
 
     public void setAuthor(Long author) {
-	this.author = author;
+        this.author = author;
     }
 
     public String getTitle() {
-	return title;
+        return title;
     }
 
     public void setTitle(String title) {
-	this.title = title;
+        this.title = title;
     }
 
     public String getLocation() {
-	return location;
+        return location;
     }
 
     public void setLocation(String location) {
-	this.location = location;
+        this.location = location;
     }
 
     public List<Long> getComments() {
-	return comments;
+        return comments;
     }
 
     public void setComments(List<Long> comments) {
-	this.comments = comments;
+        this.comments = comments;
     }
 
     public String getDescription() {
-	return description;
+        return description;
     }
 
     public void setDescription(String description) {
-	this.description = description;
+        this.description = description;
     }
 
     public Date getCreationDate() {
-	return creationDate;
+        return creationDate;
     }
 
     public void setCreationDate(Date creationDate) {
-	this.creationDate = creationDate;
+        this.creationDate = creationDate;
     }
 
     public List<Long> getTags() {
-	return tags;
+        return tags;
     }
 
     public void setTags(List<Long> tags) {
-	this.tags = tags;
+        this.tags = tags;
     }
 
     public List<Long> getTerms() {
-	return terms;
+        return terms;
     }
 
     public void setTerms(List<Long> terms) {
-	this.terms = terms;
+        this.terms = terms;
     }
 
     @Override
     public String toString() {
-	return "EventDto ::: ID: " + id + ", creationDate: " + creationDate + ", title: " + title + ", description: " + description;
+        return "EventDto ::: ID: " + id + ", creationDate: " + creationDate + ", title: " + title + ", description: " + description;
     }
+
 }

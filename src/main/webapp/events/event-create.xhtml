@@ -11,12 +11,12 @@
 	    <ui:define name="content">
 		<h:form>
 		    <h:outputLabel for="title" >Title : </h:outputLabel>
-		    <h:inputText id="title" value="#{eventFormBean.title}"></h:inputText><br/>
+		    <h:inputText id="title" value="#{eventCreation.event.title}"></h:inputText><br/>
 		    <h:outputLabel for="location">Location : </h:outputLabel>
-		    <h:inputText id="location" value="#{eventFormBean.location}"></h:inputText><br/>
+		    <h:inputText id="location" value="#{eventCreation.event.location}"></h:inputText><br/>
 		    <h:outputLabel for="description">Description : </h:outputLabel>
-		    <h:inputTextarea id="description" value="#{eventFormBean.description}"></h:inputTextarea><br/>
-		    <h:commandButton action="#{eventFormBean.addEvent()}" value="Create"></h:commandButton>
+		    <h:inputTextarea id="description" value="#{eventCreation.event.description}"></h:inputTextarea><br/>
+		    <h:commandButton action="#{eventCreation.addEvent('event-list')}" value="Create"></h:commandButton>
 		</h:form>
 	    </ui:define>
 	</ui:composition>
