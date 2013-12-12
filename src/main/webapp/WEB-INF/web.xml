@@ -74,7 +74,7 @@
     </session-config>
     
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>time-pool-welcome.xhtml</welcome-file>
     </welcome-file-list>
     
     <error-page>
