@@ -44,7 +44,7 @@
 		    <h:form>
 			<li>
 			    <h:outputText value="#{cmnt.text}"></h:outputText>
-			    <h:commandButton action="#{eventDetail.deleteComment()}" value="Delete" >
+			    <h:commandButton action="#{eventDetail.deleteComment()}" value="Delete" rendered="#{loggedUser.isAdmin}">
 				<f:param name="deletecommentid" value="#{cmnt.id}"></f:param>
 			    </h:commandButton>
 			</li>
