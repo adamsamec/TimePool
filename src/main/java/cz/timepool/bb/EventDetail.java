@@ -154,5 +154,11 @@ public class EventDetail {
         System.out.println("mazu term " + termId);
         eventsService.deleteTermById(termId);
     }
+    
+    public void deleteComment(){
+	Long cmntId = Long.valueOf(FacesUtil.getRequestParameter("deletecommentid"));
+	System.out.println("mazu comment : "+cmntId);
+        usersService.deleteCommentById(cmntId);
+    }
 
 }

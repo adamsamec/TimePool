@@ -89,9 +89,10 @@ public class UsersServiceImpl extends AbstractDataAccessService implements Users
 
     @Override
     public void deleteCommentById(Long id) {
-	Comment c = this.timepoolDao.loadById(id, Comment.class);
-	Event e = c.getEvent();
-	e.removeComment(c);
+	this.timepoolDao.removeById(id, Comment.class);
+//	Event e = c.getEvent(); takhle to nemuze bejt
+//	e.removeComment(c);
+//	this.timepoolDao.save(e);
     }
 
     @Override
