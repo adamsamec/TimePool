@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Lukas L.
  */
-@Component
+@Component("registrationBB")
 public class Registration {
 
     @Autowired
