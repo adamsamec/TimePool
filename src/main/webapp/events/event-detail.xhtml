@@ -28,7 +28,7 @@
 			<li>
 			    <h:outputLabel for="termDate">Term date : </h:outputLabel><h:outputText id="termDate" value="#{term.termDate}"></h:outputText>
 			    <h:outputLabel for="description"> Description : </h:outputLabel><h:outputText id="description" value="#{term.description}"></h:outputText>
-			    <h:commandButton action="#{eventDetail.deleteTerm()}" value="Delete" rendered="#{session.user.id eq term.author or loggedUser.isAdmin}">
+			    <h:commandButton action="#{eventDetail.deleteTerm()}" value="Delete" rendered="#{sessionBB.user.id eq term.author or loggedUser.isAdmin}">
 				<f:param name="deletetermid" value="#{term.id}"></f:param>
 			    </h:commandButton>
 			</li>
@@ -44,6 +44,9 @@
 		    <h:form>
 			<li>
 			    <h:outputText value="#{cmnt.text}"></h:outputText>
+			    <h:commandButton action="#{eventDetail.deleteComment()}" value="Delete" >
+				<f:param name="deletecommentid" value="#{cmnt.id}"></f:param>
+			    </h:commandButton>
 			</li>
 		    </h:form>
 		</ui:repeat>

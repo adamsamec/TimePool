@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Lukas L.
  */
-@Component
+@Component("sessionBB")//musi to tak byt, protoze session je nejaka promenna springu
 public class Session implements Serializable {
 
     @Autowired
@@ -39,7 +39,8 @@ public class Session implements Serializable {
 
     // TODO: Pri prvnim volani ulozit do this.user a zaroven nastavit this.isAdmin
     public UserDto getUser() {
-        return usersService.getUserByEmail(getCurrentEmail());
+	setUser(usersService.getUserByEmail(getCurrentEmail()));
+        return user;
     }
 
     // TODO: proc je to umozneno?
