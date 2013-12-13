@@ -19,15 +19,18 @@ public interface UsersService {
     @Secured({"ROLE_ADMIN"})
     public void deleteUser(Long userId);
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @Transactional(readOnly = true)
     public UserDto getUserById(Long id);
     
     @Transactional(readOnly = true)
     public UserDto getUserByEmail(String email);
 
+    @Secured({"ROLE_ADMIN"})
     @Transactional(readOnly = true)
     public List<UserDto> getAllUsers();
 
+    @Secured({"ROLE_ADMIN"})
     @Transactional(readOnly = true)
     public List<UserDto> getAllUsersOrderedByName();
     
@@ -36,11 +39,13 @@ public interface UsersService {
    
     public Long addCommentToEvent(String text, Long idAuthor, Long idEvent);
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public void editCommentById(String text, Long id);
 
     @Secured({"ROLE_ADMIN"})
     public void deleteCommentById(Long id);
     
+    @Secured({"ROLE_ADMIN"})
     public void editUser(UserDto user);
     
 }
