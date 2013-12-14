@@ -32,7 +32,7 @@
 		    </ui:repeat>
 		</ul>
 
-		<c:if test="${loggedUser.isAdmin == false}">
+		<c:if test="${sessionBB.isAdmin == false}">
 		<c:if test="${eventList.isAllInvitedeventsEmpty == false}">List of events you were invited to: <br/></c:if>
 		<ul>
 		    <ui:repeat var="ie" value="#{eventList.allInvitedEventsByUser}">
@@ -43,7 +43,7 @@
 				</h:commandLink>
 
 				<h:commandButton action="event-list" value="Edit"></h:commandButton>
-				<h:commandButton action="#{eventDetail.deleteEvent('event-list')}" value="Delete"><f:param name="deleteeventid" value="#{ie.id}"/></h:commandButton>
+				<h:commandButton action="#{eventDetail.deleteEvent('event-list')}" value="Delete" rendered="${sessionBB.isAdmin}"><f:param name="deleteeventid" value="#{ie.id}"/></h:commandButton>
 
 			    </li>
 			</h:form>
