@@ -12,6 +12,7 @@ import cz.timepool.bo.UserRole;
 import cz.timepool.dao.EventDaoIface;
 import cz.timepool.dto.CommentDto;
 import cz.timepool.dto.EventDto;
+import cz.timepool.dto.EventInvitationDto;
 import cz.timepool.dto.TagDto;
 import cz.timepool.dto.TermDto;
 import cz.timepool.helper.DtoTransformerHelper;
@@ -218,5 +219,35 @@ public class EventsServiceImpl extends GenericService implements EventsService {
         }
         return cd;
     }
+
+    @Override
+    public List<EventDto> getAllInvitedEventsByUser(Long userId) {
+	User u = timepoolDao.loadById(userId, User.class);
+	List<EventInvitation> ei = u.getEventInvitations();
+	List<EventInvitationDto> eiDto = new ArrayList<EventInvitationDto>();
+	for (EventInvitation evi : ei) {
+	    eiDto.add(new EventInvitationDto(evi.getId(), evi.getPermissions(), evi.getMessage(), evi.getExpirationDate(), evi.getCreationDate(), evi.getEvent().getId(), evi.getInvitedUser().getId()));
+	}
+	List<EventDto> evDto = getAllEvents();
+	int size = evDto.size();
+	for (int i = 0; i < size; i++) {
+	    if(!containsEventId(eiDto, evDto.get(i))){
+		evDto.remove(i);
+		size--;
+		i--;
+	    }
+	}
+	return evDto;
+    }
+    
+    private boolean containsEventId(List<EventInvitationDto> ei, EventDto e){
+	for (EventInvitationDto evi : ei) {
+	    if(evi.getEvent().equals(e.getId())){
+		return true;
+	    }
+	}
+	return false;
+    }
+    
 
 }
