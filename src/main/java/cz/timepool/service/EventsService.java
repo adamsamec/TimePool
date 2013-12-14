@@ -84,4 +84,8 @@ public interface EventsService {
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @Transactional(readOnly = true)
     public List<CommentDto> getAllCommentsByEvent(Long idEvent);
+    
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @Transactional(readOnly = true)
+    public List<EventDto> getAllInvitedEventsByUser(Long userId);
 }

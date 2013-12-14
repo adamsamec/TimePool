@@ -13,7 +13,7 @@
 	    <ui:define name="content">
 		Selected event : <h:outputText value="#{eventDetail.event.title}"></h:outputText><br/>
 		<h:form>
-		    Invite somebody via email : <h:inputText id="useremail" value="#{eventDetail.userEmail}"><f:validator binding="#{uniqueValidator}"></f:validator></h:inputText><br/>
+		    Invite somebody via email : <h:inputText id="useremail" value="#{eventDetail.userEmail}"></h:inputText><br/>
 		    <h:outputLabel for="message">Message : </h:outputLabel><h:inputText id="message" value="#{eventDetail.message}"></h:inputText><br/>
 		    <h:outputLabel for="perm">Permissions : </h:outputLabel>
 		    <h:selectManyListbox id="perm" value="#{eventDetail.permissions}">

@@ -19,10 +19,15 @@ public class EventList {
     @Autowired
     Session logged;
 
-    public boolean isEmpty;
+    public boolean isAllEventsEmpty;
+    public boolean isAllInvitedeventsEmpty;
 
-    public void setIsEmpty(boolean isEmpty) {
-        this.isEmpty = isEmpty;
+    public void setIsAllEventsEmpty(boolean isAllEventsEmpty) {
+	this.isAllEventsEmpty = isAllEventsEmpty;
+    }
+
+    public void setIsAllInvitedeventsEmpty(boolean isAllInvitedeventsEmpty) {
+	this.isAllInvitedeventsEmpty = isAllInvitedeventsEmpty;
     }
 
     public List<EventDto> getAllEventsByUser() {
@@ -32,13 +37,18 @@ public class EventList {
         return eventsService.getAllEventsByUser(logged.getUser().getId());
     }
 
-    public boolean getIsEmpty() {
-        List<EventDto> list = getAllEventsByUser();
-        for (EventDto eventDto : list) {
-            System.out.println(eventDto);
-        }
-        isEmpty = list.isEmpty();
-        return isEmpty;
+    public boolean isIsAllEventsEmpty() {
+	isAllEventsEmpty = getAllEventsByUser().isEmpty();
+	return isAllEventsEmpty;
+    }
+
+    public boolean isIsAllInvitedeventsEmpty() {
+	isAllInvitedeventsEmpty = getAllInvitedEventsByUser().isEmpty();
+	return isAllInvitedeventsEmpty;
+    }
+
+    public List<EventDto> getAllInvitedEventsByUser(){
+	return eventsService.getAllInvitedEventsByUser(logged.getUser().getId());
     }
 
 }

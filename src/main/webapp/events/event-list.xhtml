@@ -13,9 +13,9 @@
 	<ui:composition template="/WEB-INF/template/template.xhtml" >
 	    <ui:define name="content">
 		<h:form>
-		<h:commandLink action="event-create" value="Create event"></h:commandLink><br/>
+		    <h:commandLink action="event-create" value="Create event"></h:commandLink><br/>
 		</h:form>
-		<c:if test="${eventList.isEmpty == false}">List of events you created: <br/></c:if>
+		<c:if test="${eventList.isAllEventsEmpty == false}">List of events you created: <br/></c:if>
 		<ul>
 		    <ui:repeat var="event" value="#{eventList.allEventsByUser}">
 			<h:form>
@@ -31,10 +31,25 @@
 			</h:form>
 		    </ui:repeat>
 		</ul>
-        
-        <c:if test="${eventList.isEmpty == false}">List of events you were invited to: <br/></c:if>
+
+		<c:if test="${loggedUser.isAdmin == false}">
+		<c:if test="${eventList.isAllInvitedeventsEmpty == false}">List of events you were invited to: <br/></c:if>
 		<ul>
+		    <ui:repeat var="ie" value="#{eventList.allInvitedEventsByUser}">
+			<h:form>
+			    <li>
+				<h:commandLink action="#{eventDetail.setEventById('event-detail')}" value="#{ie.title}" >
+				    <f:param name="eventid" value="#{ie.id}"/>
+				</h:commandLink>
+
+				<h:commandButton action="event-list" value="Edit"></h:commandButton>
+				<h:commandButton action="#{eventDetail.deleteEvent('event-list')}" value="Delete"><f:param name="deleteeventid" value="#{ie.id}"/></h:commandButton>
+
+			    </li>
+			</h:form>
+		    </ui:repeat>
 		</ul>
+		</c:if>
 	    </ui:define>
 	</ui:composition>
     </h:body>
