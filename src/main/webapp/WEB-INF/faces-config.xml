@@ -12,13 +12,13 @@
         
         <!-- Localization configuration -->
         <locale-config>
-            <default-locale>en</default-locale>
-            <supported-locale>cs_CZ</supported-locale>
+            <default-locale>cs_CZ</default-locale>
+            <supported-locale>en</supported-locale>
         </locale-config>
         
         <!-- Create a resource bundle -->
         <resource-bundle>
-            <base-name>cz.timepool.pres.i10l.timepool</base-name>
+            <base-name>cz.timepool.pres.inter.timepool</base-name>
             <var>msg</var>
         </resource-bundle>
         

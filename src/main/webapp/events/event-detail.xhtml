@@ -17,7 +17,7 @@
 		    <h:outputLabel for="message">Message : </h:outputLabel><h:inputText id="message" value="#{eventDetail.message}"></h:inputText><br/>
 		    <h:outputLabel for="perm">Permissions : </h:outputLabel>
 		    <h:selectManyListbox id="perm" value="#{eventDetail.permissions}">
-			<f:selectItems value="#{eventDetail.permissionsValues}" />
+			<f:selectItems value="#{eventDetail.permissionsValues}"/>
 		    </h:selectManyListbox><br/>
 
 		    <h:commandButton action="#{eventDetail.inviteToEvent()}" value="Invite">
