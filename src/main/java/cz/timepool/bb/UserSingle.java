@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @author Lukas L.
  */
 @Component
-public class UserDetail {
+public class UserSingle {
 
     @Autowired
     UsersService usersService;

@@ -1,9 +1,7 @@
 package cz.timepool.bb;
 
-import cz.timepool.bo.UserRole;
 import cz.timepool.dto.UserDto;
 import cz.timepool.service.UsersService;
-import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

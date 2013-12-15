@@ -4,22 +4,23 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>New event</title>
     </h:head>
     <h:body>
-	<ui:composition template="/WEB-INF/template/template.xhtml" >
-	    <ui:define name="content">
-		<h:form>
-		    <h:outputLabel for="title" >Title : </h:outputLabel>
-		    <h:inputText id="title" value="#{eventCreation.event.title}"></h:inputText><br/>
-		    <h:outputLabel for="location">Location : </h:outputLabel>
-		    <h:inputText id="location" value="#{eventCreation.event.location}"></h:inputText><br/>
-		    <h:outputLabel for="description">Description : </h:outputLabel>
-		    <h:inputTextarea id="description" value="#{eventCreation.event.description}"></h:inputTextarea><br/>
-		    <h:commandButton action="#{eventCreation.addEvent('event-list')}" value="Create"></h:commandButton>
-		</h:form>
-	    </ui:define>
-	</ui:composition>
+        <ui:composition template="/WEB-INF/template/template.xhtml" >
+            <ui:define name="content">
+                <h2>New event</h2>
+                <h:form>
+                    <h:outputLabel for="title" >Title: </h:outputLabel>
+                    <h:inputText id="title" value="#{eventSingle.event.title}"></h:inputText><br/>
+                    <h:outputLabel for="location">Location: </h:outputLabel>
+                    <h:inputText id="location" value="#{eventSingle.event.location}"></h:inputText><br/>
+                    <h:outputLabel for="description">Description: </h:outputLabel>
+                    <h:inputTextarea id="description" value="#{eventSingle.event.description}"></h:inputTextarea><br/>
+                    <h:commandButton action="#{eventSingle.addEvent('event-list')}" value="Create"></h:commandButton>
+                </h:form>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

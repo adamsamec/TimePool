@@ -10,11 +10,13 @@
     <h:body>
         <ui:composition>
             <h1>TimePool</h1>
-
-            <h:link outcome="/events/event-list" value="Events"></h:link><br/>
-            <sec:ifAllGranted roles="ROLE_ADMIN">
-                <h:link outcome="/admin/user-list" value="Users"></h:link><br/>
-            </sec:ifAllGranted>
+            <ul>
+                <li><h:link outcome="/events/event-list" value="Events"></h:link></li>
+                <li><sec:ifAllGranted roles="ROLE_ADMIN">
+                        <h:link outcome="/admin/user-list" value="Users"></h:link>
+                    </sec:ifAllGranted>
+                </li>
+            </ul>
         </ui:composition>
     </h:body>
 </html>

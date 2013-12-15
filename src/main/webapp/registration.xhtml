@@ -4,12 +4,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>TimePool</title>
+        <title>Registration</title>
     </h:head>
     <h:body>
-	<h1><h:outputText value="#{msg['registration.title']}"/></h1>
+	<h2><h:outputText value="#{msg['registration.title']}"/></h2>
         <h:form>
-            <h:outputLabel for="email" >Email : </h:outputLabel>
+            <h:outputLabel for="email" >Email: </h:outputLabel>
             <h:inputText id="email" value="#{registration.user.email}" required="true">
                 <f:validator binding="#{compositeValidator}" />
             </h:inputText><h:message for="email" style="color:red" /><br/>
