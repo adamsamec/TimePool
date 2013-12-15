@@ -14,9 +14,11 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Component;
  * @author Lukas L.
  */
 @Component
+@RequestScoped
 public class EventDetail {
 
     protected EventDto event;
@@ -39,7 +42,6 @@ public class EventDetail {
 
     String commentText;
 
-    public String[] permissions;
     private static Map<String, Object> permissionsValues;
     String userEmail;
     String message;
@@ -50,7 +52,17 @@ public class EventDetail {
         permissionsValues.put("Can accept term ?", UserPermission.ACCEPT_TERM);
         permissionsValues.put("Can add comment", UserPermission.ADD_COMMENT);
     }
+    
+    public List<UserPermission> ups;
 
+    public List<UserPermission> getUps() {
+	return ups;
+    }
+
+    public void setUps(List<UserPermission> ups) {
+	this.ups = ups;
+    }
+    
     public EventDetail() {
         term = new TermDto(Long.MIN_VALUE, null, StatusEnum.VOLNY, userEmail, null, Long.MIN_VALUE, Long.MIN_VALUE, null);
     }
@@ -82,15 +94,7 @@ public class EventDetail {
     public void setMessage(String message) {
         this.message = message;
     }
-
-    public String[] getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(String[] permissions) {
-        this.permissions = permissions;
-    }
-
+    
     public EventDto getEvent() {
         return event;
     }
@@ -125,11 +129,7 @@ public class EventDetail {
 
     public void inviteToEvent() {
         System.out.println("emai " + getUserEmail() + "message" + getMessage());
-        ArrayList<UserPermission> perm = new ArrayList<UserPermission>();
-        for (String string : permissions) {
-            perm.add(UserPermission.convertFromString(string));
-        }
-        eventsService.inviteUser(event.getId(), userEmail, perm, message, new Date());
+        eventsService.inviteUser(event.getId(), userEmail, ups, message, new Date());
     }
 
     public List<TermDto> getAllTerms() {

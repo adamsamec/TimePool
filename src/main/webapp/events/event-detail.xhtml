@@ -16,8 +16,10 @@
 		    Invite somebody via email : <h:inputText id="useremail" value="#{eventDetail.userEmail}"></h:inputText><br/>
 		    <h:outputLabel for="message">Message : </h:outputLabel><h:inputText id="message" value="#{eventDetail.message}"></h:inputText><br/>
 		    <h:outputLabel for="perm">Permissions : </h:outputLabel>
-		    <h:selectManyListbox id="perm" value="#{eventDetail.permissions}">
+		    <h:selectManyListbox id="perm" value="#{eventDetail.ups}">
 			<f:selectItems value="#{eventDetail.permissionsValues}"/>
+			<f:converter binding="#{permissionConverter}"/>
+                                    
 		    </h:selectManyListbox><br/>
 
 		    <h:commandButton action="#{eventDetail.inviteToEvent()}" value="Invite">
