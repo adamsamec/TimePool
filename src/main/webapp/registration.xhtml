@@ -7,17 +7,18 @@
         <title>TimePool</title>
     </h:head>
     <h:body>
+	<h1><h:outputText value="#{msg['registration.title']}"/></h1>
         <h:form>
             <h:outputLabel for="email" >Email : </h:outputLabel>
             <h:inputText id="email" value="#{registration.user.email}" required="true">
                 <f:validator binding="#{compositeValidator}" />
             </h:inputText><h:message for="email" style="color:red" /><br/>
-            <h:outputLabel for="name" >Name : </h:outputLabel>
+            <h:outputLabel for="name" value="#{msg['registration.name']}"></h:outputLabel>
             <h:inputText id="name" value="#{registration.user.name}" required="true">
             </h:inputText><h:message for="name" style="color:red" /><br/>
-            <h:outputLabel for="surname" >Surname : </h:outputLabel>
+            <h:outputLabel for="surname" value="#{msg['registration.surname']}"></h:outputLabel>
             <h:inputText id="surname" value="#{registration.user.surname}"></h:inputText><br/>
-            <h:outputLabel for="pass" >Password : </h:outputLabel>
+            <h:outputLabel for="pass" value="#{msg['registration.password']}"></h:outputLabel>
             <h:inputSecret id="pass" value="#{registration.user.password}"></h:inputSecret><br/>
             <h:commandButton action="#{registration.register('login')}" value="register"></h:commandButton>
         </h:form>
