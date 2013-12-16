@@ -21,9 +21,10 @@ public class LoginSession implements Serializable {
     private UsersService usersService;
 
     private UserDto user;
-    boolean isAdmin;
 
-    public String getCurrentEmail() {
+    private boolean isAdmin;
+
+    public String getUserEmail() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
@@ -35,7 +36,7 @@ public class LoginSession implements Serializable {
     // TODO: Pri prvnim volani ulozit do this.user a zaroven nastavit this.isAdmin
     // TODO: ma smysl to cachovat do this.user nebo to zajisti entityManager?
     public UserDto getUser() {
-        setUser(usersService.getUserByEmail(getCurrentEmail()));
+        setUser(usersService.getUserByEmail(getUserEmail()));
         return user;
     }
 
@@ -44,7 +45,7 @@ public class LoginSession implements Serializable {
         this.user = user;
     }
 
-    // TODO: pouze vratit jiz nastaveny this.isAdmin
+    // TODO: pouze vratit jiz nastaveny this.isAdmin?
     public boolean isIsAdmin() {
         Collection<? extends GrantedAuthority> auths = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         return auths.contains(new SimpleGrantedAuthority("ROLE_ADMIN")); // TODO: ok?

@@ -15,20 +15,10 @@ import org.springframework.stereotype.Component;
 public class EventList {
 
     @Autowired
-    EventsService eventsService;
+    private LoginSession loginSession;
+
     @Autowired
-    LoginSession loginSession;
-
-    public boolean isAllEventsEmpty;
-    public boolean isAllInvitedeventsEmpty;
-
-    public void setIsAllEventsEmpty(boolean isAllEventsEmpty) {
-        this.isAllEventsEmpty = isAllEventsEmpty;
-    }
-
-    public void setIsAllInvitedeventsEmpty(boolean isAllInvitedeventsEmpty) {
-        this.isAllInvitedeventsEmpty = isAllInvitedeventsEmpty;
-    }
+    private EventsService eventsService;
 
     public List<EventDto> getAllEventsByUser() {
         if (loginSession.getUser().getUserRole() == UserRole.ADMIN) {
@@ -37,18 +27,16 @@ public class EventList {
         return eventsService.getAllEventsByUser(loginSession.getUser().getId());
     }
 
+    public List<EventDto> getAllInvitedEventsByUser() {
+        return eventsService.getAllInvitedEventsByUser(loginSession.getUser().getId());
+    }
+
     public boolean isIsAllEventsEmpty() {
-        isAllEventsEmpty = getAllEventsByUser().isEmpty();
-        return isAllEventsEmpty;
+        return getAllEventsByUser().isEmpty();
     }
 
     public boolean isIsAllInvitedeventsEmpty() {
-        isAllInvitedeventsEmpty = getAllInvitedEventsByUser().isEmpty();
-        return isAllInvitedeventsEmpty;
-    }
-
-    public List<EventDto> getAllInvitedEventsByUser() {
-        return eventsService.getAllInvitedEventsByUser(loginSession.getUser().getId());
+        return getAllInvitedEventsByUser().isEmpty();
     }
 
 }

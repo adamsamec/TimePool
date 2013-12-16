@@ -12,12 +12,12 @@
                 <h2>Edited event: <h:outputText value="#{eventSingle.event.title}"></h:outputText></h2>
                 <h:form>
                     <h:outputLabel for="title" >Title: </h:outputLabel>
-                    <h:inputText id="title" value="#{eventSingle.event.title}"></h:inputText><br/>
+                    <h:inputText id="title" value="#{eventSingle.event.title}"></h:inputText><br />
                     <h:outputLabel for="location">Location: </h:outputLabel>
-                    <h:inputText id="location" value="#{eventSingle.event.location}"></h:inputText><br/>
+                    <h:inputText id="location" value="#{eventSingle.event.location}"></h:inputText><br />
                     <h:outputLabel for="description">Description: </h:outputLabel>
-                    <h:inputTextarea id="description" value="#{eventSingle.event.description}"></h:inputTextarea><br/>
-                    <h:commandButton action="#{eventSingle.editEventDetails('event-list')}" value="Save"></h:commandButton>
+                    <h:inputTextarea id="description" value="#{eventSingle.event.description}"></h:inputTextarea><br />
+                    <h:commandButton action="#{eventSingle.editEvent('event-list')}" value="Save"></h:commandButton>
                 </h:form>
             </ui:define>
         </ui:composition>

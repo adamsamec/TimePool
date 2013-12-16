@@ -11,11 +11,11 @@
             <ui:define name="content">
                 <h2>Detail of user <h:outputText value="#{userSingle.user.name} #{userSingle.user.surname}"></h:outputText></h2>
                 <h:form>
-                    <h:outputLabel for="name">Name: </h:outputLabel><h:inputText id="name" value="#{userSingle.user.name}"></h:inputText><br/>
-                    <h:outputLabel for="surname">Surname: </h:outputLabel><h:inputText id="surname" value="#{userSingle.user.surname}"></h:inputText><br/>
-                    <h:outputLabel for="email">Email: </h:outputLabel><h:inputText id="email" value="#{userSingle.user.email}"></h:inputText><br/>
-                    <h:outputLabel for="isAdmin">Set as admin: </h:outputLabel><h:selectBooleanCheckbox id="isAdmin" value="#{userSingle.isAdmin}" /><br/>
-                    <h:commandButton action="#{userSingle.saveUser('user-list')}" value="Save"/>
+                    <h:outputLabel for="name">Name: </h:outputLabel><h:inputText id="name" value="#{userSingle.user.name}"></h:inputText><br />
+                    <h:outputLabel for="surname">Surname: </h:outputLabel><h:inputText id="surname" value="#{userSingle.user.surname}"></h:inputText><br />
+                    <h:outputLabel for="email">Email: </h:outputLabel><h:inputText id="email" value="#{userSingle.user.email}"></h:inputText><br />
+                    <h:outputLabel for="isAdmin">Set as admin: </h:outputLabel><h:selectBooleanCheckbox id="isAdmin" value="#{userSingle.isAdmin}" /><br />
+                    <h:commandButton action="#{userSingle.editUser('user-list')}" value="Save" />
                 </h:form>
             </ui:define>
         </ui:composition>

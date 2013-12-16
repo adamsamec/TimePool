@@ -8,19 +8,12 @@ import cz.timepool.dto.TermDto;
 import cz.timepool.helper.FacesUtil;
 import cz.timepool.service.EventsService;
 import cz.timepool.service.UsersService;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-<<<<<<< HEAD:src/main/java/cz/timepool/bb/EventDetail.java
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-=======
->>>>>>> Adam:src/main/java/cz/timepool/bb/EventSingle.java
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -28,29 +21,29 @@ import org.springframework.stereotype.Component;
  * @author Lukas L.
  */
 @Component
-<<<<<<< HEAD:src/main/java/cz/timepool/bb/EventDetail.java
 @RequestScoped
-public class EventDetail {
-=======
 public class EventSingle {
->>>>>>> Adam:src/main/java/cz/timepool/bb/EventSingle.java
-
-    protected EventDto event;
-    TermDto term;
-    @Autowired
-    protected EventsService eventsService;
 
     @Autowired
-    UsersService usersService;
+    private EventsService eventsService;
 
     @Autowired
-    LoginSession loginSession;
+    private UsersService usersService;
 
-    String commentText;
+    @Autowired
+    private LoginSession loginSession;
+
+    private EventDto event;
+
+    private TermDto term;
+
+    private String commentText;
+
+    private String userEmail;
+
+    private String message;
 
     private static Map<String, Object> permissionsValues;
-    String userEmail;
-    String message;
 
     static {
         permissionsValues = new LinkedHashMap<String, Object>();
@@ -58,22 +51,18 @@ public class EventSingle {
         permissionsValues.put("Can accept term ?", UserPermission.ACCEPT_TERM);
         permissionsValues.put("Can add comment", UserPermission.ADD_COMMENT);
     }
-    
+
     public List<UserPermission> ups;
 
     public List<UserPermission> getUps() {
-	return ups;
+        return ups;
     }
 
-<<<<<<< HEAD:src/main/java/cz/timepool/bb/EventDetail.java
     public void setUps(List<UserPermission> ups) {
-	this.ups = ups;
+        this.ups = ups;
     }
-    
-    public EventDetail() {
-=======
+
     public EventSingle() {
->>>>>>> Adam:src/main/java/cz/timepool/bb/EventSingle.java
         term = new TermDto(Long.MIN_VALUE, null, StatusEnum.VOLNY, userEmail, null, Long.MIN_VALUE, Long.MIN_VALUE, null);
     }
 
@@ -104,7 +93,7 @@ public class EventSingle {
     public void setMessage(String message) {
         this.message = message;
     }
-    
+
     public EventDto getEvent() {
         if (event == null) {
             event = new EventDto(null, null, null, null, null, null, null, null, null);
@@ -125,7 +114,13 @@ public class EventSingle {
     }
 
     public void setEventById2(Long eventId) {
-        this.event = eventsService.getEventById(eventId);
+        event = eventsService.getEventById(eventId);
+    }
+
+    public String setEventById(String outcome) {
+        Long eventId = Long.valueOf(FacesUtil.getRequestParameter("event_id"));
+        event = eventsService.getEventById(eventId);
+        return outcome;
     }
 
     public String addEvent(String outcome) {
@@ -133,20 +128,14 @@ public class EventSingle {
         return outcome;
     }
 
-    public String editEventDetails(String outcome) {
+    public String editEvent(String outcome) {
         eventsService.editEventDetails(event);
         return outcome;
     }
 
     public String deleteEvent(String outcome) {
-        Long userId = Long.valueOf(FacesUtil.getRequestParameter("deleteeventid"));
+        Long userId = Long.valueOf(FacesUtil.getRequestParameter("edit_event_id"));
         eventsService.deleteEventById(userId);
-        return outcome;
-    }
-
-    public String setEventById(String outcome) {
-        Long eventId = Long.valueOf(FacesUtil.getRequestParameter("eventid"));
-        this.event = eventsService.getEventById(eventId);
         return outcome;
     }
 
@@ -173,13 +162,13 @@ public class EventSingle {
     }
 
     public void deleteTerm() {
-        Long termId = Long.valueOf(FacesUtil.getRequestParameter("deletetermid"));
+        Long termId = Long.valueOf(FacesUtil.getRequestParameter("delete_term_tid"));
         System.out.println("mazu term " + termId);
         eventsService.deleteTermById(termId);
     }
 
     public void deleteComment() {
-        Long cmntId = Long.valueOf(FacesUtil.getRequestParameter("deletecommentid"));
+        Long cmntId = Long.valueOf(FacesUtil.getRequestParameter("delete_comment_id"));
         System.out.println("mazu comment : " + cmntId);
         usersService.deleteCommentById(cmntId);
     }
