@@ -38,11 +38,21 @@ import org.springframework.transaction.support.TransactionTemplate;
 public class AuthenticationService extends AbstractUserDetailsAuthenticationProvider {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractUserDetailsAuthenticationProvider.class);
+
     private GenericDao genericDAO;
+
     private TransactionTemplate transactionTemplate;
 
     public AuthenticationService() {
         this.setUserCache(new NullUserCache());
+    }
+
+    public void setGenericDAO(GenericDao genericDAO) {
+        this.genericDAO = genericDAO;
+    }
+
+    public void setTransactionTemplate(TransactionTemplate transactionTemplate) {
+        this.transactionTemplate = transactionTemplate;
     }
 
     @Override
@@ -57,6 +67,7 @@ public class AuthenticationService extends AbstractUserDetailsAuthenticationProv
      * @throws AuthenticationException
      */
     @Override
+    @Transactional(readOnly = true)
     protected UserDetails retrieveUser(final String username, final UsernamePasswordAuthenticationToken upat) throws AuthenticationException {
         //only public methods can be marked as transactional
         return (UserDetails) transactionTemplate.execute(new TransactionCallback() {
@@ -88,21 +99,13 @@ public class AuthenticationService extends AbstractUserDetailsAuthenticationProv
                 } catch (AuthenticationException e) {
                     status.setRollbackOnly();
                     throw e;
-                } catch (Exception e) {
-                    LOG.error("Error occured during retrieveUser call", e);
+                } catch (Exception ex) {
+                    LOG.error("Error occured during retrieveUser call", ex);
                     status.setRollbackOnly();
-                    throw new RuntimeException(e);
+                    throw new RuntimeException(ex);
                 }
             }
         });
-    }
-
-    public void setGenericDAO(GenericDao genericDAO) {
-        this.genericDAO = genericDAO;
-    }
-
-    public void setTransactionTemplate(TransactionTemplate transactionTemplate) {
-        this.transactionTemplate = transactionTemplate;
     }
 
 }

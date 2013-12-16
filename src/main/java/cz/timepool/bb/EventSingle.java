@@ -8,11 +8,11 @@ import cz.timepool.dto.TermDto;
 import cz.timepool.helper.FacesUtil;
 import cz.timepool.service.EventsService;
 import cz.timepool.service.UsersService;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.faces.bean.RequestScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,31 +21,45 @@ import org.springframework.stereotype.Component;
  * @author Lukas L.
  */
 @Component
+@RequestScoped
 public class EventSingle {
 
-    protected EventDto event;
-    TermDto term;
     @Autowired
-    protected EventsService eventsService;
+    private EventsService eventsService;
 
     @Autowired
-    UsersService usersService;
+    private UsersService usersService;
 
     @Autowired
-    LoginSession loginSession;
+    private LoginSession loginSession;
 
-    String commentText;
+    private EventDto event;
 
-    public String[] permissions;
+    private TermDto term;
+
+    private String commentText;
+
+    private String userEmail;
+
+    private String message;
+
     private static Map<String, Object> permissionsValues;
-    String userEmail;
-    String message;
 
     static {
         permissionsValues = new LinkedHashMap<String, Object>();
         permissionsValues.put("Can add term", UserPermission.ADD_TERM); //label, value
         permissionsValues.put("Can accept term ?", UserPermission.ACCEPT_TERM);
         permissionsValues.put("Can add comment", UserPermission.ADD_COMMENT);
+    }
+
+    public List<UserPermission> ups;
+
+    public List<UserPermission> getUps() {
+        return ups;
+    }
+
+    public void setUps(List<UserPermission> ups) {
+        this.ups = ups;
     }
 
     public EventSingle() {
@@ -80,14 +94,6 @@ public class EventSingle {
         this.message = message;
     }
 
-    public String[] getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(String[] permissions) {
-        this.permissions = permissions;
-    }
-
     public EventDto getEvent() {
         if (event == null) {
             event = new EventDto(null, null, null, null, null, null, null, null, null);
@@ -108,7 +114,13 @@ public class EventSingle {
     }
 
     public void setEventById2(Long eventId) {
-        this.event = eventsService.getEventById(eventId);
+        event = eventsService.getEventById(eventId);
+    }
+
+    public String setEventById(String outcome) {
+        Long eventId = Long.valueOf(FacesUtil.getRequestParameter("event_id"));
+        event = eventsService.getEventById(eventId);
+        return outcome;
     }
 
     public String addEvent(String outcome) {
@@ -116,30 +128,20 @@ public class EventSingle {
         return outcome;
     }
 
-    public String editEventDetails(String outcome) {
+    public String editEvent(String outcome) {
         eventsService.editEventDetails(event);
         return outcome;
     }
 
     public String deleteEvent(String outcome) {
-        Long userId = Long.valueOf(FacesUtil.getRequestParameter("deleteeventid"));
+        Long userId = Long.valueOf(FacesUtil.getRequestParameter("edit_event_id"));
         eventsService.deleteEventById(userId);
-        return outcome;
-    }
-
-    public String setEventById(String outcome) {
-        Long eventId = Long.valueOf(FacesUtil.getRequestParameter("eventid"));
-        this.event = eventsService.getEventById(eventId);
         return outcome;
     }
 
     public void inviteToEvent() {
         System.out.println("emai " + getUserEmail() + "message" + getMessage());
-        ArrayList<UserPermission> perm = new ArrayList<UserPermission>();
-        for (String string : permissions) {
-            perm.add(UserPermission.convertFromString(string));
-        }
-        eventsService.inviteUser(event.getId(), userEmail, perm, message, new Date());
+        eventsService.inviteUser(event.getId(), userEmail, ups, message, new Date());
     }
 
     public List<TermDto> getAllTerms() {
@@ -160,13 +162,13 @@ public class EventSingle {
     }
 
     public void deleteTerm() {
-        Long termId = Long.valueOf(FacesUtil.getRequestParameter("deletetermid"));
+        Long termId = Long.valueOf(FacesUtil.getRequestParameter("delete_term_tid"));
         System.out.println("mazu term " + termId);
         eventsService.deleteTermById(termId);
     }
 
     public void deleteComment() {
-        Long cmntId = Long.valueOf(FacesUtil.getRequestParameter("deletecommentid"));
+        Long cmntId = Long.valueOf(FacesUtil.getRequestParameter("delete_comment_id"));
         System.out.println("mazu comment : " + cmntId);
         usersService.deleteCommentById(cmntId);
     }

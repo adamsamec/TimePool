@@ -17,11 +17,14 @@ public class UserSingle {
     @Autowired
     UsersService usersService;
 
-    UserDto user;
+    private UserDto user;
 
-    boolean isAdmin;
+    private boolean isAdmin;
 
     public UserDto getUser() {
+        if (user == null) {
+            user = new UserDto(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        }
         return user;
     }
 
@@ -38,8 +41,8 @@ public class UserSingle {
     }
 
     public String setUserById(String outcome) {
-        Long userId = Long.valueOf(FacesUtil.getRequestParameter("userid"));
-        this.user = usersService.getUserById(userId);
+        Long userId = Long.valueOf(FacesUtil.getRequestParameter("user_id"));
+        user = usersService.getUserById(userId);
         if (user.getUserRole() == UserRole.ADMIN) {
             isAdmin = true;
         } else {
@@ -48,12 +51,12 @@ public class UserSingle {
         return outcome;
     }
 
-    public void deleteUser() {
-        Long userId = Long.valueOf(FacesUtil.getRequestParameter("deleteuserid"));
-        usersService.deleteUser(userId);
+    public String addUser(String outcome) {
+        usersService.addUser(user.getName(), user.getSurname(), user.getEmail(), user.getPassword(), user.getDescription());
+        return outcome;
     }
 
-    public String saveUser(String outcome) {
+    public String editUser(String outcome) {
         if (isAdmin) {
             user.setUserRole(UserRole.ADMIN);
         } else {
@@ -61,6 +64,11 @@ public class UserSingle {
         }
         usersService.editUser(user);
         return outcome;
+    }
+
+    public void deleteUser() {
+        Long userId = Long.valueOf(FacesUtil.getRequestParameter("delete_user_id"));
+        usersService.deleteUser(userId);
     }
 
 }

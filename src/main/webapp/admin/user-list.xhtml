@@ -21,10 +21,10 @@
                                     <li>
                                         <h:outputText value="#{user.name} "></h:outputText><h:outputText value="#{user.surname}"></h:outputText>&nbsp;
                                         <h:commandButton action="#{userSingle.setUserById('user-detail')}" value="Edit">
-                                            <f:param name="userid" value="#{user.id}"/>
+                                            <f:param name="user_id" value="#{user.id}" />
                                         </h:commandButton>
                                         <h:commandButton action="#{userSingle.deleteUser()}" value="Delete">
-                                            <f:param name="deleteuserid" value="#{user.id}"/>
+                                            <f:param name="delete_user_id" value="#{user.id}" />
                                         </h:commandButton>
                                     </li>
                                 </h:form>

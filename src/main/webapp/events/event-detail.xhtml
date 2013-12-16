@@ -12,46 +12,58 @@
             <ui:define name="content">
                 <h2>Detail of event: <h:outputText value="#{eventSingle.event.title}"></h:outputText></h2>
                 <h:form>
-                    <h:outputLabel for="useremail">Invite somebody via email: </h:outputLabel><h:inputText id="useremail" value="#{eventSingle.userEmail}"></h:inputText><br/>
-                    <h:outputLabel for="message">Message: </h:outputLabel><h:inputText id="message" value="#{eventSingle.message}"></h:inputText><br/>
+                    Invite somebody via email:
+                    <h:inputText id="useremail" value="#{eventSingle.userEmail}" required="true">
+                        <f:validator binding="#{registeredValidator}" />
+                    </h:inputText>&nbsp;<h:message for="useremail" style="color:red"></h:message><br />
+                    <h:outputLabel for="message">Message: </h:outputLabel>
+                    <h:inputText id="message" value="#{eventSingle.message}"></h:inputText><br />
                     <h:outputLabel for="perm">Permissions: </h:outputLabel>
-                    <h:selectManyListbox id="perm" value="#{eventSingle.permissions}">
-                        <f:selectItems value="#{eventSingle.permissionsValues}"/>
-                    </h:selectManyListbox><br/>
-
+                    <h:selectManyListbox id="perm" value="#{eventSingle.ups}">
+                        <f:selectItems value="#{eventSingle.permissionsValues}" />
+                        <f:converter binding="#{permissionConverter}" />
+                    </h:selectManyListbox><br />
                     <h:commandButton action="#{eventSingle.inviteToEvent()}" value="Invite">
                     </h:commandButton>
                 </h:form>
+                <h3>Event terms</h3>
                 <ui:repeat var="term" value="#{eventSingle.allTerms}">
                     <h:form>
                         <li>
-                            <h:outputLabel for="termDate">Term date: </h:outputLabel><h:outputText id="termDate" value="#{term.termDate}"></h:outputText>
-                            <h:outputLabel for="description">Description: </h:outputLabel><h:outputText id="description" value="#{term.description}"></h:outputText>
-                            <h:commandButton action="#{eventSingle.deleteTerm()}" value="Delete" rendered="#{loginSession.user.id eq term.author or loggedUser.isAdmin}">
-                                <f:param name="deletetermid" value="#{term.id}"></f:param>
+                            <h:outputLabel for="termDate">Term date: </h:outputLabel>
+                            <h:outputText id="termDate" value="#{term.termDate}"></h:outputText>
+                            <h:outputLabel for="description">Description: </h:outputLabel>
+                            <h:outputText id="description" value="#{term.description}"></h:outputText>
+                            <h:commandButton action="#{eventSingle.deleteTerm()}" value="Delete" rendered="#{sessionBB.user.id eq term.author or loggedUser.isAdmin}">
+                                <f:param name="delete_term_tid" value="#{term.id}"></f:param>
                             </h:commandButton>
                         </li>
                     </h:form>
                 </ui:repeat>
+                <h4>New term</h4>
                 <h:form>
-                    <h3>Add term</h3>
-                    <h:outputLabel for="date">Date: </h:outputLabel><h:inputText id="date" value="#{eventSingle.term.termDate}"><f:convertDateTime pattern="d.M.yyyy" /></h:inputText><h:message for="date" style="color:red" /><br/>
-                    <h:outputLabel for="desc">Description: </h:outputLabel><h:inputText id="desc" value="#{eventSingle.term.description}"></h:inputText><br/>
+                    <h:outputLabel for="date">Date: </h:outputLabel><h:inputText id="date" value="#{eventSingle.term.termDate}" required="true">
+                        <f:convertDateTime pattern="d.M.yyyy" />
+                    </h:inputText>&nbsp;<h:message for="date" style="color:red"></h:message><br />
+                    <h:outputLabel for="desc">Description: </h:outputLabel>
+                    <h:inputText id="desc" value="#{eventSingle.term.description}"></h:inputText><br />
                     <h:commandButton action="#{eventSingle.addTerm()}" value="Add term"></h:commandButton>
                 </h:form>
+                <h3>Event comments</h3>
                 <ui:repeat var="cmnt" value="#{eventSingle.allComments}">
                     <h:form>
                         <li>
                             <h:outputText value="#{cmnt.text}"></h:outputText>
                             <h:commandButton action="#{eventSingle.deleteComment()}" value="Delete" rendered="#{loggedUser.isAdmin}">
-                                <f:param name="deletecommentid" value="#{cmnt.id}"></f:param>
+                                <f:param name="delete_comment_id" value="#{cmnt.id}"></f:param>
                             </h:commandButton>
                         </li>
                     </h:form>
                 </ui:repeat>
+                <h4>New comment</h4>
                 <h:form>
-                    <h3>Add comment</h3>
-                    <h:outputLabel for="cmnt">Text: </h:outputLabel><h:inputTextarea id="cmnt" value="#{eventSingle.commentText}" required="true"></h:inputTextarea><h:message for="cmnt" style="color:red" /><br/>
+                    <h:outputLabel for="cmnt">Text: </h:outputLabel>
+                    <h:inputTextarea id="cmnt" value="#{eventSingle.commentText}" required="true"></h:inputTextarea>&nbsp;<h:message for="cmnt" style="color:red" /><br />
                     <h:commandButton action="#{eventSingle.addComment()}" value="Add Comment"></h:commandButton>
                 </h:form>
             </ui:define>

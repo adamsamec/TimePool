@@ -8,5 +8,5 @@ import org.springframework.stereotype.Component;
  */
 @Component("timepoolDao")
 public class TimepoolDao extends HibernateJpaDao implements TimepoolDaoIface {
-
+    
 }
