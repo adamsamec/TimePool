@@ -5,7 +5,6 @@ import cz.timepool.bo.UserPermission;
 import cz.timepool.dto.CommentDto;
 import cz.timepool.dto.EventDto;
 import cz.timepool.dto.TermDto;
-import cz.timepool.dto.UserDto;
 import cz.timepool.helper.FacesUtil;
 import cz.timepool.service.EventsService;
 import cz.timepool.service.UsersService;
@@ -14,9 +13,12 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+<<<<<<< HEAD:src/main/java/cz/timepool/bb/EventDetail.java
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+=======
+>>>>>>> Adam:src/main/java/cz/timepool/bb/EventSingle.java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -26,8 +28,12 @@ import org.springframework.stereotype.Component;
  * @author Lukas L.
  */
 @Component
+<<<<<<< HEAD:src/main/java/cz/timepool/bb/EventDetail.java
 @RequestScoped
 public class EventDetail {
+=======
+public class EventSingle {
+>>>>>>> Adam:src/main/java/cz/timepool/bb/EventSingle.java
 
     protected EventDto event;
     TermDto term;
@@ -38,7 +44,7 @@ public class EventDetail {
     UsersService usersService;
 
     @Autowired
-    Session logged;
+    LoginSession loginSession;
 
     String commentText;
 
@@ -59,11 +65,15 @@ public class EventDetail {
 	return ups;
     }
 
+<<<<<<< HEAD:src/main/java/cz/timepool/bb/EventDetail.java
     public void setUps(List<UserPermission> ups) {
 	this.ups = ups;
     }
     
     public EventDetail() {
+=======
+    public EventSingle() {
+>>>>>>> Adam:src/main/java/cz/timepool/bb/EventSingle.java
         term = new TermDto(Long.MIN_VALUE, null, StatusEnum.VOLNY, userEmail, null, Long.MIN_VALUE, Long.MIN_VALUE, null);
     }
 
@@ -96,6 +106,9 @@ public class EventDetail {
     }
     
     public EventDto getEvent() {
+        if (event == null) {
+            event = new EventDto(null, null, null, null, null, null, null, null, null);
+        }
         return event;
     }
 
@@ -113,6 +126,16 @@ public class EventDetail {
 
     public void setEventById2(Long eventId) {
         this.event = eventsService.getEventById(eventId);
+    }
+
+    public String addEvent(String outcome) {
+        eventsService.addEvent(loginSession.getUser().getId(), event.getTitle(), event.getLocation(), event.getDescription(), new Date());
+        return outcome;
+    }
+
+    public String editEventDetails(String outcome) {
+        eventsService.editEventDetails(event);
+        return outcome;
     }
 
     public String deleteEvent(String outcome) {
@@ -137,12 +160,12 @@ public class EventDetail {
     }
 
     public void addTerm() {
-        term.setId(eventsService.addTermToEvent(term.getTermDate(), term.getStatus(), term.getDescription(), new Date(), logged.getUser().getId(), event.getId()));
+        term.setId(eventsService.addTermToEvent(term.getTermDate(), term.getStatus(), term.getDescription(), new Date(), loginSession.getUser().getId(), event.getId()));
     }
 
     public void addComment() {
         //TODO: term id se musi vybrat rucne a nebo pridat pridavani k tomu termu
-        usersService.addCommentToEvent(commentText, logged.getUser().getId(), event.getId());
+        usersService.addCommentToEvent(commentText, loginSession.getUser().getId(), event.getId());
     }
 
     public List<CommentDto> getAllComments() {
@@ -154,10 +177,10 @@ public class EventDetail {
         System.out.println("mazu term " + termId);
         eventsService.deleteTermById(termId);
     }
-    
-    public void deleteComment(){
-	Long cmntId = Long.valueOf(FacesUtil.getRequestParameter("deletecommentid"));
-	System.out.println("mazu comment : "+cmntId);
+
+    public void deleteComment() {
+        Long cmntId = Long.valueOf(FacesUtil.getRequestParameter("deletecommentid"));
+        System.out.println("mazu comment : " + cmntId);
         usersService.deleteCommentById(cmntId);
     }
 

@@ -1,13 +1,9 @@
 package cz.timepool.bb;
 
-import cz.timepool.bo.UserRole;
 import cz.timepool.dto.UserDto;
 import cz.timepool.service.UsersService;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,8 +14,8 @@ import org.springframework.stereotype.Component;
  *
  * @author Lukas L.
  */
-@Component("sessionBB")//musi to tak byt, protoze session je nejaka promenna springu
-public class Session implements Serializable {
+@Component
+public class LoginSession implements Serializable {
 
     @Autowired
     private UsersService usersService;
@@ -32,14 +28,14 @@ public class Session implements Serializable {
     }
 
     // TODO: proc je to umozneno?
-    public void deleteUser(Long id) {
-        usersService.deleteUser(id);
-        //FacesUtil.addMessage("User was sucessfully deleted");
-    }
-
+//    public void deleteUser(Long id) {
+//        usersService.deleteUser(id);
+//        //FacesUtil.addMessage("User was sucessfully deleted");
+//    }
     // TODO: Pri prvnim volani ulozit do this.user a zaroven nastavit this.isAdmin
+    // TODO: ma smysl to cachovat do this.user nebo to zajisti entityManager?
     public UserDto getUser() {
-	setUser(usersService.getUserByEmail(getCurrentEmail()));
+        setUser(usersService.getUserByEmail(getCurrentEmail()));
         return user;
     }
 
@@ -59,10 +55,5 @@ public class Session implements Serializable {
 //        }
 //        return isAdmin;
     }
-
-    // TODO: proc je to umozneno?
-//    public void setIsAdmin(boolean isAdmin) {
-//        this.isAdmin = isAdmin;
-//    }
 
 }

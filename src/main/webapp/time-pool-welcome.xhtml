@@ -5,12 +5,12 @@
       xmlns:sec="http://www.springframework.org/security/facelets/tags"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Timepool</title>
+        <title>Welcome to Timepool</title>
     </h:head>
     <h:body>
 	<ui:composition template="/WEB-INF/template/template.xhtml" >
 	    <ui:define name="content">
-		Hello  <h:outputText value="#{sessionBB.user.name}"></h:outputText> your email is : <h:outputText value="#{sessionBB.currentEmail}"></h:outputText><br/>
+		Hello  <h:outputText value="#{loginSession.user.name}"></h:outputText> your email is: <h:outputText value="#{loginSession.currentEmail}"></h:outputText><br/>
 	    </ui:define>
 	</ui:composition>
     </h:body>

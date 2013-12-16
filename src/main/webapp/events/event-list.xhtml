@@ -2,56 +2,68 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:sec="http://www.springframework.org/security/facelets/tags"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>TimePool</title>
+        <title>Events list</title>
     </h:head>
     <h:body>
-	<ui:composition template="/WEB-INF/template/template.xhtml" >
-	    <ui:define name="content">
-		<h:form>
-		    <h:commandLink action="event-create" value="Create event"></h:commandLink><br/>
-		</h:form>
-		<c:if test="${eventList.isAllEventsEmpty == false}">List of events you created: <br/></c:if>
-		<ul>
-		    <ui:repeat var="event" value="#{eventList.allEventsByUser}">
-			<h:form>
-			    <li>
-				<h:commandLink action="#{eventDetail.setEventById('event-detail')}" value="#{event.title}" >
-				    <f:param name="eventid" value="#{event.id}"/>
-				</h:commandLink>
-
-				<h:commandButton action="event-list" value="Edit"></h:commandButton>
-				<h:commandButton action="#{eventDetail.deleteEvent('event-list')}" value="Delete"><f:param name="deleteeventid" value="#{event.id}"/></h:commandButton>
-
-			    </li>
-			</h:form>
-		    </ui:repeat>
-		</ul>
-
-		<c:if test="${sessionBB.isAdmin == false}">
-		<c:if test="${eventList.isAllInvitedeventsEmpty == false}">List of events you were invited to: <br/></c:if>
-		<ul>
-		    <ui:repeat var="ie" value="#{eventList.allInvitedEventsByUser}">
-			<h:form>
-			    <li>
-				<h:commandLink action="#{eventDetail.setEventById('event-detail')}" value="#{ie.title}" >
-				    <f:param name="eventid" value="#{ie.id}"/>
-				</h:commandLink>
-
-				<h:commandButton action="event-list" value="Edit"></h:commandButton>
-				<h:commandButton action="#{eventDetail.deleteEvent('event-list')}" value="Delete" rendered="${sessionBB.isAdmin}"><f:param name="deleteeventid" value="#{ie.id}"/></h:commandButton>
-
-			    </li>
-			</h:form>
-		    </ui:repeat>
-		</ul>
-		</c:if>
-	    </ui:define>
-	</ui:composition>
+        <ui:composition template="/WEB-INF/template/template.xhtml" >
+            <ui:define name="content">
+                <h:form>
+                    <h:commandLink action="event-create" value="Create event"></h:commandLink><br/>
+                </h:form>
+                <h2>Events you created</h2>
+                <c:choose>
+                    <c:when test="${eventList.isAllEventsEmpty}"><p>No event yet.</p></c:when>
+                    <c:otherwise>
+                        <ul>
+                            <ui:repeat var="event" value="#{eventList.allEventsByUser}">
+                                <h:form>
+                                    <li>
+                                        <h:commandLink action="#{eventSingle.setEventById('event-detail')}" value="#{event.title}" >
+                                            <f:param name="eventid" value="#{event.id}"/>
+                                        </h:commandLink>&nbsp;
+                                        <h:commandButton action="#{eventSingle.editEventDetails('event-edit')}" value="Edit">
+                                            <f:param name="editeventid" value="#{event.id}"/>
+                                        </h:commandButton>
+                                        <h:commandButton action="#{eventSingle.deleteEvent('event-list')}" value="Delete">
+                                            <f:param name="deleteeventid" value="#{event.id}"/>
+                                        </h:commandButton>
+                                    </li>
+                                </h:form>
+                            </ui:repeat>
+                        </ul>
+                    </c:otherwise>
+                </c:choose>
+                <c:if test="${!loginSession.isAdmin}">
+                    <h2>Events you have been invited to</h2>
+                    <c:choose>
+                        <c:when test="${eventList.isAllInvitedeventsEmpty}"><p>No event yet.</p></c:when>
+                        <c:otherwise>
+                            <ul>
+                                <ui:repeat var="event" value="#{eventList.allInvitedEventsByUser}">
+                                    <h:form>
+                                        <li>
+                                            <h:commandLink action="#{eventSingle.setEventById('event-detail')}" value="#{event.title}" >
+                                                <f:param name="eventid" value="#{event.id}"/>
+                                            </h:commandLink>&nbsp;
+                                            <h:commandButton action="#{eventSingle.editEventDetails('event-edit')}" value="Edit" rendered="${loginSession.isAdmin}">
+                                                <f:param name="editeventid" value="#{event.id}"/>
+                                            </h:commandButton>
+                                            <h:commandButton action="#{eventSingle.deleteEvent('event-list')}" value="Delete" rendered="${loginSession.isAdmin}">
+                                                <f:param name="deleteeventid" value="#{event.id}"/>
+                                            </h:commandButton>
+                                        </li>
+                                    </h:form>
+                                </ui:repeat>
+                            </ul>
+                        </c:otherwise>
+                    </c:choose>
+                </c:if>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

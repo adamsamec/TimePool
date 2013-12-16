@@ -17,38 +17,38 @@ public class EventList {
     @Autowired
     EventsService eventsService;
     @Autowired
-    Session logged;
+    LoginSession loginSession;
 
     public boolean isAllEventsEmpty;
     public boolean isAllInvitedeventsEmpty;
 
     public void setIsAllEventsEmpty(boolean isAllEventsEmpty) {
-	this.isAllEventsEmpty = isAllEventsEmpty;
+        this.isAllEventsEmpty = isAllEventsEmpty;
     }
 
     public void setIsAllInvitedeventsEmpty(boolean isAllInvitedeventsEmpty) {
-	this.isAllInvitedeventsEmpty = isAllInvitedeventsEmpty;
+        this.isAllInvitedeventsEmpty = isAllInvitedeventsEmpty;
     }
 
     public List<EventDto> getAllEventsByUser() {
-        if (logged.getUser().getUserRole() == UserRole.ADMIN) {
+        if (loginSession.getUser().getUserRole() == UserRole.ADMIN) {
             return eventsService.getAllEvents();
         }
-        return eventsService.getAllEventsByUser(logged.getUser().getId());
+        return eventsService.getAllEventsByUser(loginSession.getUser().getId());
     }
 
     public boolean isIsAllEventsEmpty() {
-	isAllEventsEmpty = getAllEventsByUser().isEmpty();
-	return isAllEventsEmpty;
+        isAllEventsEmpty = getAllEventsByUser().isEmpty();
+        return isAllEventsEmpty;
     }
 
     public boolean isIsAllInvitedeventsEmpty() {
-	isAllInvitedeventsEmpty = getAllInvitedEventsByUser().isEmpty();
-	return isAllInvitedeventsEmpty;
+        isAllInvitedeventsEmpty = getAllInvitedEventsByUser().isEmpty();
+        return isAllInvitedeventsEmpty;
     }
 
-    public List<EventDto> getAllInvitedEventsByUser(){
-	return eventsService.getAllInvitedEventsByUser(logged.getUser().getId());
+    public List<EventDto> getAllInvitedEventsByUser() {
+        return eventsService.getAllInvitedEventsByUser(loginSession.getUser().getId());
     }
 
 }
