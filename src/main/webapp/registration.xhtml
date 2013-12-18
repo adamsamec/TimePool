@@ -19,8 +19,12 @@
             <h:inputText id="surname" value="#{userSingle.user.surname}"></h:inputText><br />
             <h:outputLabel for="pass" value="#{msg['registration.password']}"></h:outputLabel>
             <h:inputSecret id="pass" value="#{userSingle.user.password}"></h:inputSecret><br />
-            <h:commandButton action="#{userSingle.addUser('login')}" value="register" ></h:commandButton>
+            <h:commandButton action="#{userSingle.addUser('login')}" value="register" >
+                <f:param name="registration_success" value="true" /><!-- TODO: Takhle to nefunguje, parametr se nepredava. Proc? -->
+            </h:commandButton>
+            <input type="hidden" name="registration_success" value="true" />
         </h:form>
+        <p><h:link outcome="login" value="Go back"></h:link></p>
     </h:body>
 </html>
 
