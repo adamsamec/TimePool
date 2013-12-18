@@ -5,8 +5,8 @@ import cz.timepool.bo.UserRole;
 import cz.timepool.dto.EventDto;
 import cz.timepool.dto.TermDto;
 import cz.timepool.dto.UserDto;
-import cz.timepool.service.EventsService;
-import cz.timepool.service.UsersService;
+import cz.timepool.service.EventsServiceIface;
+import cz.timepool.service.UsersServiceIface;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -21,10 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserServiceImplTest extends AbstractServiceTest {
 
 	@Autowired
-	private UsersService usersService;
+	private UsersServiceIface usersService;
 
 	@Autowired
-	private EventsService eventsService;
+	private EventsServiceIface eventsService;
 
 	public UserServiceImplTest() {
 		super();

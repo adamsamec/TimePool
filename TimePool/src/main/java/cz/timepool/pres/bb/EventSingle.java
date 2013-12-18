@@ -1,13 +1,13 @@
-package cz.timepool.bb;
+package cz.timepool.pres.bb;
 
 import cz.timepool.bo.StatusEnum;
 import cz.timepool.bo.UserPermission;
 import cz.timepool.dto.CommentDto;
 import cz.timepool.dto.EventDto;
 import cz.timepool.dto.TermDto;
-import cz.timepool.helper.FacesUtil;
-import cz.timepool.service.EventsService;
-import cz.timepool.service.UsersService;
+import cz.timepool.helper.FacesHelper;
+import cz.timepool.service.EventsServiceIface;
+import cz.timepool.service.UsersServiceIface;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,10 +25,10 @@ import org.springframework.stereotype.Component;
 public class EventSingle {
 
     @Autowired
-    private EventsService eventsService;
+    private EventsServiceIface eventsService;
 
     @Autowired
-    private UsersService usersService;
+    private UsersServiceIface usersService;
 
     @Autowired
     private LoginSession loginSession;
@@ -118,7 +118,7 @@ public class EventSingle {
     }
 
     public String setEventById(String outcome) {
-        Long eventId = Long.valueOf(FacesUtil.getRequestParameter("event_id"));
+        Long eventId = Long.valueOf(FacesHelper.getRequestParameter("event_id"));
         event = eventsService.getEventById(eventId);
         return outcome;
     }
@@ -134,7 +134,7 @@ public class EventSingle {
     }
 
     public String deleteEvent(String outcome) {
-        Long userId = Long.valueOf(FacesUtil.getRequestParameter("edit_event_id"));
+        Long userId = Long.valueOf(FacesHelper.getRequestParameter("edit_event_id"));
         eventsService.deleteEventById(userId);
         return outcome;
     }
@@ -162,13 +162,13 @@ public class EventSingle {
     }
 
     public void deleteTerm() {
-        Long termId = Long.valueOf(FacesUtil.getRequestParameter("delete_term_tid"));
+        Long termId = Long.valueOf(FacesHelper.getRequestParameter("delete_term_tid"));
         System.out.println("mazu term " + termId);
         eventsService.deleteTermById(termId);
     }
 
     public void deleteComment() {
-        Long cmntId = Long.valueOf(FacesUtil.getRequestParameter("delete_comment_id"));
+        Long cmntId = Long.valueOf(FacesHelper.getRequestParameter("delete_comment_id"));
         System.out.println("mazu comment : " + cmntId);
         usersService.deleteCommentById(cmntId);
     }

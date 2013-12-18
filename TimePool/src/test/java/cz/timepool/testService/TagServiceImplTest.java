@@ -1,8 +1,8 @@
 package cz.timepool.testService;
 
 import cz.timepool.dto.TagDto;
-import cz.timepool.service.EventsService;
-import cz.timepool.service.UsersService;
+import cz.timepool.service.EventsServiceIface;
+import cz.timepool.service.UsersServiceIface;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
@@ -17,10 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class TagServiceImplTest extends AbstractServiceTest {
 
 	@Autowired
-	private EventsService eventsService;
+	private EventsServiceIface eventsService;
 
 	@Autowired
-	private UsersService usersService;
+	private UsersServiceIface usersService;
 
 	@Test
 	public void testAddRetrieveDeleteTags() {

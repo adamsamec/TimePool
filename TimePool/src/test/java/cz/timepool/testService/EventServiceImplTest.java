@@ -3,8 +3,8 @@ package cz.timepool.testService;
 import cz.timepool.bo.StatusEnum;
 import cz.timepool.dto.EventDto;
 import cz.timepool.dto.TermDto;
-import cz.timepool.service.EventsService;
-import cz.timepool.service.UsersService;
+import cz.timepool.service.EventsServiceIface;
+import cz.timepool.service.UsersServiceIface;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
@@ -19,10 +19,10 @@ import org.junit.Ignore;
 public class EventServiceImplTest extends AbstractServiceTest {
 
 	@Autowired
-	private EventsService eventsService;
+	private EventsServiceIface eventsService;
 
 	@Autowired
-	private UsersService usersService;
+	private UsersServiceIface usersService;
 
 	@Test
 	public void testAddRetrieveTermsOrdered() {

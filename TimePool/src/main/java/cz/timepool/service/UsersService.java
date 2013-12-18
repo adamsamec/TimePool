@@ -1,52 +1,125 @@
 package cz.timepool.service;
 
+import cz.timepool.bo.Comment;
+import cz.timepool.bo.Event;
+import cz.timepool.bo.User;
+import cz.timepool.bo.UserRole;
 import cz.timepool.dto.CommentDto;
 import cz.timepool.dto.UserDto;
+import cz.timepool.helper.DtoTransformerHelper;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.transaction.annotation.Transactional;
+import javax.persistence.NoResultException;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Lukas L.
  */
-@Transactional
-public interface UsersService {
+@Component
+public class UsersService extends TimepoolService implements UsersServiceIface {
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    @Transactional(readOnly = true)
-    public UserDto getUserById(Long userId);
+    @Override
+    public UserDto getUserById(Long userId) {
+        User u = this.timepoolDao.getSingleByProperty("id", userId, User.class);
+        return new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(), u.getUserRole(), u.getAuthKey(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms()), DtoTransformerHelper.getIdentifiers(u.getEventInvitations()));
+    }
 
-    @Transactional(readOnly = true)
-    public UserDto getUserByEmail(String email);
+    @Override
+    public UserDto getUserByEmail(String email) {
+        User user;
+        try {
+            user = this.timepoolDao.getSingleByProperty("email", email, User.class);
+        } catch (NoResultException ex) {
+            System.out.println("neexistuje, v poraduku");
+            return null;
+        }
+        return new UserDto(user.getId(), user.getEmail(), user.getName(), user.getSurname(), user.getPassword(), user.getDescription(), user.getUserRole(), user.getAuthKey(), user.getCreationDate(), DtoTransformerHelper.getIdentifiers(user.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(user.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(user.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(user.getAcceptedTerms()), DtoTransformerHelper.getIdentifiers(user.getEventInvitations()));
+    }
 
-    @Secured({"ROLE_ADMIN"})
-    @Transactional(readOnly = true)
-    public List<UserDto> getAllUsers();
+    @Override
+    public List<UserDto> getAllUsers() {
+        List<User> users = this.timepoolDao.getAll(User.class);
+        List<UserDto> userDtos = new ArrayList<UserDto>();
+        for (User u : users) {
+            // TODO: Vytvorit konstruktor prijimaci Entitu a z ni inicializovat DTO-
+            userDtos.add(new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(), u.getUserRole(), u.getAuthKey(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms()), DtoTransformerHelper.getIdentifiers(u.getEventInvitations())));
+        }
+        return userDtos;
+    }
 
-    @Secured({"ROLE_ADMIN"})
-    @Transactional(readOnly = true)
-    public List<UserDto> getAllUsersOrderedByName();
+    @Override
+    public List<UserDto> getAllUsersOrderedByName() {
+        List<User> users = this.timepoolDao.getAllOrdered("name", User.class);
+        List<UserDto> userDtos = new ArrayList<UserDto>();
+        for (User u : users) {
+            userDtos.add(new UserDto(u.getId(), u.getEmail(), u.getName(), u.getSurname(), u.getPassword(), u.getDescription(), u.getUserRole(), u.getAuthKey(), u.getCreationDate(), DtoTransformerHelper.getIdentifiers(u.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(u.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(u.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(u.getAcceptedTerms()), DtoTransformerHelper.getIdentifiers(u.getEventInvitations())));
+        }
+        return userDtos;
+    }
 
-    public Long addUser(String name, String surname, String email, String password, String description);
+    @Override
+    // TODO: predavat DTO
+    public Long addUser(String name, String surname, String email, String password, String description) {
+        User user = new User();
+        user.setCreationDate(new Date());
+        user.setName(name);
+        user.setSurname(surname);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setDescription(description);
+        user.setUserRole(UserRole.REGISTERED);
+        return this.timepoolDao.save(user).getId();
+    }
 
-    @Secured({"ROLE_ADMIN"})
-    public void editUser(UserDto userDto);
+    @Override
+    public void editUser(UserDto userDto) {
+        User user = timepoolDao.loadById(userDto.getId(), User.class);
+        user.setEmail(userDto.getEmail());
+        user.setName(userDto.getName());
+        user.setSurname(userDto.getSurname());
+        user.setUserRole(userDto.getUserRole());
+        timepoolDao.save(user);
+    }
 
-    @Secured({"ROLE_ADMIN"})
-    public void deleteUser(Long userId);
+    @Override
+    public void deleteUser(Long userId) {
+        timepoolDao.removeById(userId, User.class);
+    }
 
-    @Secured({"ROLE_ADMIN"})
-    @Transactional(readOnly = true)
-    public List<CommentDto> getCommentsByUser(Long userId);
+    @Override
+    public List<CommentDto> getCommentsByUser(Long userId) {
+        List<Comment> boList = this.timepoolDao.loadById(userId, User.class).getAuthoredComments();
+        List<CommentDto> dtoList = new ArrayList<CommentDto>();
+        for (Comment comment : boList) {
+            System.out.println("pridavam : " + comment);
+            dtoList.add(new CommentDto(comment.getId(), comment.getAuthor().getId(), comment.getEvent().getId(), comment.getText(), comment.getCreationDate()));
+        }
+        return dtoList;
+    }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    public Long addCommentToEvent(String text, Long authorId, Long eventId);
+    @Override
+    public Long addCommentToEvent(String text, Long authorId, Long eventId) {
+        Event event = this.timepoolDao.loadById(eventId, Event.class);
+        User a = this.timepoolDao.loadById(authorId, User.class);
+        Comment c = new Comment();
+        c.setAuthor(a);
+        c.setText(text);
+        c.setCreationDate(new Date());
+        c.setEvent(event);
+        return this.timepoolDao.save(c).getId();
+    }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    public void editCommentById(String text, Long commentId);
+    @Override
+    public void editCommentById(String text, Long commentId) {
+        Comment c = this.timepoolDao.loadById(commentId, Comment.class);
+        c.setText(text);
+    }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    public void deleteCommentById(Long commentId);
+    @Override
+    public void deleteCommentById(Long commentId) {
+        this.timepoolDao.removeById(commentId, Comment.class);
+    }
 
 }

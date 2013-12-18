@@ -5,8 +5,10 @@ import java.util.List;
 import org.hibernate.Session;
 
 /**
- *
+ * Data access object providing methods common to a generic application.
+ * 
  * @author Lukas Lowinger
+ * 
  * @todo Zvazit nahrazeni DAO Dispatcherem.
  */
 public interface GenericDao {
@@ -23,7 +25,7 @@ public interface GenericDao {
 
 	public <ENTITY extends AbstractBusinessObject> ENTITY getSingleByProperty(String property, Object value, Class<ENTITY> clazz);
 
-	public <ENTITY extends AbstractBusinessObject> List<ENTITY> getAllBetween(String columnName, Object fromValue, Object toValue, Class<ENTITY> clazz);
+    public <ENTITY extends AbstractBusinessObject> List<ENTITY> getAllBetween(String columnName, Object fromValue, Object toValue, Class<ENTITY> clazz);
 
 	public <ENTITY extends AbstractBusinessObject> ENTITY save(ENTITY o);
 

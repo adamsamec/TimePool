@@ -18,7 +18,7 @@
         
         <!-- Create a resource bundle -->
         <resource-bundle>
-            <base-name>cz.timepool.pres.inter.timepool</base-name>
+            <base-name>cz.timepool.pres.i18n.timepool</base-name>
             <var>msg</var>
         </resource-bundle>
         

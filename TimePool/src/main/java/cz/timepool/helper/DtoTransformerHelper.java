@@ -1,4 +1,3 @@
-
 package cz.timepool.helper;
 
 import cz.timepool.bo.AbstractBusinessObject;
@@ -10,8 +9,10 @@ import java.util.List;
  * @author Lukas Lowinger
  */
 public class DtoTransformerHelper {
+
     /**
-     * Convert list of entities to list of identifiers
+     * Converts the given list of entities to a list of their identifiers.
+     *
      * @param list list to be converted
      * @return list of identifiers, null - if list is null
      */
@@ -20,10 +21,10 @@ public class DtoTransformerHelper {
             return null;
         }
         List<Long> ids = new ArrayList<Long>();
-
         for (AbstractBusinessObject abo : list) {
             ids.add(abo.getId());
         }
         return ids;
     }
+
 }

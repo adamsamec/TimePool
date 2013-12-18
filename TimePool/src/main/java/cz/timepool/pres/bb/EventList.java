@@ -1,8 +1,8 @@
-package cz.timepool.bb;
+package cz.timepool.pres.bb;
 
 import cz.timepool.bo.UserRole;
 import cz.timepool.dto.EventDto;
-import cz.timepool.service.EventsService;
+import cz.timepool.service.EventsServiceIface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class EventList {
     private LoginSession loginSession;
 
     @Autowired
-    private EventsService eventsService;
+    private EventsServiceIface eventsService;
 
     public List<EventDto> getAllEventsByUser() {
         if (loginSession.getUser().getUserRole() == UserRole.ADMIN) {

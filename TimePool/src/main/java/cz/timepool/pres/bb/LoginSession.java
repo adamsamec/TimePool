@@ -1,7 +1,7 @@
-package cz.timepool.bb;
+package cz.timepool.pres.bb;
 
 import cz.timepool.dto.UserDto;
-import cz.timepool.service.UsersService;
+import cz.timepool.service.UsersServiceIface;
 import java.io.Serializable;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class LoginSession implements Serializable {
 
     @Autowired
-    private UsersService usersService;
+    private UsersServiceIface usersService;
 
     private UserDto user;
 

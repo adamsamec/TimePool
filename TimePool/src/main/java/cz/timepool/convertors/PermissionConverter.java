@@ -3,7 +3,7 @@ package cz.timepool.convertors;
 
 import cz.timepool.bo.UserPermission;
 import cz.timepool.dto.EventDto;
-import cz.timepool.service.EventsService;
+import cz.timepool.service.EventsServiceIface;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PermissionConverter implements Converter{
     @Autowired
-    EventsService eventsService;
+    EventsServiceIface eventsService;
     
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) {

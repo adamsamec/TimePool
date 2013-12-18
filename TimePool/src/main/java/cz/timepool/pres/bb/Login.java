@@ -1,24 +1,24 @@
-package cz.timepool.bb;
+package cz.timepool.pres.bb;
 
-import cz.timepool.helper.FacesUtil;
-import javax.faces.bean.ManagedBean;
+import cz.timepool.helper.FacesHelper;
 import javax.faces.bean.RequestScoped;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Lukas L.
  */
-@ManagedBean
+@Component
 @RequestScoped
 public class Login {
 
     public boolean isAuthFailure() {
-        String authFailureParam = FacesUtil.getRequestParameter("auth_failure");
+        String authFailureParam = FacesHelper.getRequestParameter("auth_failure");
         return ((authFailureParam != null) && authFailureParam.equals("true"));
-    }   
+    }
 
     public boolean isRegistrationSuccess() {
-        String registrationSuccess = FacesUtil.getRequestParameter("registration_success");
+        String registrationSuccess = FacesHelper.getRequestParameter("registration_success");
         return ((registrationSuccess != null) && registrationSuccess.equals("true"));
     }
 

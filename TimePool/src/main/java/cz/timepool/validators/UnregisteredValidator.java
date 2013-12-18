@@ -1,7 +1,7 @@
 package cz.timepool.validators;
 
 import cz.timepool.dto.UserDto;
-import cz.timepool.service.UsersService;
+import cz.timepool.service.UsersServiceIface;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class UnregisteredValidator implements Validator {
 
     @Autowired
-    private UsersService usersService;
+    private UsersServiceIface usersService;
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {

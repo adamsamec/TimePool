@@ -1,9 +1,9 @@
-package cz.timepool.bb;
+package cz.timepool.pres.bb;
 
 import cz.timepool.bo.UserRole;
 import cz.timepool.dto.UserDto;
-import cz.timepool.helper.FacesUtil;
-import cz.timepool.service.UsersService;
+import cz.timepool.helper.FacesHelper;
+import cz.timepool.service.UsersServiceIface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class UserSingle {
 
     @Autowired
-    UsersService usersService;
+    UsersServiceIface usersService;
 
     private UserDto user;
 
@@ -41,7 +41,7 @@ public class UserSingle {
     }
 
     public String setUserById(String outcome) {
-        Long userId = Long.valueOf(FacesUtil.getRequestParameter("user_id"));
+        Long userId = Long.valueOf(FacesHelper.getRequestParameter("user_id"));
         user = usersService.getUserById(userId);
         if (user.getUserRole() == UserRole.ADMIN) {
             isAdmin = true;
@@ -67,7 +67,7 @@ public class UserSingle {
     }
 
     public void deleteUser() {
-        Long userId = Long.valueOf(FacesUtil.getRequestParameter("delete_user_id"));
+        Long userId = Long.valueOf(FacesHelper.getRequestParameter("delete_user_id"));
         usersService.deleteUser(userId);
     }
 

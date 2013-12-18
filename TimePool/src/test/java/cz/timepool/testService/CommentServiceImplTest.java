@@ -2,8 +2,8 @@ package cz.timepool.testService;
 
 import cz.timepool.bo.StatusEnum;
 import cz.timepool.dto.CommentDto;
-import cz.timepool.service.EventsService;
-import cz.timepool.service.UsersService;
+import cz.timepool.service.EventsServiceIface;
+import cz.timepool.service.UsersServiceIface;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
@@ -17,11 +17,11 @@ import static org.junit.Assert.*;
 public class CommentServiceImplTest extends AbstractServiceTest {
 
 	@Autowired
-	private UsersService usersService;
+	private UsersServiceIface usersService;
 
 
 	@Autowired
-	private EventsService eventsService;
+	private EventsServiceIface eventsService;
 
 	@Test
 	public void testAddRetrieveDeleteComments() {

@@ -6,7 +6,8 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author Adam Samec
+ * @author   Adam Samec <samecada@fel.cvut.cz>
+ * @link     fel.cvut.cz
  */
 @Component("eventDao")
 public class EventDao extends HibernateJpaDao implements EventDaoIface {

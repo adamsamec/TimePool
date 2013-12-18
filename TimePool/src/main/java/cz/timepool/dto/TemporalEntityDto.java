@@ -4,7 +4,8 @@ import java.util.Date;
 
 /**
  *
- * @author Adam Samec <adam.smec@gmail.com>
+ * @author   Adam Samec <samecada@fel.cvut.cz>
+ * @link     fel.cvut.cz
  */
 public abstract class TemporalEntityDto extends AbstractDto {
 

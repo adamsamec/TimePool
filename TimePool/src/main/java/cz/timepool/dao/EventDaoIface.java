@@ -5,7 +5,8 @@ import java.util.List;
 
 /**
  *
- * @author Adam Samec <adam.smec@gmail.com>
+ * @author   Adam Samec <samecada@fel.cvut.cz>
+ * @link     fel.cvut.cz
  */
 public interface EventDaoIface {
 
