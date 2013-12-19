@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Lukas L.
  */
+@Secured({"ROLE_ADMIN"})
 @Transactional
 public interface EventsServiceIface {
 
@@ -22,7 +23,6 @@ public interface EventsServiceIface {
     @Transactional(readOnly = true)
     public EventDto getEventById(Long eventId);
 
-    @Secured({"ROLE_ADMIN"})
     @Transactional(readOnly = true)
     public List<EventDto> getAllEvents();
 

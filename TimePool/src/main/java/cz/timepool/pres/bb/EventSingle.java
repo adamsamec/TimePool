@@ -20,8 +20,8 @@ import org.springframework.stereotype.Component;
  *
  * @author Lukas L.
  */
-@Component
 @RequestScoped
+@Component
 public class EventSingle {
 
     @Autowired

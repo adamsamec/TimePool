@@ -18,6 +18,7 @@ public interface UsersServiceIface {
     @Transactional(readOnly = true)
     public UserDto getUserById(Long userId);
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @Transactional(readOnly = true)
     public UserDto getUserByEmail(String email);
 
@@ -27,10 +28,18 @@ public interface UsersServiceIface {
     @Transactional(readOnly = true)
     public List<UserDto> getAllUsersOrderedByName();
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public Long addUser(String name, String surname, String email, String password, String description);
 
+    // TODO: pouze ROLE_ADMIN 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public void editUser(UserDto userDto);
+    
+    // TODO: vyuzit SecurityContextHolder anebo spis @PreAuthorize u editUser(UserDto userDto);
+    //@Secured({"ROLE_ADMIN", "ROLE_USER"})
+    //public void editLoggedUser()
 
+    // TODO: viz editUser()
     public void deleteUser(Long userId);
 
     @Transactional(readOnly = true)
