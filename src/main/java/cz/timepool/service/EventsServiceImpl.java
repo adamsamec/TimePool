@@ -88,10 +88,11 @@ public class EventsServiceImpl extends GenericService implements EventsService {
 
     @Override
     public void deleteTermById(Long idTerm) {
-        Term term = this.timepoolDao.loadById(idTerm, Term.class);
-        Event event = term.getEvent();
-        event.removeTerm(term);
-        timepoolDao.save(event);
+//        Term term = this.timepoolDao.loadById(idTerm, Term.class); TAKHLE TO NEFUNGUJE
+//        Event event = term.getEvent();
+//        event.removeTerm(term);
+//        timepoolDao.save(event);
+	timepoolDao.removeById(idTerm, Term.class);
     }
 
     @Override
