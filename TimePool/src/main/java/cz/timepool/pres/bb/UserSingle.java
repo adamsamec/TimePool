@@ -60,7 +60,7 @@ public class UserSingle {
         if (isAdmin) {
             user.setUserRole(UserRole.ADMIN);
         } else {
-            user.setUserRole(UserRole.REGISTERED);
+            user.setUserRole(UserRole.USER);
         }
         usersService.editUser(user);
         return outcome;

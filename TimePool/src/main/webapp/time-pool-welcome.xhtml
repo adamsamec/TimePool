@@ -10,7 +10,7 @@
     <h:body>
 	<ui:composition template="/WEB-INF/template/template.xhtml" >
 	    <ui:define name="content">
-		Hello  <h:outputText value="#{loginSession.user.name}"></h:outputText> your email is: <h:outputText value="#{loginSession.userEmail}"></h:outputText><br />
+            Hello <b><h:outputText value="#{loginSession.user.name}"></h:outputText></b>, your email is: <h:outputText value="#{loginSession.userEmail}"></h:outputText><br />
 	    </ui:define>
 	</ui:composition>
     </h:body>

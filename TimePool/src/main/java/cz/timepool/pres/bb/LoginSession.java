@@ -1,5 +1,6 @@
 package cz.timepool.pres.bb;
 
+import cz.timepool.bo.UserRole;
 import cz.timepool.dto.UserDto;
 import cz.timepool.service.UsersServiceIface;
 import java.io.Serializable;
@@ -24,17 +25,12 @@ public class LoginSession implements Serializable {
 
     private UserDto user;
 
-    private boolean isAdmin;
+//     private boolean isAdmin;
 
     public String getUserEmail() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    // TODO: proc je to umozneno?
-//    public void deleteUser(Long id) {
-//        usersService.deleteUser(id);
-//        //FacesUtil.addMessage("User was sucessfully deleted");
-//    }
     // TODO: Pri prvnim volani ulozit do this.user a zaroven nastavit this.isAdmin
     // TODO: ma smysl to cachovat do this.user nebo to zajisti entityManager?
     public UserDto getUser() {
@@ -47,16 +43,8 @@ public class LoginSession implements Serializable {
         this.user = user;
     }
 
-    // TODO: pouze vratit jiz nastaveny this.isAdmin?
     public boolean isIsAdmin() {
-        Collection<? extends GrantedAuthority> auths = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-        return auths.contains(new SimpleGrantedAuthority("ROLE_ADMIN")); // TODO: ok?
-//        if (getUser().getUserRole() == UserRole.ADMIN) {
-//            isAdmin = true;
-//        } else {
-//            isAdmin = false;
-//        }
-//        return isAdmin;
+        return getUser().getUserRole() == UserRole.ADMIN;
     }
 
 }

@@ -6,11 +6,13 @@ import cz.timepool.bo.User;
 import cz.timepool.bo.UserRole;
 import cz.timepool.dto.CommentDto;
 import cz.timepool.dto.UserDto;
+import cz.timepool.helper.AuthenticationHelper;
 import cz.timepool.helper.DtoTransformerHelper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.NoResultException;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,6 +21,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class UsersService extends TimepoolService implements UsersServiceIface {
+    
+    private static final Logger log = Logger.getLogger(UsersService.class);
 
     @Override
     public UserDto getUserById(Long userId) {
@@ -32,7 +36,6 @@ public class UsersService extends TimepoolService implements UsersServiceIface {
         try {
             user = this.timepoolDao.getSingleByProperty("email", email, User.class);
         } catch (NoResultException ex) {
-            System.out.println("neexistuje, v poraduku");
             return null;
         }
         return new UserDto(user.getId(), user.getEmail(), user.getName(), user.getSurname(), user.getPassword(), user.getDescription(), user.getUserRole(), user.getAuthKey(), user.getCreationDate(), DtoTransformerHelper.getIdentifiers(user.getAuthoredEvents()), DtoTransformerHelper.getIdentifiers(user.getAuthoredTerms()), DtoTransformerHelper.getIdentifiers(user.getAuthoredComments()), DtoTransformerHelper.getIdentifiers(user.getAcceptedTerms()), DtoTransformerHelper.getIdentifiers(user.getEventInvitations()));
@@ -67,9 +70,9 @@ public class UsersService extends TimepoolService implements UsersServiceIface {
         user.setName(name);
         user.setSurname(surname);
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(AuthenticationHelper.userPasswordHash(password, email));
         user.setDescription(description);
-        user.setUserRole(UserRole.REGISTERED);
+        user.setUserRole(UserRole.USER);
         return this.timepoolDao.save(user).getId();
     }
 
@@ -79,6 +82,9 @@ public class UsersService extends TimepoolService implements UsersServiceIface {
         user.setEmail(userDto.getEmail());
         user.setName(userDto.getName());
         user.setSurname(userDto.getSurname());
+        if (!userDto.getPassword().isEmpty()) {
+            user.setPassword(AuthenticationHelper.userPasswordHash(userDto.getPassword(), userDto.getEmail()));
+        }
         user.setUserRole(userDto.getUserRole());
         timepoolDao.save(user);
     }
@@ -93,7 +99,7 @@ public class UsersService extends TimepoolService implements UsersServiceIface {
         List<Comment> boList = this.timepoolDao.loadById(userId, User.class).getAuthoredComments();
         List<CommentDto> dtoList = new ArrayList<CommentDto>();
         for (Comment comment : boList) {
-            System.out.println("pridavam : " + comment);
+            log.info("Retrieving the comment: " + comment);
             dtoList.add(new CommentDto(comment.getId(), comment.getAuthor().getId(), comment.getEvent().getId(), comment.getText(), comment.getCreationDate()));
         }
         return dtoList;
@@ -119,6 +125,7 @@ public class UsersService extends TimepoolService implements UsersServiceIface {
 
     @Override
     public void deleteCommentById(Long commentId) {
+        log.info("Deleting the comment: " + commentId);
         this.timepoolDao.removeById(commentId, Comment.class);
     }
 

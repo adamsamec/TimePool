@@ -39,35 +39,35 @@ public class EventSingle {
 
     private String commentText;
 
-    private String userEmail;
+    private String invitationEmail;
 
-    private String message;
+    private String invitationMessage;
 
-    private static Map<String, Object> permissionsValues;
+    public List<UserPermission> invitationPermissions;
+
+    private static Map<String, Object> permissionOptions;
 
     static {
-        permissionsValues = new LinkedHashMap<String, Object>();
-        permissionsValues.put("Can add term", UserPermission.ADD_TERM); //label, value
-        permissionsValues.put("Can accept term ?", UserPermission.ACCEPT_TERM);
-        permissionsValues.put("Can add comment", UserPermission.ADD_COMMENT);
+        permissionOptions = new LinkedHashMap<String, Object>();
+        permissionOptions.put("Can add term", UserPermission.ADD_TERM);
+        permissionOptions.put("Can accept term ?", UserPermission.ACCEPT_TERM);
+        permissionOptions.put("Can add comment", UserPermission.ADD_COMMENT);
     }
 
-    public List<UserPermission> ups;
-
-    public List<UserPermission> getUps() {
-        return ups;
+    public List<UserPermission> getInvitationPermissions() {
+        return invitationPermissions;
     }
 
-    public void setUps(List<UserPermission> ups) {
-        this.ups = ups;
+    public void setInvitationPermissions(List<UserPermission> userPermissions) {
+        this.invitationPermissions = userPermissions;
     }
 
     public EventSingle() {
-        term = new TermDto(Long.MIN_VALUE, null, StatusEnum.VOLNY, userEmail, null, Long.MIN_VALUE, Long.MIN_VALUE, null);
+        term = new TermDto(Long.MIN_VALUE, null, StatusEnum.VOLNY, invitationEmail, null, Long.MIN_VALUE, Long.MIN_VALUE, null);
     }
 
-    public Map<String, Object> getPermissionsValues() {
-        return permissionsValues;
+    public Map<String, Object> getPermissionOptions() {
+        return permissionOptions;
     }
 
     public String getCommentText() {
@@ -78,20 +78,20 @@ public class EventSingle {
         this.commentText = comment;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getInvitationEmail() {
+        return invitationEmail;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setInvitationEmail(String userEmail) {
+        this.invitationEmail = userEmail;
     }
 
-    public String getMessage() {
-        return message;
+    public String getInvitationMessage() {
+        return invitationMessage;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setInvitationMessage(String message) {
+        this.invitationMessage = message;
     }
 
     public EventDto getEvent() {
@@ -140,8 +140,8 @@ public class EventSingle {
     }
 
     public void inviteToEvent() {
-        System.out.println("emai " + getUserEmail() + "message" + getMessage());
-        eventsService.inviteUser(event.getId(), userEmail, ups, message, new Date());
+        eventsService.inviteUser(event.getId(), invitationEmail, invitationPermissions, invitationMessage, new Date());
+        FacesHelper.addMessage("invitation_email", "User with email: " + invitationEmail + " was sucessfully invited.");
     }
 
     public List<TermDto> getAllTerms() {
@@ -162,14 +162,12 @@ public class EventSingle {
     }
 
     public void deleteTerm() {
-        Long termId = Long.valueOf(FacesHelper.getRequestParameter("delete_term_tid"));
-        System.out.println("mazu term " + termId);
+        Long termId = Long.valueOf(FacesHelper.getRequestParameter("delete_term_id"));
         eventsService.deleteTermById(termId);
     }
 
     public void deleteComment() {
         Long cmntId = Long.valueOf(FacesHelper.getRequestParameter("delete_comment_id"));
-        System.out.println("mazu comment : " + cmntId);
         usersService.deleteCommentById(cmntId);
     }
 

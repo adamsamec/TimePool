@@ -11,8 +11,9 @@
         <ui:composition>
             <h1>TimePool</h1>
             <ul>
+                <li><h:link outcome="/time-pool-welcome" value="Home"></h:link></li>
                 <li><h:link outcome="/events/event-list" value="Events"></h:link></li>
-                <sec:ifAllGranted roles="ROLE_ADMIN">
+                <sec:ifAllGranted roles="ADMIN">
                     <li><h:link outcome="/admin/user-list" value="Users"></h:link></li>
                 </sec:ifAllGranted>
             </ul>

@@ -7,17 +7,17 @@
         <title>Registration</title>
     </h:head>
     <h:body>
-        <h2><h:outputText value="#{msg['registration.title']}" /></h2>
+        <h2><h:outputText value="#{msg['registration.h2']}" /></h2>
         <h:form>
-            <h:outputLabel for="email" value="#{msg['registration.email']}"></h:outputLabel>
+            <h:outputLabel for="name" value="#{msg['userForm.name']}"></h:outputLabel>
+            <h:inputText id="name" value="#{userSingle.user.name}" required="true"></h:inputText>&nbsp;<h:message for="name" style="color:red" /><br />
+            <h:outputLabel for="surname" value="#{msg['userForm.surname']}"></h:outputLabel>
+            <h:inputText id="surname" value="#{userSingle.user.surname}"></h:inputText><br />
+            <h:outputLabel for="email" value="#{msg['userForm.email']}"></h:outputLabel>
             <h:inputText id="email" value="#{userSingle.user.email}" required="true">
                 <f:validator binding="#{unregisteredEmailValidator}" />
             </h:inputText>&nbsp;<h:message for="email" style="color:red" /><br />
-            <h:outputLabel for="name" value="#{msg['registration.name']}"></h:outputLabel>
-            <h:inputText id="name" value="#{userSingle.user.name}" required="true"></h:inputText>&nbsp;<h:message for="name" style="color:red" /><br />
-            <h:outputLabel for="surname" value="#{msg['registration.surname']}"></h:outputLabel>
-            <h:inputText id="surname" value="#{userSingle.user.surname}"></h:inputText><br />
-            <h:outputLabel for="pass" value="#{msg['registration.password']}"></h:outputLabel>
+            <h:outputLabel for="pass" value="#{msg['userForm.password']}"></h:outputLabel>
             <h:inputSecret id="pass" value="#{userSingle.user.password}"></h:inputSecret><br />
             <h:commandButton action="#{userSingle.addUser('login')}" value="register" >
                 <f:param name="registration_success" value="true" /><!-- TODO: Takhle to nefunguje, parametr se nepredava. Proc? -->

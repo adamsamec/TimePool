@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags">
     <h:head>
         <title>Events list</title>
     </h:head>
@@ -14,9 +15,34 @@
                 <h:form>
                     <h:commandLink action="event-create" value="Create event"></h:commandLink><br />
                 </h:form>
+                <sec:ifAllGranted roles="ADMIN">
+                    <h2>All events</h2>
+                    <c:choose>
+                        <c:when test="${eventList.allEvents.isEmpty()}"><p>No events yet.</p></c:when>
+                        <c:otherwise>
+                            <ul>
+                                <ui:repeat var="event" value="#{eventList.allEvents}">
+                                    <h:form>
+                                        <li>
+                                            <h:commandLink action="#{eventSingle.setEventById('event-detail')}" value="#{event.title}" >
+                                                <f:param name="event_id" value="#{event.id}" />
+                                            </h:commandLink>&nbsp;
+                                            <h:commandButton action="#{eventSingle.setEventById('event-edit')}" value="Edit">
+                                                <f:param name="event_id" value="#{event.id}" />
+                                            </h:commandButton>
+                                            <h:commandButton action="#{eventSingle.deleteEvent('event-list')}" value="Delete">
+                                                <f:param name="edit_event_id" value="#{event.id}" />
+                                            </h:commandButton>
+                                        </li>
+                                    </h:form>
+                                </ui:repeat>
+                            </ul>
+                        </c:otherwise>
+                    </c:choose>
+                </sec:ifAllGranted>
                 <h2>Events you created</h2>
                 <c:choose>
-                    <c:when test="${eventList.isAllEventsEmpty}"><p>No events yet.</p></c:when>
+                    <c:when test="${eventList.allEventsByUser.isEmpty()}"><p>No events yet.</p></c:when>
                     <c:otherwise>
                         <ul>
                             <ui:repeat var="event" value="#{eventList.allEventsByUser}">
@@ -39,7 +65,7 @@
                 </c:choose>
                 <h2>Events you have been invited to</h2>
                 <c:choose>
-                    <c:when test="${eventList.isAllInvitedeventsEmpty}"><p>No events yet.</p></c:when>
+                    <c:when test="${eventList.allInvitedEventsByUser.isEmpty()}"><p>No events yet.</p></c:when>
                     <c:otherwise>
                         <ul>
                             <ui:repeat var="event" value="#{eventList.allInvitedEventsByUser}">

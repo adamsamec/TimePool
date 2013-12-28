@@ -4,6 +4,7 @@ import cz.timepool.bo.AbstractBusinessObject;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Expression;
 import org.hibernate.Session;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Component;
  */
 @Component("genericDao")
 public class HibernateJpaDao implements GenericDao {
+    
+    private static final Logger log = Logger.getLogger(HibernateJpaDao.class);
 
 	@Autowired
 	protected EntityManagerFactory entityManagerfactory;
@@ -84,10 +87,10 @@ public class HibernateJpaDao implements GenericDao {
 	public <ENTITY extends AbstractBusinessObject> void removeById(long id, Class<ENTITY> clazz) {
 		ENTITY e = getEntityManager().find(clazz, id);
 		if (e != null) {
-			System.out.println("nalezen tento " + e);
+			log.debug("Entity found: " + e);
 			getEntityManager().remove(e);
 		} else {
-			System.out.println("nenalezen");
+			log.debug("Entity not found");
 		}
 	}
 
