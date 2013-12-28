@@ -23,202 +23,201 @@ import org.hibernate.annotations.OrderBy;
  * @author Lukas Lowinger
  */
 @NamedQueries({
-    @NamedQuery(name = "findUsersById", query = "from User u where u.id= :idUser")})//netusim kde to pouzit
+    @NamedQuery(name = "findUsersById", query = "from User u where u.id= :idUser")})
 @Entity
 @Table(name = "users")
 public class User extends AbstractBusinessObject {
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String email;
-    
+
     //@Column(nullable = false)
     private String name;
-    
+
     //@Column(nullable = false)
     private String surname;
-    
+
     //@Column(nullable = false)
     private String password;
-    
+
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
-    
+
     private Integer authKey;
-    
+
     private String description;
-    
+
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date creationDate;
-    
+
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
     private List<Event> authoredEvents;
-    
+
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
     private List<Term> authoredTerms;
-    
+
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
     @OrderBy(clause = "creationDate")
     private List<Comment> authoredComments;
-    
+
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(name = "acceptors_terms",
-    joinColumns =
-    @JoinColumn(name = "user_id", referencedColumnName = "id"),
-    inverseJoinColumns =
-    @JoinColumn(name = "term_id", referencedColumnName = "id"))
+            joinColumns
+            = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns
+            = @JoinColumn(name = "term_id", referencedColumnName = "id"))
     private List<Term> acceptedTerms;
-    
+
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "invitedUser")
     private List<EventInvitation> eventInvitations;
 
     public void addAcceptedTerm(Term term) {
-	if (this.acceptedTerms == null) {
-	    this.acceptedTerms = new ArrayList<Term>();
-	}
-	if (!this.acceptedTerms.contains(term)) {
-	    this.acceptedTerms.add(term);
-	}
+        if (this.acceptedTerms == null) {
+            this.acceptedTerms = new ArrayList<Term>();
+        }
+        if (!this.acceptedTerms.contains(term)) {
+            this.acceptedTerms.add(term);
+        }
     }
 
     public void addAuthoredComment(Comment comment) {
-	if (this.authoredComments == null) {
-	    this.authoredComments = new ArrayList<Comment>();
-	}
-	if (!this.authoredComments.contains(comment)) {
-	    this.authoredComments.add(comment);
-	}
+        if (this.authoredComments == null) {
+            this.authoredComments = new ArrayList<Comment>();
+        }
+        if (!this.authoredComments.contains(comment)) {
+            this.authoredComments.add(comment);
+        }
     }
 
     public void addAuthoredEvent(Event event) {
-	if (this.authoredEvents == null) {
-	    this.authoredEvents = new ArrayList<Event>();
-	}
-	if (!this.authoredEvents.contains(event)) {
-	    this.authoredEvents.add(event);
-	}
+        if (this.authoredEvents == null) {
+            this.authoredEvents = new ArrayList<Event>();
+        }
+        if (!this.authoredEvents.contains(event)) {
+            this.authoredEvents.add(event);
+        }
     }
 
     public void addAuthoredTerms(Term term) {
-	if (this.authoredTerms == null) {
-	    this.authoredTerms = new ArrayList<Term>();
-	}
-	if (!this.authoredTerms.contains(term)) {
-	    this.authoredTerms.add(term);
-	}
+        if (this.authoredTerms == null) {
+            this.authoredTerms = new ArrayList<Term>();
+        }
+        if (!this.authoredTerms.contains(term)) {
+            this.authoredTerms.add(term);
+        }
     }
 
     public List<Comment> getAuthoredComments() {
-	return this.authoredComments;
+        return this.authoredComments;
     }
 
     public void setAuthoredComments(List<Comment> authoredComments) {
-	this.authoredComments = authoredComments;
+        this.authoredComments = authoredComments;
     }
 
     public String getEmail() {
-	return this.email;
+        return this.email;
     }
 
     public void setEmail(String email) {
-	this.email = email;
+        this.email = email;
     }
 
     public String getName() {
-	return this.name;
+        return this.name;
     }
 
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
 
     public String getSurname() {
-	return this.surname;
+        return this.surname;
     }
 
     public void setSurname(String surname) {
-	this.surname = surname;
+        this.surname = surname;
     }
 
     public String getPassword() {
-	return this.password;
+        return this.password;
     }
 
     public void setPassword(String password) {
-	this.password = password;
+        this.password = password;
     }
 
     public String getDescription() {
-	return this.description;
+        return this.description;
     }
 
     public void setDescription(String description) {
-	this.description = description;
+        this.description = description;
     }
 
     public Date getCreationDate() {
-	return this.creationDate;
+        return this.creationDate;
     }
 
     public void setCreationDate(Date creationDate) {
-	this.creationDate = creationDate;
+        this.creationDate = creationDate;
     }
 
     public List<Event> getAuthoredEvents() {
-	if (this.authoredEvents == null) {
-	    this.authoredEvents = new ArrayList<Event>();
-	}
-	return this.authoredEvents;
+        if (this.authoredEvents == null) {
+            this.authoredEvents = new ArrayList<Event>();
+        }
+        return this.authoredEvents;
     }
 
     public void setAuthoredEvents(List<Event> authoredEvents) {
-	this.authoredEvents = authoredEvents;
+        this.authoredEvents = authoredEvents;
     }
 
     public List<Term> getAuthoredTerms() {
-	if (this.authoredTerms == null) {
-	    this.authoredTerms = new ArrayList<Term>();
-	}
-	return this.authoredTerms;
+        if (this.authoredTerms == null) {
+            this.authoredTerms = new ArrayList<Term>();
+        }
+        return this.authoredTerms;
     }
 
     public void setAuthoredTerms(List<Term> authoredTerms) {
-	this.authoredTerms = authoredTerms;
+        this.authoredTerms = authoredTerms;
     }
 
     public List<Term> getAcceptedTerms() {
-	if (this.acceptedTerms == null) {
-	    this.acceptedTerms = new ArrayList<Term>();
-	}
-	return this.acceptedTerms;
+        if (this.acceptedTerms == null) {
+            this.acceptedTerms = new ArrayList<Term>();
+        }
+        return this.acceptedTerms;
     }
 
     public void setAcceptedTerms(List<Term> participedTerms) {
-	this.acceptedTerms = participedTerms;
+        this.acceptedTerms = participedTerms;
     }
 
     public UserRole getUserRole() {
-	return userRole;
+        return userRole;
     }
 
     public void setUserRole(UserRole userRole) {
-	this.userRole = userRole;
+        this.userRole = userRole;
     }
 
     public Integer getAuthKey() {
-	return authKey;
+        return authKey;
     }
 
     public void setAuthKey(Integer authKey) {
-	this.authKey = authKey;
+        this.authKey = authKey;
     }
 
     public List<EventInvitation> getEventInvitations() {
-	return eventInvitations;
+        return eventInvitations;
     }
 
     public void setEventInvitations(List<EventInvitation> eventInvitations) {
-	this.eventInvitations = eventInvitations;
+        this.eventInvitations = eventInvitations;
     }
-    
-    
+
 }

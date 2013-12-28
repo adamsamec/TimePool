@@ -1,6 +1,5 @@
 package cz.timepool.pres.bb;
 
-import cz.timepool.bo.UserRole;
 import cz.timepool.dto.EventDto;
 import cz.timepool.service.EventsServiceIface;
 import java.util.List;
@@ -20,23 +19,16 @@ public class EventList {
     @Autowired
     private EventsServiceIface eventsService;
 
+    public List<EventDto> getAllEvents() {
+        return eventsService.getAllEvents();
+    }
+
     public List<EventDto> getAllEventsByUser() {
-        if (loginSession.getUser().getUserRole() == UserRole.ADMIN) {
-            return eventsService.getAllEvents();
-        }
         return eventsService.getAllEventsByUser(loginSession.getUser().getId());
     }
 
     public List<EventDto> getAllInvitedEventsByUser() {
         return eventsService.getAllInvitedEventsByUser(loginSession.getUser().getId());
-    }
-
-    public boolean isIsAllEventsEmpty() {
-        return getAllEventsByUser().isEmpty();
-    }
-
-    public boolean isIsAllInvitedeventsEmpty() {
-        return getAllInvitedEventsByUser().isEmpty();
     }
 
 }

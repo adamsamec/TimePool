@@ -5,6 +5,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,18 +15,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class UnregisteredEmailValidator implements Validator {
 
-    private ArrayList<Validator> unregisteredEmailValidators;
+    private ArrayList<Validator> validators;
+
+    private static final Logger log = Logger.getLogger(UnregisteredValidator.class);
 
     public void setUnregisteredEmailValidators(ArrayList<Validator> unregisteredEmailValidators) {
-        this.unregisteredEmailValidators = unregisteredEmailValidators;
+        this.validators = unregisteredEmailValidators;
     }
 
     @Override
-    public void validate(FacesContext context, UIComponent component, Object o) throws ValidatorException {
-        System.out.println("jsem v UnregisteredEmailValidator");
-        for (Validator validator : unregisteredEmailValidators) {
-            System.out.println("validuju " + validator.toString());
-            validator.validate(context, component, o);
+    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        log.info("Validuju \"" + value + "\" pomoci " + this.getClass().getSimpleName());
+        for (Validator validator : validators) {
+            validator.validate(context, component, value);
         }
     }
 

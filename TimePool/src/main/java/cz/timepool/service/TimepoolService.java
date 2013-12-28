@@ -6,14 +6,13 @@ import cz.timepool.dto.TemporalEntityDto;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author   Adam Samec <samecada@fel.cvut.cz>
+ * @author Adam Samec <samecada@fel.cvut.cz>
  * @link     fel.cvut.cz
  */
 @Transactional
@@ -21,6 +20,8 @@ public class TimepoolService implements TimepoolServiceIface {
 
     @Autowired
     protected TimepoolDaoIface timepoolDao;
+
+    private static final Logger log = Logger.getLogger(TimepoolService.class);
 
     @Transactional(readOnly = true)
     protected <ENTITY extends AbstractBusinessObject, DTO extends TemporalEntityDto> List<DTO> getAllCreatedBetween(Object from, Object to, Class<ENTITY> entityClass, Class<DTO> dtoClass) {
@@ -33,7 +34,7 @@ public class TimepoolService implements TimepoolServiceIface {
                 DTO dto = (DTO) constructor.newInstance(entity);
                 dtos.add(dto);
             } catch (ReflectiveOperationException ex) {
-                Logger.getLogger(TimepoolService.class.getName()).log(Level.SEVERE, null, ex);
+                log.fatal(ex.getMessage(), ex);
             }
         }
         return dtos;

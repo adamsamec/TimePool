@@ -13,14 +13,14 @@
             <ui:define name="content">
                 <h2>Users</h2>
                 <c:choose>
-                    <c:when test="${usersServiceImpl.allUsers.isEmpty()}"><p>No users yet.</p></c:when>
+                    <c:when test="${userList.allUsers.isEmpty()}"><p>No users yet.</p></c:when>
                     <c:otherwise>
                         <ul>
-                            <ui:repeat var="user" value="#{usersServiceImpl.allUsers}">
+                            <ui:repeat var="user" value="#{userList.allUsers}">
                                 <h:form>
                                     <li>
                                         <h:outputText value="#{user.name} "></h:outputText><h:outputText value="#{user.surname}"></h:outputText>&nbsp;
-                                        <h:commandButton action="#{userSingle.setUserById('user-detail')}" value="Edit">
+                                        <h:commandButton action="#{userSingle.setUserById('user-edit')}" value="Edit">
                                             <f:param name="user_id" value="#{user.id}" />
                                         </h:commandButton>
                                         <h:commandButton action="#{userSingle.deleteUser()}" value="Delete">

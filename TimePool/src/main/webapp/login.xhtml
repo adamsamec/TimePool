@@ -9,13 +9,13 @@
     <h:body>
         <h2>Login</h2>
         <c:choose>
-            <c:when test='${login.authFailure}'>Please, try to login again.</c:when>
-            <c:when test='${login.registrationSuccess}'>Registration successful, please login to TimePool.</c:when>
+            <c:when test='${login.authFailure}'>Incorrect e-mail or password. Please, log in again.</c:when>
+            <c:when test='${login.registrationSuccess}'>Registration successful. Please, log in.</c:when>
             <c:otherwise>Hello, please login to TimePool.</c:otherwise>
         </c:choose>
         <form method="post" action="static/j_spring_security_check">
-            <label for="j_username">Email:</label> <input id="j_username" type="text" name="j_username" /><br />
-            <label for="j_password">Password:</label> <input id="j_password" type="password" name="j_password" value="" /><br />
+            <label for="j_username">#{msg['userForm.email']}</label> <input id="j_username" type="text" name="j_username" /><br />
+            <label for="j_password">#{msg['userForm.password']}</label> <input id="j_password" type="password" name="j_password" value="" /><br />
             <input type="submit" value="Login" />
         </form>
         <p><h:link outcome="registration" value="Register"></h:link></p>

@@ -1,4 +1,3 @@
-
 package cz.timepool.bo;
 
 /**
@@ -6,5 +5,7 @@ package cz.timepool.bo;
  * @author Lukas L.
  */
 public enum UserRole {
-    ADMIN,REGISTERED, UNREGISTERED;
+
+    ADMIN, USER, UNREGISTERED;
+
 }

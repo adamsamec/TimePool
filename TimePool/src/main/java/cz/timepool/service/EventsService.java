@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import javax.persistence.NoResultException;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class EventsService extends TimepoolService implements EventsServiceIface {
+    
+    private static final Logger log = Logger.getLogger(EventsServiceIface.class);
 
     @Autowired
     protected EventDaoIface eventDao;
@@ -108,6 +111,7 @@ public class EventsService extends TimepoolService implements EventsServiceIface
 
     @Override
     public String inviteUser(Long eventId, String userEmail, List<UserPermission> perms, String message, Date exp) {
+        log.info("Inviting the user with email: " + userEmail + ", message: " + message);
         Event event = timepoolDao.loadById(eventId, Event.class);
         User user;
         try {
@@ -210,10 +214,12 @@ public class EventsService extends TimepoolService implements EventsServiceIface
 
     @Override
     public void deleteTermById(Long termId) {
-        Term term = this.timepoolDao.loadById(termId, Term.class);
-        Event event = term.getEvent();
-        event.removeTerm(term);
-        timepoolDao.save(event);
+        log.info("Deleting the term: " + termId);
+//        Term term = this.timepoolDao.loadById(termId, Term.class);
+//        Event event = term.getEvent();
+//        event.removeTerm(term);
+//        timepoolDao.save(event);
+        timepoolDao.removeById(termId, Term.class);
     }
 
     @Override

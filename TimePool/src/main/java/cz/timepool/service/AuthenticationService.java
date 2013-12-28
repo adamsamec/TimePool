@@ -1,11 +1,9 @@
 package cz.timepool.service;
 
-import cz.timepool.bo.UserRole;
 import cz.timepool.dao.GenericDao;
+import cz.timepool.helper.AuthenticationHelper;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.context.FacesContext;
-import javax.persistence.NoResultException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -33,11 +31,11 @@ import org.springframework.transaction.support.TransactionTemplate;
 //Configuration in applicationContext-security.xml
 public class AuthenticationService extends AbstractUserDetailsAuthenticationProvider {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractUserDetailsAuthenticationProvider.class);
-
     private GenericDao genericDAO;
 
     private TransactionTemplate transactionTemplate;
+
+    private static final Logger log = LoggerFactory.getLogger(AbstractUserDetailsAuthenticationProvider.class);
 
     public AuthenticationService() {
         this.setUserCache(new NullUserCache());
@@ -74,20 +72,26 @@ public class AuthenticationService extends AbstractUserDetailsAuthenticationProv
                     UserDetails userDetails;
                     cz.timepool.bo.User user;
                     try {
-                        System.out.println("username " + username + "pass " + upat.getCredentials());
+                        log.info("Logging a user using username: " + username + ", password: " + upat.getCredentials());
                         user = genericDAO.getByPropertyUnique("email", username, cz.timepool.bo.User.class);
-                    } catch (EmptyResultDataAccessException erdaex) {
-                        throw new BadCredentialsException("Uzivatel neexistuje");
+                    } catch (EmptyResultDataAccessException ex) {
+                        throw new BadCredentialsException("Uzivatel neexistuje.");
                     }
-                    String password = (String) upat.getCredentials();
-                    if (user == null || !user.getPassword().equals(password)) {
-                        AuthenticationException e = new BadCredentialsException("Neplatne uzivatelske udaje");
-                        throw e;
+                    String givenPassword = (String) upat.getCredentials();
+                    String givenPasswordHash = AuthenticationHelper.userPasswordHash(givenPassword, username);
+                    String correctPasswordHash = user.getPassword();
+                    if (!givenPasswordHash.equals(correctPasswordHash)) {
+                        AuthenticationException ex = new BadCredentialsException("Nespravne heslo.");
+                        throw ex;
                     } else {
                         List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
-                        auths.add(new SimpleGrantedAuthority("ROLE_USER"));
-                        if (user.getUserRole().equals(UserRole.ADMIN)) {
-                            auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                        switch (user.getUserRole()) {
+                            case ADMIN:
+                                auths.add(new SimpleGrantedAuthority("ADMIN"));
+                                break;
+                            case USER:
+                                auths.add(new SimpleGrantedAuthority("USER"));
+                                break;
                         }
                         userDetails = new User(user.getEmail(), user.getPassword(), auths);
                     }
@@ -96,7 +100,7 @@ public class AuthenticationService extends AbstractUserDetailsAuthenticationProv
                     status.setRollbackOnly();
                     throw e;
                 } catch (Exception ex) {
-                    LOG.error("Error occured during retrieveUser call", ex);
+                    log.error("Error occured during retrieveUser call", ex);
                     status.setRollbackOnly();
                     throw new RuntimeException(ex);
                 }

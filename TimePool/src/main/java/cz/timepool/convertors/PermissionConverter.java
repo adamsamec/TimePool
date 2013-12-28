@@ -2,7 +2,6 @@
 package cz.timepool.convertors;
 
 import cz.timepool.bo.UserPermission;
-import cz.timepool.dto.EventDto;
 import cz.timepool.service.EventsServiceIface;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
