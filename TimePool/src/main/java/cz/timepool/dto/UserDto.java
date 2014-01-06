@@ -15,15 +15,16 @@ public class UserDto extends TemporalEntityDto {
     private String surname;
     private String password;
     private String description;
-    private Date creationDate;
     private UserRole userRole;
     private Integer authKey;
-
     private List<Long> eventInvitations;
     private List<Long> authoredEvents;
     private List<Long> authoredTerms;
     private List<Long> authoredComments;
     private List<Long> acceptedTerms;
+
+    public UserDto() {
+    }
 
     public UserDto(Long id, String email, String name, String surname, String password, String description, UserRole userRole, Integer authKey, Date creationDate, List<Long> authoredEvents, List<Long> authoredTerms, List<Long> authoredComments, List<Long> acceptedTerms, List<Long> eventInvitations) {
         this.id = id;
@@ -104,14 +105,6 @@ public class UserDto extends TemporalEntityDto {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     public List<Long> getAuthoredEvents() {

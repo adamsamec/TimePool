@@ -13,10 +13,12 @@ public class EventDto extends TemporalEntityDto {
     private String title;
     private String location;
     private String description;
-    private Date creationDate;
     private List<Long> tags;
     private List<Long> terms;
     private List<Long> comments;
+
+    public EventDto() {
+    }
 
     public EventDto(Long id, Long author, String title, String location, String description, Date creationDate, List<Long> tags, List<Long> terms, List<Long> comments) {
         this.id = id;
@@ -68,14 +70,6 @@ public class EventDto extends TemporalEntityDto {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     public List<Long> getTags() {

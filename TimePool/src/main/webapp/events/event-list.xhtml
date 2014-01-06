@@ -24,14 +24,14 @@
                                 <ui:repeat var="event" value="#{eventList.allEvents}">
                                     <h:form>
                                         <li>
-                                            <h:commandLink action="#{eventSingle.setEventById('event-detail')}" value="#{event.title}" >
+                                            <h:commandLink action="#{eventSingle.setEventByParamId('event-detail')}" value="#{event.title}" >
                                                 <f:param name="event_id" value="#{event.id}" />
                                             </h:commandLink>&nbsp;
-                                            <h:commandButton action="#{eventSingle.setEventById('event-edit')}" value="Edit">
+                                            <h:commandButton action="#{eventSingle.setEventByParamId('event-edit')}" value="Edit">
                                                 <f:param name="event_id" value="#{event.id}" />
                                             </h:commandButton>
                                             <h:commandButton action="#{eventSingle.deleteEvent('event-list')}" value="Delete">
-                                                <f:param name="edit_event_id" value="#{event.id}" />
+                                                <f:param name="delete_event_id" value="#{event.id}" />
                                             </h:commandButton>
                                         </li>
                                     </h:form>
@@ -48,14 +48,14 @@
                             <ui:repeat var="event" value="#{eventList.allEventsByUser}">
                                 <h:form>
                                     <li>
-                                        <h:commandLink action="#{eventSingle.setEventById('event-detail')}" value="#{event.title}" >
+                                        <h:commandLink action="#{eventSingle.setEventByParamId('event-detail')}" value="#{event.title}" >
                                             <f:param name="event_id" value="#{event.id}" />
                                         </h:commandLink>&nbsp;
-                                        <h:commandButton action="#{eventSingle.setEventById('event-edit')}" value="Edit">
+                                        <h:commandButton action="#{eventSingle.setEventByParamId('event-edit')}" value="Edit">
                                             <f:param name="event_id" value="#{event.id}" />
                                         </h:commandButton>
                                         <h:commandButton action="#{eventSingle.deleteEvent('event-list')}" value="Delete">
-                                            <f:param name="edit_event_id" value="#{event.id}" />
+                                            <f:param name="delete_event_id" value="#{event.id}" />
                                         </h:commandButton>
                                     </li>
                                 </h:form>
@@ -71,14 +71,14 @@
                             <ui:repeat var="event" value="#{eventList.allInvitedEventsByUser}">
                                 <h:form>
                                     <li>
-                                        <h:commandLink action="#{eventSingle.setEventById('event-detail')}" value="#{event.title}" >
+                                        <h:commandLink action="#{eventSingle.setEventByParamId('event-detail')}" value="#{event.title}" >
                                             <f:param name="event_id" value="#{event.id}" />
                                         </h:commandLink>&nbsp;
-                                        <h:commandButton action="#{eventSingle.setEventById('event-edit')}" value="Edit" rendered="${loginSession.isAdmin}">
+                                        <h:commandButton action="#{eventSingle.setEventByParamId('event-edit')}" value="Edit" rendered="${loginSession.isAdmin}">
                                             <f:param name="event_id" value="#{event.id}" />
                                         </h:commandButton>
                                         <h:commandButton action="#{eventSingle.deleteEvent('event-list')}" value="Delete" rendered="${loginSession.isAdmin}">
-                                            <f:param name="edit_event_id" value="#{event.id}" />
+                                            <f:param name="delete_event_id" value="#{event.id}" />
                                         </h:commandButton>
                                     </li>
                                 </h:form>

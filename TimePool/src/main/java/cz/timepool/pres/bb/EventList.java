@@ -4,6 +4,7 @@ import cz.timepool.dto.EventDto;
 import cz.timepool.service.EventsServiceIface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
  * @author Lukas L.
  */
 @Component
+@Scope("request")
 public class EventList {
 
     @Autowired

@@ -13,80 +13,75 @@ public class TermDto extends TemporalEntityDto {
     private Date termDate;
     private StatusEnum status;
     private String description;
-    private Date creationDate;
     private Long author;
     private Long event;
     private List<Long> acceptors;
+    
+    public TermDto() {
+    }
 
     public TermDto(Long id, Date termDate, StatusEnum status, String description, Date creationDate, Long author, Long event, List<Long> acceptors) {
-	this.id = id;
-	this.termDate = termDate;
-	this.status = status;
-	this.description = description;
-	this.creationDate = creationDate;
-	this.author = author;
-	this.event = event;
-	this.acceptors = acceptors;
+        this.id = id;
+        this.termDate = termDate;
+        this.status = status;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.author = author;
+        this.event = event;
+        this.acceptors = acceptors;
     }
 
     public Long getEvent() {
-	return event;
+        return event;
     }
 
     public void setEvent(Long event) {
-	this.event = event;
+        this.event = event;
     }
 
     public Date getTermDate() {
-	return termDate;
+        return termDate;
     }
 
     public void setTermDate(Date termDate) {
-	this.termDate = termDate;
+        this.termDate = termDate;
     }
 
     public StatusEnum getStatus() {
-	return status;
+        return status;
     }
 
     public void setStatus(StatusEnum status) {
-	this.status = status;
+        this.status = status;
     }
 
     public String getDescription() {
-	return description;
+        return description;
     }
 
     public void setDescription(String description) {
-	this.description = description;
-    }
-
-    public Date getCreationDate() {
-	return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-	this.creationDate = creationDate;
+        this.description = description;
     }
 
     public Long getAuthor() {
-	return author;
+        return author;
     }
 
     public void setAuthor(Long author) {
-	this.author = author;
+        this.author = author;
     }
 
     public List<Long> getAcceptors() {
-	return acceptors;
+        return acceptors;
     }
 
     public void setAcceptors(List<Long> acceptors) {
-	this.acceptors = acceptors;
+        this.acceptors = acceptors;
     }
 
     @Override
     public String toString() {
-	return "TermDto ::: ID: " + id + ", creationDate: " + creationDate + ", acceptor ids: " + acceptors + ", status: " + status + ", termDate: " + termDate + ", description: " + description;
+        return "TermDto ::: ID: " + id + ", creationDate: " + creationDate + ", acceptor ids: " + acceptors + ", status: " + status + ", termDate: " + termDate + ", description: " + description;
     }
+
 }

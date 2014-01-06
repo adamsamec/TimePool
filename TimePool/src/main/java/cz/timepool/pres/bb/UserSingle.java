@@ -23,7 +23,7 @@ public class UserSingle {
 
     public UserDto getUser() {
         if (user == null) {
-            user = new UserDto(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+            user = new UserDto();
         }
         return user;
     }

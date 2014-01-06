@@ -1,14 +1,14 @@
 package cz.timepool.pres.bb;
 
 import cz.timepool.helper.FacesHelper;
-import javax.faces.bean.RequestScoped;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Lukas L.
  */
-@RequestScoped
+@Scope("request")
 @Component
 public class Login {
 

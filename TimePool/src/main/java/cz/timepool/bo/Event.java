@@ -3,7 +3,6 @@ package cz.timepool.bo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +12,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
 import javax.persistence.Transient;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.OrderBy;
@@ -24,7 +22,7 @@ import org.hibernate.annotations.OrderBy;
  */
 @Entity
 @NamedQuery(name = "Event.getAllWithTags", query = "SELECT e FROM Event e WHERE e.tags in :tags")
-public class Event extends AbstractBusinessObject {
+public class Event extends TemporalEntity {
 
     @ManyToOne
     private User author;
@@ -35,9 +33,6 @@ public class Event extends AbstractBusinessObject {
     @Column(nullable = false)
     private String location;
     private String description;
-
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date creationDate;
 
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(name = "events_tags",
@@ -151,14 +146,6 @@ public class Event extends AbstractBusinessObject {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     public List<Tag> getTags() {

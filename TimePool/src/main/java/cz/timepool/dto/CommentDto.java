@@ -8,54 +8,48 @@ import java.util.Date;
  */
 public class CommentDto extends TemporalEntityDto {
 
-	private Long author;
-	private Long event;
-	private String text;
-	private Date creationDate;
+    private Long author;
+    private Long event;
+    private String text;
 
-	public CommentDto(Long id, Long author, Long event, String text, Date creationDate) {
-		this.id = id;
-		this.author = author;
-		this.event = event;
-		this.text = text;
-		this.creationDate = creationDate;
-	}
+    public CommentDto() {
+    }
 
-	public Long getAuthor() {
-		return author;
-	}
+    public CommentDto(Long id, Long author, Long event, String text, Date creationDate) {
+        this.id = id;
+        this.author = author;
+        this.event = event;
+        this.text = text;
+        this.creationDate = creationDate;
+    }
 
-	public void setAuthor(Long author) {
-		this.author = author;
-	}
+    public Long getAuthor() {
+        return author;
+    }
 
-	public Long getEvent() {
-		return event;
-	}
+    public void setAuthor(Long author) {
+        this.author = author;
+    }
 
-	public void setEvent(Long event) {
-		this.event = event;
-	}
+    public Long getEvent() {
+        return event;
+    }
 
-	public String getText() {
-		return text;
-	}
+    public void setEvent(Long event) {
+        this.event = event;
+    }
 
-	public void setText(String text) {
-		this.text = text;
-	}
+    public String getText() {
+        return text;
+    }
 
-	public Date getCreationDate() {
-		return creationDate;
-	}
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	@Override
-	public String toString() {
-		return "CommentDto ::: ID: " + id + ", creationDate: " + creationDate + ", text: " + text;
-	}
+    @Override
+    public String toString() {
+        return "CommentDto ::: ID: " + id + ", creationDate: " + creationDate + ", text: " + text;
+    }
 
 }

@@ -35,10 +35,10 @@ public class EventServiceImplTest extends AbstractServiceTest {
 		assertEquals(beforeEventsCount + 1, events.size());
 
 		String expectedTermDescription = "Nejnovejsi termin";
-		Long term1Id = eventsService.addTermToEvent(new Date(7000000), StatusEnum.PLNY, "Novy termin", new Date(), authorId, eventId);
-		Long term2Id = eventsService.addTermToEvent(new Date(2000000000), StatusEnum.PLNY, expectedTermDescription, new Date(), authorId, eventId);
-		Long term3Id = eventsService.addTermToEvent(new Date(500), StatusEnum.PLNY, "Nejstarsi termin", new Date(), authorId, eventId);
-		Long term4Id = eventsService.addTermToEvent(new Date(100000), StatusEnum.VOLNY, "Stary termin", new Date(), authorId, eventId);
+		Long term1Id = eventsService.addTermToEvent(new Date(7000000), StatusEnum.FULL, "Novy termin", new Date(), authorId, eventId);
+		Long term2Id = eventsService.addTermToEvent(new Date(2000000000), StatusEnum.FULL, expectedTermDescription, new Date(), authorId, eventId);
+		Long term3Id = eventsService.addTermToEvent(new Date(500), StatusEnum.FULL, "Nejstarsi termin", new Date(), authorId, eventId);
+		Long term4Id = eventsService.addTermToEvent(new Date(100000), StatusEnum.FREE, "Stary termin", new Date(), authorId, eventId);
 		List<TermDto> terms = eventsService.getTermsByEventId(eventId);
 		TermDto newestTerm = terms.get(terms.size() - 1);
 		System.out.println(">>> TEST @OrderBy >>> Vypis terminu serazeny podle navrzeneho data (termDate):");

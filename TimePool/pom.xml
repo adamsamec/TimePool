@@ -211,6 +211,15 @@
             <artifactId>jta</artifactId>
             <version>1.0.1B</version>
         </dependency>
+        
+        <!-- Apache Commons Codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.5</version>
+        </dependency>
+    
+    
     </dependencies>
 
     <build>
@@ -304,6 +313,11 @@
             <name>Repository for java stanadard dependencies</name>
             <layout>default</layout>
             <url>http://download.java.net/maven/2/</url>
+        </repository>
+        
+        <repository>
+            <id>maven</id>
+            <url>http://repo1.maven.org/maven2</url>
         </repository>
         
         <repository>

@@ -78,12 +78,16 @@
         <constructor-arg>
             <list>
                 <ref bean="emailValidator" />
-                <ref bean="unregisteredValidator" />                
+                <ref bean="unregisteredValidator" />
             </list>
         </constructor-arg>
     </bean>
     
-    <bean id="unregisteredEmailValidator" class="cz.timepool.validators.UnregisteredEmailValidator">
+<!--    <bean id="unregisteredEmailValidator" class="cz.timepool.validators.UnregisteredEmailValidator">
+        <constructor-arg>
+            <ref bean="emailValidator" />
+            <ref bean="unregisteredValidator" />
+        </constructor-arg>
         <property name="unregisteredEmailValidators" ref="unregisteredEmailValidators" />
-    </bean>
+    </bean>-->
 </beans>

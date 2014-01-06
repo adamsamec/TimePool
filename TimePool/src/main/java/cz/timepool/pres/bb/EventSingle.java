@@ -12,15 +12,16 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.faces.bean.RequestScoped;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Lukas L.
  */
-@RequestScoped
+@Scope("request")
 @Component
 public class EventSingle {
 
@@ -32,6 +33,9 @@ public class EventSingle {
 
     @Autowired
     private LoginSession loginSession;
+
+    @Autowired
+    private ApplicationContext context;
 
     private EventDto event;
 
@@ -63,7 +67,7 @@ public class EventSingle {
     }
 
     public EventSingle() {
-        term = new TermDto(Long.MIN_VALUE, null, StatusEnum.VOLNY, invitationEmail, null, Long.MIN_VALUE, Long.MIN_VALUE, null);
+        term = new TermDto(Long.MIN_VALUE, null, StatusEnum.FREE, invitationEmail, null, Long.MIN_VALUE, Long.MIN_VALUE, null);
     }
 
     public Map<String, Object> getPermissionOptions() {
@@ -96,7 +100,7 @@ public class EventSingle {
 
     public EventDto getEvent() {
         if (event == null) {
-            event = new EventDto(null, null, null, null, null, null, null, null, null);
+            event = new EventDto();
         }
         return event;
     }
@@ -113,33 +117,37 @@ public class EventSingle {
         this.term = term;
     }
 
-    public void setEventById2(Long eventId) {
+    public void setEventByParamId() {
+        Long eventId = Long.valueOf(FacesHelper.getRequestParameter("event_id"));
+        System.out.println(eventId);
         event = eventsService.getEventById(eventId);
     }
 
-    public String setEventById(String outcome) {
-        Long eventId = Long.valueOf(FacesHelper.getRequestParameter("event_id"));
-        event = eventsService.getEventById(eventId);
+    public String setEventByParamId(String outcome) {
+        setEventByParamId();
         return outcome;
     }
 
     public String addEvent(String outcome) {
-        eventsService.addEvent(loginSession.getUser().getId(), event.getTitle(), event.getLocation(), event.getDescription(), new Date());
+        event.setId(eventsService.addEvent(loginSession.getUser().getId(), event.getTitle(), event.getLocation(), event.getDescription(), new Date()));
         return outcome;
     }
 
     public String editEvent(String outcome) {
+        Long eventId = Long.valueOf(FacesHelper.getRequestParameter("edit_event_id"));
+        event.setId(eventId);
         eventsService.editEventDetails(event);
         return outcome;
     }
 
     public String deleteEvent(String outcome) {
-        Long userId = Long.valueOf(FacesHelper.getRequestParameter("edit_event_id"));
-        eventsService.deleteEventById(userId);
+        Long eventId = Long.valueOf(FacesHelper.getRequestParameter("delete_event_id"));
+        eventsService.deleteEventById(eventId);
         return outcome;
     }
 
     public void inviteToEvent() {
+        setEventByParamId();
         eventsService.inviteUser(event.getId(), invitationEmail, invitationPermissions, invitationMessage, new Date());
         FacesHelper.addMessage("invitation_email", "User with email: " + invitationEmail + " was sucessfully invited.");
     }
@@ -149,10 +157,12 @@ public class EventSingle {
     }
 
     public void addTerm() {
+        setEventByParamId();
         term.setId(eventsService.addTermToEvent(term.getTermDate(), term.getStatus(), term.getDescription(), new Date(), loginSession.getUser().getId(), event.getId()));
     }
 
     public void addComment() {
+//        setEventByParamId();
         //TODO: term id se musi vybrat rucne a nebo pridat pridavani k tomu termu
         usersService.addCommentToEvent(commentText, loginSession.getUser().getId(), event.getId());
     }

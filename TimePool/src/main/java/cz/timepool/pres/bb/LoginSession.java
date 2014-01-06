@@ -4,8 +4,8 @@ import cz.timepool.bo.UserRole;
 import cz.timepool.dto.UserDto;
 import cz.timepool.service.UsersServiceIface;
 import java.io.Serializable;
-import javax.faces.bean.SessionScoped;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +13,11 @@ import org.springframework.stereotype.Component;
  *
  * @author Lukas L.
  */
-@SessionScoped
+@Scope("session")
 @Component
 public class LoginSession implements Serializable {
+
+    private UserDto user;
 
     @Autowired
     private UsersServiceIface usersService;
@@ -24,9 +26,11 @@ public class LoginSession implements Serializable {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    // TODO: Cachovani zajisti entityManager?
     public UserDto getUser() {
-        return usersService.getUserByEmail(getUserEmail());
+        if (user == null) {
+            user = usersService.getUserByEmail(getUserEmail());
+        }
+        return user;
     }
 
     public boolean isIsAdmin() {

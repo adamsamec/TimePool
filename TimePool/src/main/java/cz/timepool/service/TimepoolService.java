@@ -1,6 +1,6 @@
 package cz.timepool.service;
 
-import cz.timepool.bo.AbstractBusinessObject;
+import cz.timepool.bo.TemporalEntity;
 import cz.timepool.dao.TimepoolDaoIface;
 import cz.timepool.dto.TemporalEntityDto;
 import java.lang.reflect.Constructor;
@@ -24,7 +24,7 @@ public class TimepoolService implements TimepoolServiceIface {
     private static final Logger log = Logger.getLogger(TimepoolService.class);
 
     @Transactional(readOnly = true)
-    protected <ENTITY extends AbstractBusinessObject, DTO extends TemporalEntityDto> List<DTO> getAllCreatedBetween(Object from, Object to, Class<ENTITY> entityClass, Class<DTO> dtoClass) {
+    public <ENTITY extends TemporalEntity, DTO extends TemporalEntityDto> List<DTO> getAllCreatedBetween(Object from, Object to, Class<ENTITY> entityClass, Class<DTO> dtoClass) {
         List<ENTITY> entities = this.timepoolDao.getAllBetween("creationDate", from, to, entityClass);
         List<DTO> dtos = new ArrayList<DTO>();
         for (ENTITY entity : entities) {

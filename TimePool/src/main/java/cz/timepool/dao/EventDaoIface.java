@@ -1,5 +1,6 @@
 package cz.timepool.dao;
 
+import cz.timepool.bo.Event;
 import cz.timepool.bo.Tag;
 import java.util.List;
 
@@ -10,6 +11,6 @@ import java.util.List;
  */
 public interface EventDaoIface {
 
-    public <ENTITY> List<ENTITY> getAllEventsWithTags(List<Tag> tags);
+    public List<Event> getAllEventsWithTags(List<Tag> tags);
 
 }

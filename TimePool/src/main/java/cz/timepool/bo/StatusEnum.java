@@ -6,5 +6,6 @@ package cz.timepool.bo;
  */
 public enum StatusEnum {
 
-    VOLNY , PLNY;
+    FREE, FULL;
+
 }

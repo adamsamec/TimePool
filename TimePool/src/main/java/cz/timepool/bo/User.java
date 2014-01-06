@@ -1,7 +1,6 @@
 package cz.timepool.bo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,7 +14,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import org.hibernate.annotations.OrderBy;
 
 /**
@@ -26,7 +24,7 @@ import org.hibernate.annotations.OrderBy;
     @NamedQuery(name = "findUsersById", query = "from User u where u.id= :idUser")})
 @Entity
 @Table(name = "users")
-public class User extends AbstractBusinessObject {
+public class User extends TemporalEntity {
 
     @Column(unique = true)
     private String email;
@@ -46,9 +44,6 @@ public class User extends AbstractBusinessObject {
     private Integer authKey;
 
     private String description;
-
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date creationDate;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "author")
     private List<Event> authoredEvents;
@@ -153,14 +148,6 @@ public class User extends AbstractBusinessObject {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     public List<Event> getAuthoredEvents() {

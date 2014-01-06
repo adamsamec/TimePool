@@ -120,13 +120,13 @@ public class UserServiceImplTest extends AbstractServiceTest {
 		// (1):
 		Long eventId = eventsService.addEvent(authorId, "Nova suprova akce", "Kdesi", "Popis akce.", new Date());
 		// (2):
-		Long term2Id = eventsService.addTermToEvent(new Date(1388322514000L), StatusEnum.PLNY, "Druhy nejblizsi termin", new Date(), user1Id, eventId);
-		Long term1Id = eventsService.addTermToEvent(new Date(1398322514000L), StatusEnum.PLNY, "Treti nejblizsi termin", new Date(), user1Id, eventId);
-		Long term3Id = eventsService.addTermToEvent(new Date(1386522514000L), StatusEnum.PLNY, "Prvni nejblizsi termin", new Date(), user1Id, eventId);
+		Long term2Id = eventsService.addTermToEvent(new Date(1388322514000L), StatusEnum.FULL, "Druhy nejblizsi termin", new Date(), user1Id, eventId);
+		Long term1Id = eventsService.addTermToEvent(new Date(1398322514000L), StatusEnum.FULL, "Treti nejblizsi termin", new Date(), user1Id, eventId);
+		Long term3Id = eventsService.addTermToEvent(new Date(1386522514000L), StatusEnum.FULL, "Prvni nejblizsi termin", new Date(), user1Id, eventId);
 		// (3):
 		eventsService.addAcceptorToTermById(user1Id, term2Id);
 		// (4):
-		eventsService.changeTermStatusById(StatusEnum.PLNY, term1Id);
+		eventsService.changeTermStatusById(StatusEnum.FULL, term1Id);
 		// (5):
 		eventsService.addAcceptorToTermById(authorId, term3Id);
 		// (6):
@@ -150,7 +150,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
 	    Long authorId = addUser("NEKDO");
 	    Long user2Id = addUser("DALSI");
 	    Long eventId = eventsService.addEvent(authorId, "Nova suprova akce", "Kdesi", "Popis akce.", new Date());
-	    Long term2Id = eventsService.addTermToEvent(new Date(1388322514000L), StatusEnum.PLNY, "Druhy nejblizsi termin", new Date(), authorId, eventId);
+	    Long term2Id = eventsService.addTermToEvent(new Date(1388322514000L), StatusEnum.FULL, "Druhy nejblizsi termin", new Date(), authorId, eventId);
 	    eventsService.addAcceptorToTermById(authorId, term2Id);
 	    eventsService.addAcceptorToTermById(user2Id, term2Id);
 	    List<Long> users = eventsService.getTermById(term2Id).getAcceptors();

@@ -11,30 +11,34 @@ public class TagDto extends AbstractDto {
     private String text;
     private List<Long> events;
 
+    public TagDto() {
+    }
+
     public TagDto(Long id, List<Long> events, String text) {
-	this.id = id;
-	this.events = events;
-	this.text = text;
+        this.id = id;
+        this.events = events;
+        this.text = text;
     }
 
     public String getText() {
-	return text;
+        return text;
     }
 
     public void setText(String text) {
-	this.text = text;
+        this.text = text;
     }
 
     public List<Long> getEvents() {
-	return events;
+        return events;
     }
 
     public void setEvents(List<Long> events) {
-	this.events = events;
+        this.events = events;
     }
 
     @Override
     public String toString() {
-	return "TagDto ::: ID: " + id + ", text: " + text;
+        return "TagDto ::: ID: " + id + ", text: " + text;
     }
+
 }
